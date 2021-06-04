@@ -49,7 +49,24 @@
 			<artifactId>poi-ooxml-schemas</artifactId>
 			<version>4.1.2</version>
 		</dependency>
-	</dependencies>
+		<!-- https://mvnrepository.com/artifact/fr.opensagres/org.apache.poi.xwpf.converter -->
+		<dependency>
+			<groupId>fr.opensagres</groupId>
+			<artifactId>org.apache.poi.xwpf.converter</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.zwobble.mammoth</groupId>
+			<artifactId>mammoth</artifactId>
+			<version>1.4.2</version>
+		</dependency>
+        <dependency>
+            <groupId>ru.durnov</groupId>
+            <artifactId>BookChaptersFromMSOffice</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>

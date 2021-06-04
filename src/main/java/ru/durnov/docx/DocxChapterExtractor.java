@@ -23,7 +23,7 @@ public class DocxChapterExtractor implements ChapterExtractor {
         new XWPFDocument(
                 Files.newInputStream(Path.of(url))
         ).getParagraphs().forEach(xwpfParagraph -> {
-            chapterList.add(new XWPFParagraphWithChapters(xwpfParagraph).chapter());
+
         });
         return chapterList;
     }
