@@ -2,17 +2,17 @@ package ru.durnov.docx;
 
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import ru.durnov.chapters.Chapter;
+import ru.durnov.chapters.Index;
+import ru.durnov.chapters.Level;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class DocxHeaderChapter implements Chapter {
-    private final Integer level;
-    private final XWPFParagraph xwpfParagraph;
+public class DocxContentChapter implements Chapter {
+    private final int level;
 
-    public DocxHeaderChapter(Integer level, XWPFParagraph xwpfParagraph) {
-        this.level = level;
-        this.xwpfParagraph = xwpfParagraph;
+
+    public DocxContentChapter(Level level, Index index, List<XWPFParagraph> paragraphs) {
+        this.level = level.currentLevel();
     }
 
     @Override
@@ -22,12 +22,12 @@ public class DocxHeaderChapter implements Chapter {
 
     @Override
     public int level() {
-        return 0;
+        return this.level;
     }
 
     @Override
     public boolean inline() {
-        return false;
+        return true;
     }
 
     @Override
