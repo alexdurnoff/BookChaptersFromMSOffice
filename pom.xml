@@ -60,12 +60,6 @@
 			<artifactId>mammoth</artifactId>
 			<version>1.4.2</version>
 		</dependency>
-        <dependency>
-            <groupId>ru.durnov</groupId>
-            <artifactId>BookChaptersFromMSOffice</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
 	<build>

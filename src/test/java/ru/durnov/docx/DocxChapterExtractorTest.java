@@ -1,24 +1,28 @@
 package ru.durnov.docx;
 
-import org.apache.poi.xwpf.converter.FileURIResolver;
-import org.apache.poi.xwpf.converter.IURIResolver;
 import org.apache.poi.xwpf.converter.IXWPFConverter;
-import org.apache.poi.xwpf.converter.xhtml.XHTMLOptions;
-import org.apache.poi.xwpf.converter.xhtml.XWPF2XHTMLConverter;
+import org.apache.poi.xwpf.converter.Options;
+import org.apache.poi.xwpf.converter.xhtml.*;
 import org.apache.poi.xwpf.usermodel.*;
+import org.apache.xmlbeans.SchemaType;
 import org.apache.xmlbeans.XmlException;
+import org.apache.xmlbeans.impl.schema.SchemaTypeImpl;
+import org.apache.xmlbeans.impl.schema.SchemaTypeSystemImpl;
 import org.junit.jupiter.api.Test;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTHdrFtrRef;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTDocDefaults;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPPrDefault;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTPPrDefaultImpl;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTStylesImpl;
 import org.zwobble.mammoth.DocumentConverter;
 import org.zwobble.mammoth.Result;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class DocxChapterExtractorTest {
 
@@ -51,25 +55,19 @@ class DocxChapterExtractorTest {
     }
 
     @Test
-    void testConvertingFromDocxToHtml() throws IOException {
+    void testConvertingFromDocxToHtml() throws IOException, XmlException {
         InputStream in= new FileInputStream(new File("Test/prikaz1.docx"));
         XWPFDocument document = new XWPFDocument(in);
-
-
-        XHTMLOptions options = new XHTMLOptions();
-        //options.setURIResolver(new FileURIResolver(new File("word/media")));
-        options.setURIResolver(IURIResolver.DEFAULT);
-        //XHTMLOptions.create().URIResolver(new FileURIResolver(new File("word/media")));
-
-        OutputStream out = new ByteArrayOutputStream();
-
-        IXWPFConverter<XHTMLOptions> instance = XWPF2XHTMLConverter.getInstance();
-        System.out.println(instance);
-        System.out.println(document);
-        System.out.println(options);
-        instance.convert(document, out, options);
-        String html=out.toString();
-        System.out.println(html);
+        CTDocDefaults docDefaults = document.getStyle().getDocDefaults();
+        CTPPrDefault ctpPrDefault = docDefaults.addNewPPrDefault();
+        System.out.println(docDefaults.getPPrDefault());
+        document.getStyle().setDocDefaults(docDefaults);
+        System.out.println(document.getStyle().getDocDefaults().getPPrDefault());
+        IXWPFConverter<XHTMLOptions> converter = XWPF2XHTMLConverter.getInstance();
+        XHTMLOptions xhtmlOptions = new XHTMLOptions();
+        xhtmlOptions.setIndent(1);
+        xhtmlOptions.setGenerateCSSComments(false);
+        converter.convert(document, new FileOutputStream("Test/prikaz1.html"), null);
     }
 
     @Test

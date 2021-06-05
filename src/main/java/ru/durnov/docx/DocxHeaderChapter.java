@@ -17,12 +17,12 @@ public class DocxHeaderChapter implements Chapter {
 
     @Override
     public String title() {
-        return null;
+        return this.xwpfParagraph.getText();
     }
 
     @Override
     public int level() {
-        return 0;
+        return this.level;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class DocxHeaderChapter implements Chapter {
 
     @Override
     public String content() {
-        return null;
+        return "";
     }
 
     @Override

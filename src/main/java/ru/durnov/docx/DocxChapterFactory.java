@@ -37,9 +37,6 @@ public class DocxChapterFactory implements ChapterFactory {
             this.level.decrementLevel();
             return new DocxContentChapter(level, index, paragraphs);
         }
-
-
-
-        return null;
+        throw new IllegalArgumentException("can't return Chapter because paragraph is not header and not start with number");
     }
 }
