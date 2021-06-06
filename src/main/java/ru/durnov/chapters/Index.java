@@ -7,6 +7,14 @@ package ru.durnov.chapters;
 public class Index {
     private int value = 0;
 
+    public Index(){
+        this.value = 0;
+    }
+
+    public Index(int currentIndex) {
+        this.value = currentIndex;
+    }
+
     public int currentIndex(){
         return value;
     }

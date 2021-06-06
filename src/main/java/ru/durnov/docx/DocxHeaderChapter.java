@@ -35,8 +35,4 @@ public class DocxHeaderChapter implements Chapter {
         return "";
     }
 
-    @Override
-    public void saveToArchive() {
-
-    }
 }

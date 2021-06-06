@@ -1,9 +1,6 @@
 package ru.durnov.docx;
 
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.apache.poi.xwpf.usermodel.XWPFStyle;
-import org.apache.poi.xwpf.usermodel.XWPFStyles;
+import org.apache.poi.xwpf.usermodel.*;
 import ru.durnov.chapters.Level;
 
 import java.util.*;
@@ -34,11 +31,13 @@ public class DocxStyleMap {
         }
     }
 
-    public DocxStyleMap(List<XWPFParagraph> paragraphList){
-        this(paragraphList.get(0).getDocument());
+    public DocxStyleMap(List<IBodyElement> bodyElements){
+        this(bodyElements.get(0).getBody().getXWPFDocument());
     }
 
-    public boolean paragraphIsHeader(XWPFParagraph xwpfParagraph) {
+    public boolean paragraphIsHeader(IBodyElement bodyElement) {
+        if (! (bodyElement instanceof  XWPFParagraph)) return false;
+        XWPFParagraph xwpfParagraph = (XWPFParagraph) bodyElement;
         return this.styleMap.containsValue(xwpfParagraph.getStyle());
     }
 

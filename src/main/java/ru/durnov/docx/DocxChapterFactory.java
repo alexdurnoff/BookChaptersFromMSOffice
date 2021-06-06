@@ -1,5 +1,6 @@
 package ru.durnov.docx;
 
+import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.zwobble.mammoth.internal.styles.StyleMap;
@@ -15,28 +16,32 @@ import java.util.regex.Pattern;
 public class DocxChapterFactory implements ChapterFactory {
     private final Level level;
     private final Index index;
-    private final List<XWPFParagraph> paragraphs;
+    private final List<IBodyElement> bodyElements;
     private final DocxStyleMap styleMap;
 
 
 
-    public DocxChapterFactory(Index index, Level level, List<XWPFParagraph> paragraphs) {
+    public DocxChapterFactory(Index index, Level level, List<IBodyElement> bodyElements) {
         this.index = index;
         this.level = level;
-        this.paragraphs = paragraphs;
-        this.styleMap = new DocxStyleMap(paragraphs);
+        this.bodyElements = bodyElements;
+        this.styleMap = new DocxStyleMap(bodyElements);
     }
 
     @Override
     public Chapter chapter() {
-        XWPFParagraph xwpfParagraph = paragraphs.get(index.currentIndex());
-        if (styleMap.paragraphIsHeader(xwpfParagraph)){
-            return new DocxHeaderChapter(styleMap.levelByParagraph(xwpfParagraph), xwpfParagraph);
+        if (bodyElements.get(0) instanceof XWPFParagraph) {
+            XWPFParagraph xwpfParagraph = (XWPFParagraph) bodyElements.get(index.currentIndex());
+            if (styleMap.paragraphIsHeader(xwpfParagraph)){
+                return new DocxHeaderChapter(styleMap.levelByParagraph(xwpfParagraph), xwpfParagraph);
+            }
+            if (new DocxContentChapterChecker().isChapter(xwpfParagraph)) {
+                this.level.decrementLevel();
+                return new DocxContentChapter(level, index, bodyElements, styleMap);
+            }
+            throw new IllegalArgumentException("can't return Chapter because paragraph is not header and not start with number");
+        } else {
+            throw new IllegalArgumentException("can't return Chapter because bodyElement is not XWPFParagraph");
         }
-        if (new DocxContentChapterChecker(xwpfParagraph).isChapter()) {
-            this.level.decrementLevel();
-            return new DocxContentChapter(level, index, paragraphs);
-        }
-        throw new IllegalArgumentException("can't return Chapter because paragraph is not header and not start with number");
     }
 }

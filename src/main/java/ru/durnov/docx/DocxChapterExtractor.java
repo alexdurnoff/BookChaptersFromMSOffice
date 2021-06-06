@@ -1,5 +1,6 @@
 package ru.durnov.docx;
 
+import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import ru.durnov.chapters.Chapter;
@@ -24,9 +25,9 @@ public class DocxChapterExtractor implements ChapterExtractor {
     @Override
     public List<Chapter> chapterList() throws IOException {
         List<Chapter> chapterList = new ArrayList<>();
-        List<XWPFParagraph> paragraphs = new XWPFDocument(Files.newInputStream(Path.of(url))).getParagraphs();
-        for (Index index = new Index(); index.currentIndex() < paragraphs.size(); index.incrementIndex()){
-            Chapter chapter = new DocxChapterFactory(index, level, paragraphs).chapter();
+        List<IBodyElement> bodyElements = new XWPFDocument(Files.newInputStream(Path.of(url))).getBodyElements();
+        for (Index index = new Index(); index.currentIndex() < bodyElements.size(); index.incrementIndex()){
+            Chapter chapter = new DocxChapterFactory(index, level, bodyElements).chapter();
             this.chapterList().add(chapter);
         }
         return chapterList;

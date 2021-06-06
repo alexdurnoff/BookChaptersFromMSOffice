@@ -1,5 +1,7 @@
 package ru.durnov.chapters;
 
 public interface Image {
-    void saveToArchive();
+    String name();
+    void saveToArchive(String url);
+    byte[] asByteArray();
 }
