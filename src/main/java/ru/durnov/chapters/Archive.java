@@ -1,12 +1,16 @@
 package ru.durnov.chapters;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.zip.ZipOutputStream;
 
 public interface Archive {
-    
     default void compressFiles() throws IOException {
-        this.images().saveImages(url());
-        this.chapters().saveChapters(url());
+        try (FileOutputStream fileOutputStream = new FileOutputStream(this.url());
+             ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream)){
+            this.images().saveImages(zipOutputStream);
+            this.chapters().saveChapters(zipOutputStream);
+        }
     }
 
     /**
