@@ -14,6 +14,12 @@ public class DocxTextContentElement implements DocxContentElement {
 
     @Override
     public Element element() {
-        return null;
+        Element element = new Element("p");
+        this.xwpfParagraph.getRuns().forEach(xwpfRun -> {
+            Element child = new Element("span");
+            child.appendText(xwpfRun.text());
+            child.appendTo(element);
+        });
+        return element;
     }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 
 public class DocxChapterExtractor implements ChapterExtractor {
     private final String url;
-    private final Level level = new Level();
+
 
     public DocxChapterExtractor(String url) {
         this.url = url;
@@ -25,9 +25,15 @@ public class DocxChapterExtractor implements ChapterExtractor {
     @Override
     public List<Chapter> chapterList() throws IOException {
         List<Chapter> chapterList = new ArrayList<>();
-        List<IBodyElement> bodyElements = new XWPFDocument(Files.newInputStream(Path.of(url))).getBodyElements();
+        XWPFDocument xwpfDocument = new XWPFDocument(Files.newInputStream(Path.of(url)));
+        List<IBodyElement> bodyElements = xwpfDocument.getBodyElements();
+        DocxStyleMap docxStyleMap = new DocxStyleMap(xwpfDocument);
         for (Index index = new Index(); index.currentIndex() < bodyElements.size(); index.incrementIndex()){
-            Chapter chapter = new DocxChapterFactory(index, level, bodyElements).chapter();
+            Chapter chapter = new DocxChapterFactory(
+                    index,
+                    docxStyleMap,
+                    bodyElements
+            ).chapter();
             this.chapterList().add(chapter);
         }
         return chapterList;

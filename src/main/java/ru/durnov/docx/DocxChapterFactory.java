@@ -17,27 +17,27 @@ public class DocxChapterFactory implements ChapterFactory {
     private final Level level;
     private final Index index;
     private final List<IBodyElement> bodyElements;
-    private final DocxStyleMap styleMap;
+    private final DocxStyleMap docxStyleMap;
 
 
 
-    public DocxChapterFactory(Index index, Level level, List<IBodyElement> bodyElements) {
+
+    public DocxChapterFactory(Index index, DocxStyleMap docxStyleMap, List<IBodyElement> bodyElements){
         this.index = index;
-        this.level = level;
+        this.docxStyleMap = docxStyleMap;
+        this.level = new Level(docxStyleMap);
         this.bodyElements = bodyElements;
-        this.styleMap = new DocxStyleMap(bodyElements);
     }
 
     @Override
     public Chapter chapter() {
         if (bodyElements.get(0) instanceof XWPFParagraph) {
             XWPFParagraph xwpfParagraph = (XWPFParagraph) bodyElements.get(index.currentIndex());
-            if (styleMap.paragraphIsHeader(xwpfParagraph)){
-                return new DocxHeaderChapter(styleMap.levelByParagraph(xwpfParagraph), xwpfParagraph);
+            if (level.paragraphIsHeader(xwpfParagraph)){
+                return new DocxHeaderChapter(level.levelByParagraph(xwpfParagraph), xwpfParagraph);
             }
             if (new DocxContentChapterChecker().isChapter(xwpfParagraph)) {
-                this.level.decrementLevel();
-                return new DocxContentChapter(level, index, bodyElements, styleMap);
+                return new DocxContentChapter(level.levelByParagraph(xwpfParagraph), index, bodyElements, docxStyleMap);
             }
             throw new IllegalArgumentException("can't return Chapter because paragraph is not header and not start with number");
         } else {

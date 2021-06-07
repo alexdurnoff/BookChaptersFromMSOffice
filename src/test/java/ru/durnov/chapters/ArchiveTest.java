@@ -1,7 +1,6 @@
 package ru.durnov.chapters;
 
 import org.junit.jupiter.api.Test;
-import ru.durnov.doc.DocArchive;
 
 import java.io.IOException;
 import java.nio.file.Files;
