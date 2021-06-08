@@ -12,17 +12,17 @@ public class DocArchive implements Archive {
     }
     
     @Override
-    public String url() {
+    public String archiveUrl() {
         return this.url.replace(".doc", ".zip");
     }
 
     @Override
     public Images images() {
-        return new DocImages(this.url());
+        return new DocImages(this.archiveUrl());
     }
 
     @Override
     public Chapters chapters() {
-        return new DocChapters(this.url());
+        return new DocChapters(this.archiveUrl());
     }
 }

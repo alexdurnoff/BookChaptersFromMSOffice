@@ -10,6 +10,7 @@ import java.util.zip.ZipOutputStream;
 public interface Chapters {
     ChapterExtractor chapterExtractor();
     default void saveChapters(ZipOutputStream zipOutputStream) throws IOException {
+        System.out.println(this.chapterExtractor().chapterList());
         zipOutputStream.putNextEntry(new ZipEntry("chapters.json"));
         new ObjectMapper().writeValue(zipOutputStream, this.chapterExtractor().chapterList());
     }

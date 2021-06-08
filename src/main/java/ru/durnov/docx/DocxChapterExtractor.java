@@ -28,13 +28,16 @@ public class DocxChapterExtractor implements ChapterExtractor {
         XWPFDocument xwpfDocument = new XWPFDocument(Files.newInputStream(Path.of(url)));
         List<IBodyElement> bodyElements = xwpfDocument.getBodyElements();
         DocxStyleMap docxStyleMap = new DocxStyleMap(xwpfDocument);
-        for (Index index = new Index(); index.currentIndex() < bodyElements.size(); index.incrementIndex()){
+        Index index = new Index();
+        chapterList.add(new DocxStartChapterExtractor(bodyElements, docxStyleMap, index).startChapter());
+        while (index.currentIndex() < bodyElements.size()){
             Chapter chapter = new DocxChapterFactory(
                     index,
                     docxStyleMap,
                     bodyElements
             ).chapter();
             this.chapterList().add(chapter);
+            index.incrementIndex();
         }
         return chapterList;
     }

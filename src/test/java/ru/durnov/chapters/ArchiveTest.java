@@ -16,7 +16,7 @@ class ArchiveTest {
     void testCompressFile() throws IOException {
         Archive archive = new Archive() {
             @Override
-            public String url() {
+            public String archiveUrl() {
                 return "Test/archiveCompressFileTest";
             }
 

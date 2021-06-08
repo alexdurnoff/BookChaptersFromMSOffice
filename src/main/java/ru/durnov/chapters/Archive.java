@@ -6,7 +6,7 @@ import java.util.zip.ZipOutputStream;
 
 public interface Archive {
     default void compressFiles() throws IOException {
-        try (FileOutputStream fileOutputStream = new FileOutputStream(this.url());
+        try (FileOutputStream fileOutputStream = new FileOutputStream(this.archiveUrl());
              ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream)){
             this.images().saveImages(zipOutputStream);
             this.chapters().saveChapters(zipOutputStream);
@@ -17,7 +17,7 @@ public interface Archive {
      * Строка инкапсулирует путь к архиву. Никаких других директорий не создаем. Пишем данные сразу в zip-архив.
      * @return String url.
      */
-    String url();
+    String archiveUrl();
 
     Images images();
 
@@ -28,6 +28,6 @@ public interface Archive {
      */
     default String pathToArchive() throws IOException {
         compressFiles();
-        return url();
+        return archiveUrl();
     }
 }
