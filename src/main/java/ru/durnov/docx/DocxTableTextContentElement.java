@@ -14,6 +14,6 @@ public class DocxTableTextContentElement implements DocxContentElement {
 
     @Override
     public Element element() {
-        return null;
-    }
+        return new Element("table");
+    }//Пока так
 }

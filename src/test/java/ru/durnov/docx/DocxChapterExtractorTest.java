@@ -1,18 +1,9 @@
 package ru.durnov.docx;
 
-import org.apache.poi.xwpf.converter.IXWPFConverter;
-import org.apache.poi.xwpf.converter.Options;
-import org.apache.poi.xwpf.converter.xhtml.*;
+
 import org.apache.poi.xwpf.usermodel.*;
-import org.apache.xmlbeans.SchemaType;
-import org.apache.xmlbeans.XmlException;
-import org.apache.xmlbeans.impl.schema.SchemaTypeImpl;
-import org.apache.xmlbeans.impl.schema.SchemaTypeSystemImpl;
+import org.apache.xmlbeans.XmlException;;
 import org.junit.jupiter.api.Test;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTDocDefaults;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPPrDefault;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTPPrDefaultImpl;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTStylesImpl;
 import org.zwobble.mammoth.DocumentConverter;
 import org.zwobble.mammoth.Result;
 
@@ -54,22 +45,7 @@ class DocxChapterExtractorTest {
         }
     }
 
-    @Test
-    void testConvertingFromDocxToHtml() throws IOException, XmlException {
-        InputStream in= new FileInputStream(new File("Test/prikaz1.docx"));
-        XWPFDocument document = new XWPFDocument(in);
-        CTDocDefaults docDefaults = document.getStyle().getDocDefaults();
-        CTPPrDefault ctpPrDefault = docDefaults.addNewPPrDefault();
-        System.out.println(docDefaults.getPPrDefault());
-        document.getStyle().setDocDefaults(docDefaults);
-        System.out.println(document.getStyle().getDocDefaults().getPPrDefault());
-        IXWPFConverter<XHTMLOptions> converter = XWPF2XHTMLConverter.getInstance();
-        XHTMLOptions xhtmlOptions = new XHTMLOptions();
-        xhtmlOptions.setIndent(1);
-        xhtmlOptions.setGenerateCSSComments(false);
-        //converter.convert(document, new FileOutputStream("Test/prikaz1.html"), null);
-        //Убрал последнюю строку. Пока что тест падает.
-    }
+
 
     @Test
     public void testMammothConverter() throws IOException {

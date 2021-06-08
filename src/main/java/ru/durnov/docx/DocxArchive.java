@@ -24,6 +24,6 @@ public class DocxArchive implements Archive {
 
     @Override
     public Chapters chapters() {
-        return new DocChapters(this.url());
+        return new DocxChapters(this.url());
     }
 }

@@ -3,6 +3,8 @@ package ru.durnov.docx;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.jsoup.nodes.Element;
+import ru.durnov.html.docx.DocxChildElement;
+import ru.durnov.html.docx.DocxParagraphStyle;
 
 public class DocxTextContentElement implements DocxContentElement {
     private final XWPFParagraph xwpfParagraph;
@@ -15,10 +17,9 @@ public class DocxTextContentElement implements DocxContentElement {
     @Override
     public Element element() {
         Element element = new Element("p");
+        new DocxParagraphStyle(xwpfParagraph).applyToParagraph();
         this.xwpfParagraph.getRuns().forEach(xwpfRun -> {
-            Element child = new Element("span");
-            child.appendText(xwpfRun.text());
-            child.appendTo(element);
+            new DocxChildElement(xwpfRun).appendTo(element);
         });
         return element;
     }
