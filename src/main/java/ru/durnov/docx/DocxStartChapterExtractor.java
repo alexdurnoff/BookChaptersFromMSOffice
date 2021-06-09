@@ -26,15 +26,15 @@ public class DocxStartChapterExtractor implements StartChapterExtractor {
     public StartChapter startChapter() {
         Document document = new Document("/tmp/" + "Начало документа" + ".html");
         Element body = document.appendElement("body");
-        IBodyElement iBodyElement = bodyElements.get(index.currentIndex());
-        while (! this.docxStyleMap.paragraphIsHeader(iBodyElement)){
+        IBodyElement iBodyElement;
+        while (! this.docxStyleMap.paragraphIsHeader(iBodyElement = bodyElements.get(index.currentIndex()))){
             body.appendChild(
                     new DocxElementFactory(iBodyElement)
                             .docxContentElement()
                             .element()
             );
             index.incrementIndex();
-            iBodyElement = bodyElements.get(index.currentIndex());
+            if (index.currentIndex() == bodyElements.size()) break;
         }
         return new StartChapter(document.outerHtml());
     }
