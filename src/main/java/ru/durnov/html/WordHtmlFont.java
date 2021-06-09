@@ -1,11 +1,10 @@
 package ru.durnov.html;
 
 import org.apache.poi.hwpf.usermodel.CharacterRun;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.jsoup.nodes.Element;
-import ru.durnov.html.HtmlFont;
 
+@Deprecated
 public class WordHtmlFont implements HtmlFont {
     private final String fontName;
     private final String fontSize;

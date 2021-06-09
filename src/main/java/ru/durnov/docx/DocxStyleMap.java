@@ -1,8 +1,11 @@
 package ru.durnov.docx;
 
 import org.apache.poi.xwpf.usermodel.*;
+import org.apache.xmlbeans.XmlException;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTStyle;
 import ru.durnov.chapters.Level;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -13,19 +16,9 @@ public class DocxStyleMap {
     private final Map<Integer, String> styleMap = new HashMap<>();
 
     public DocxStyleMap(XWPFDocument xwpfDocument) {
-        XWPFStyles styles = xwpfDocument.getStyles();
-        int styleNumbers = styles.getNumberOfStyles();
-        List<XWPFStyle> headerStyleList = new ArrayList<>();
-        for (int i = 1; i <= styleNumbers; i++){
-            XWPFStyle style = styles.getStyle(String.valueOf(i));
-            if (style.getName().contains("Heading")) headerStyleList.add(style);
-        }
-        headerStyleList = headerStyleList
-                .stream()
-                .sorted(new XWPFStyleComparator())
-                .collect(Collectors.toList());
+        List<XWPFStyle> headerStyleList = new DocxHeaderStyleList(xwpfDocument).headerList();
         for (int i = 0; i < headerStyleList.size(); i++){
-            this.styleMap.put(i + 1,headerStyleList.get(i).getName());
+            this.styleMap.put(i + 1,headerStyleList.get(i).getStyleId());
         }
     }
 

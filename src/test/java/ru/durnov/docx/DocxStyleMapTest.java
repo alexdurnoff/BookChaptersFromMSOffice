@@ -2,6 +2,11 @@ package ru.durnov.docx;
 
 import org.apache.poi.xwpf.usermodel.*;
 import org.junit.jupiter.api.Test;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DocxStyleMapTest {
@@ -39,6 +44,19 @@ class DocxStyleMapTest {
         DocxStyleMap docxStyleMap = new DocxStyleMap(xwpfDocument);
         assertEquals(docxStyleMap.levelByParagraph(paragraph1), 1);
         assertThrows(IllegalArgumentException.class, () -> docxStyleMap.levelByParagraph(paragraph2));
+    }
+
+    @Test
+    void testParagraphIsHeaderForPrikaz1Docx() throws IOException {
+        XWPFDocument xwpfDocument = new XWPFDocument(new FileInputStream("Test/prikaz1.docx"));
+        DocxStyleMap docxStyleMap = new DocxStyleMap(xwpfDocument);
+        xwpfDocument.getBodyElements().forEach(bodyElement -> {
+            if (bodyElement instanceof  XWPFParagraph){
+                XWPFParagraph xwpfParagraph = (XWPFParagraph) bodyElement;
+                System.out.println(xwpfParagraph.getStyle());
+            }
+            System.out.println(docxStyleMap.paragraphIsHeader(bodyElement));
+        });
     }
 
 }

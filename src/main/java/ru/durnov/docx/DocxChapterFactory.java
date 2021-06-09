@@ -31,9 +31,9 @@ public class DocxChapterFactory implements ChapterFactory {
 
     @Override
     public Chapter chapter() {
-        if (bodyElements.get(0) instanceof XWPFParagraph) {
+        if (bodyElements.get(index.currentIndex()) instanceof XWPFParagraph) {
             XWPFParagraph xwpfParagraph = (XWPFParagraph) bodyElements.get(index.currentIndex());
-            if (level.paragraphIsHeader(xwpfParagraph)){
+            if (docxStyleMap.paragraphIsHeader(xwpfParagraph)){
                 return new DocxHeaderChapter(level.levelByParagraph(xwpfParagraph), xwpfParagraph);
             }
             if (new DocxContentChapterChecker().isChapter(xwpfParagraph)) {

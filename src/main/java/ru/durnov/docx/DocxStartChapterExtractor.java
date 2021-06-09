@@ -36,6 +36,6 @@ public class DocxStartChapterExtractor implements StartChapterExtractor {
             index.incrementIndex();
             if (index.currentIndex() == bodyElements.size()) break;
         }
-        return new StartChapter(document.outerHtml());
+        return new StartChapter(document.outerHtml().replace("\\n", "<br>"));
     }
 }

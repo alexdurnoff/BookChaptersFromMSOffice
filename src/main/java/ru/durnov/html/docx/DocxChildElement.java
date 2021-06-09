@@ -12,7 +12,7 @@ public class DocxChildElement {
 
     public void appendTo(Element element) {
         Element child = new DocxSpanElement(xwpfRun).element();
-        new DocxHtmlRunStyle(xwpfRun).applyToRun();
+        new DocxHtmlRunStyle(xwpfRun).applyToRunElement(element);
         if (xwpfRun.isBold()){
             Element strongElement = new Element("strong");
             if (xwpfRun.isHighlighted()) {

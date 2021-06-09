@@ -17,7 +17,7 @@ public class DocxTextContentElement implements DocxContentElement {
     @Override
     public Element element() {
         Element element = new Element("p");
-        new DocxParagraphStyle(xwpfParagraph).applyToParagraph();
+        new DocxParagraphStyle(xwpfParagraph).applyToParagraphElement(element);
         this.xwpfParagraph.getRuns().forEach(xwpfRun -> {
             new DocxChildElement(xwpfRun).appendTo(element);
         });
