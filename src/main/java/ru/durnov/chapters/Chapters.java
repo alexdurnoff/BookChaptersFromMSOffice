@@ -2,6 +2,7 @@ package ru.durnov.chapters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,7 +19,9 @@ public interface Chapters {
         //Дебажим чтобы посмотреть.
         for (int i = 0; i <chapterList.size(); i++){
             Path path = Path.of("Test/viewHtml/" + (i+1) + ".html");
-            Files.newBufferedWriter(path).write(chapterList.get(i).content());
+            BufferedWriter bufferedWriter = Files.newBufferedWriter(path);
+            bufferedWriter.write(chapterList.get(i).content());
+            bufferedWriter.flush();
         }
     }
 }
