@@ -1,23 +1,34 @@
 package ru.durnov.docx;
 
+import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import ru.durnov.chapters.Chapter;
+import ru.durnov.chapters.Index;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DocxHeaderChapter implements Chapter {
-    private final Integer level;
-    private final XWPFParagraph xwpfParagraph;
+    private final int level;
+    private final String title;
+    private final String content;
 
-    public DocxHeaderChapter(Integer level, XWPFParagraph xwpfParagraph) {
-        this.level = level;
-        this.xwpfParagraph = xwpfParagraph;
+    public DocxHeaderChapter(int levelValue, Index index, List<IBodyElement> bodyElements, DocxStyleMap docxStyleMap) {
+        this.level = levelValue;
+        IBodyElement iBodyElement = bodyElements.get(0);
+        if (! (iBodyElement instanceof XWPFParagraph)) throw new IllegalArgumentException(
+                "Body element must be XWPFParagraph"
+        );
+        this.title = ((XWPFParagraph) iBodyElement).getText();
+        index.incrementIndex();
+        //Важно! Мы должны переместиться на одну позицию вниз после заголовка.
+        //Иначе контент не наберем.
+        this.content = new DocxChapterContentSetter(docxStyleMap, title, bodyElements, index).content();
     }
 
     @Override
     public String title() {
-        return this.xwpfParagraph.getText();
+        return this.title;
     }
 
     @Override

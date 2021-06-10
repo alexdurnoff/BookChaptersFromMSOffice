@@ -23,4 +23,6 @@ public class Index {
         this.value +=1;
     }
 
+    public void decrementIndex(){this.value--;}
+
 }

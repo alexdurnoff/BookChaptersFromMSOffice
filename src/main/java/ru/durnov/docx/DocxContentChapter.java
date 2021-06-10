@@ -15,21 +15,25 @@ import java.util.regex.Pattern;
 public class DocxContentChapter implements Chapter {
     private final int level;
     private final String content;
-    private final static Pattern pattern = Pattern.compile("^\\s*([0-9])\\s*(.)+$");
+    private final static Pattern pattern = Pattern.compile("^(\\s*[0-9]+\\s*(\\.)*)+");
     private final String title;
 
 
     public DocxContentChapter(int levelValue, Index index, List<IBodyElement> bodyElements, DocxStyleMap docxStyleMap){
         this.level = levelValue;
-        this.content = new DocxChapterContentSetter(docxStyleMap, title(), bodyElements, index).content();
-        IBodyElement iBodyElement = bodyElements.get(0);
+        IBodyElement iBodyElement = bodyElements.get(index.currentIndex());
         if (! (iBodyElement instanceof XWPFParagraph)) throw new IllegalArgumentException(
                 "Body element must be XWPFParagraph"
         );
         XWPFParagraph xwpfParagraph = (XWPFParagraph) iBodyElement;
-        String firstString = xwpfParagraph.getText();
-        Matcher matcher = pattern.matcher(firstString);
-        this.title = matcher.group(1);
+        Matcher matcher = pattern.matcher(xwpfParagraph.getText());
+        if (matcher.find()){
+            this.title = matcher.group();
+            this.content = new DocxChapterContentSetter(docxStyleMap, title(), bodyElements, index).content();
+        } else {
+            System.out.println("text before exception is " + xwpfParagraph.getText());
+            throw new IllegalArgumentException("Can't return content because xwpfParagraph is not chapter header");
+        }
     }
 
     @Override

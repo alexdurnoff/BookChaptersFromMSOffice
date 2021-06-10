@@ -26,6 +26,7 @@ public class Level {
     }
 
     public int levelByParagraph(XWPFParagraph newParagraph){
+        if (lastHeaderParagraph == null) lastHeaderParagraph = newParagraph;
         if (this.docxStyleMap.paragraphIsHeader(newParagraph)){
             lastHeaderParagraph = newParagraph;
             value = this.docxStyleMap.levelByParagraph(newParagraph);

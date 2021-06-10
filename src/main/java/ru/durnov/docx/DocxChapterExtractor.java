@@ -30,17 +30,18 @@ public class DocxChapterExtractor implements ChapterExtractor {
         DocxStyleMap docxStyleMap = new DocxStyleMap(xwpfDocument);
         Index index = new Index();
         chapterList.add(new DocxStartChapterExtractor(bodyElements, docxStyleMap, index).startChapter());
-        System.out.println("after adding startChapter current index is " + index.currentIndex());
         XWPFParagraph xwpfParagraph = (XWPFParagraph) bodyElements.get(index.currentIndex());
         System.out.println("paragraph after adding startChapter is " + xwpfParagraph.getText());
         while (index.currentIndex() < bodyElements.size()){
+            System.out.println("index is " + index.currentIndex());
             Chapter chapter = new DocxChapterFactory(
                     index,
                     docxStyleMap,
                     bodyElements
             ).chapter();
             chapterList.add(chapter);
-            index.incrementIndex();
+            //index.incrementIndex();
+            // Все-таки мы не инкрементируем здесь. В DocxContentChapterSetter все заработало через do-while.
         }
         return chapterList;
     }

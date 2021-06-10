@@ -34,10 +34,20 @@ public class DocxChapterFactory implements ChapterFactory {
         if (bodyElements.get(index.currentIndex()) instanceof XWPFParagraph) {
             XWPFParagraph xwpfParagraph = (XWPFParagraph) bodyElements.get(index.currentIndex());
             if (docxStyleMap.paragraphIsHeader(xwpfParagraph)){
-                return new DocxHeaderChapter(level.levelByParagraph(xwpfParagraph), xwpfParagraph);
+                return new DocxHeaderChapter(
+                        level.levelByParagraph(xwpfParagraph),
+                        index,
+                        bodyElements,
+                        docxStyleMap
+                );
             }
             if (new DocxContentChapterChecker().isChapter(xwpfParagraph)) {
-                return new DocxContentChapter(level.levelByParagraph(xwpfParagraph), index, bodyElements, docxStyleMap);
+                return new DocxContentChapter(
+                        level.levelByParagraph(xwpfParagraph),
+                        index,
+                        bodyElements,
+                        docxStyleMap
+                );
             }
             throw new IllegalArgumentException("can't return Chapter because paragraph is not header and not start with number");
         } else {

@@ -12,14 +12,13 @@ import java.util.zip.ZipOutputStream;
 public interface Chapters {
     ChapterExtractor chapterExtractor();
     default void saveChapters(ZipOutputStream zipOutputStream) throws IOException {
-        this.chapterExtractor().chapterList().forEach(chapter -> {
-            try {
-                Files.newBufferedWriter(Path.of("Test/viewHtml/" + chapter.title() + ".html")).write(chapter.content());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        List<Chapter> chapterList = this.chapterExtractor().chapterList();
         zipOutputStream.putNextEntry(new ZipEntry("chapters.json"));
-        new ObjectMapper().writeValue(zipOutputStream, this.chapterExtractor().chapterList());
+        new ObjectMapper().writeValue(zipOutputStream, chapterList);
+        //Дебажим чтобы посмотреть.
+        for (int i = 0; i <chapterList.size(); i++){
+            Path path = Path.of("Test/viewHtml/" + (i+1) + ".html");
+            Files.newBufferedWriter(path).write(chapterList.get(i).content());
+        }
     }
 }
