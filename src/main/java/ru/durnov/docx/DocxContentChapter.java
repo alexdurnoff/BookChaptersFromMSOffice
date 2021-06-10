@@ -31,7 +31,6 @@ public class DocxContentChapter implements Chapter {
             this.title = matcher.group();
             this.content = new DocxChapterContentSetter(docxStyleMap, title(), bodyElements, index).content();
         } else {
-            System.out.println("text before exception is " + xwpfParagraph.getText());
             throw new IllegalArgumentException("Can't return content because xwpfParagraph is not chapter header");
         }
     }

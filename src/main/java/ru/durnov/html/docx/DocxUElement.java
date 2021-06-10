@@ -15,8 +15,12 @@ public class DocxUElement {
         if (xwpfRun.isBold()) {
             new DocxStrongStrongElement(xwpfRun).element().appendTo(element);
         } else {
-            element.appendText(xwpfRun.text());
+            element.appendText(text());
         }
     return element;
+    }
+
+    protected String text(){
+        return xwpfRun.text().replace("\n", "");
     }
 }

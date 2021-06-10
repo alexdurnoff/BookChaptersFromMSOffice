@@ -16,10 +16,12 @@ public class DocxTextContentElement implements DocxContentElement {
 
     @Override
     public Element element() {
+        System.out.println(xwpfParagraph.getText());
         Element element = new Element("p");
         new DocxParagraphStyle(xwpfParagraph).applyToParagraphElement(element);
         this.xwpfParagraph.getRuns().forEach(xwpfRun -> {
             new DocxChildElement(xwpfRun).appendTo(element);
+
         });
         return element;
     }

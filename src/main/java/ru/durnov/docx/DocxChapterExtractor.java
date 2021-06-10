@@ -6,7 +6,6 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import ru.durnov.chapters.Chapter;
 import ru.durnov.chapters.ChapterExtractor;
 import ru.durnov.chapters.Index;
-import ru.durnov.chapters.Level;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -30,10 +29,7 @@ public class DocxChapterExtractor implements ChapterExtractor {
         DocxStyleMap docxStyleMap = new DocxStyleMap(xwpfDocument);
         Index index = new Index();
         chapterList.add(new DocxStartChapterExtractor(bodyElements, docxStyleMap, index).startChapter());
-        XWPFParagraph xwpfParagraph = (XWPFParagraph) bodyElements.get(index.currentIndex());
-        System.out.println("paragraph after adding startChapter is " + xwpfParagraph.getText());
         while (index.currentIndex() < bodyElements.size()){
-            System.out.println("index is " + index.currentIndex());
             Chapter chapter = new DocxChapterFactory(
                     index,
                     docxStyleMap,

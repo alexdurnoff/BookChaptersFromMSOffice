@@ -13,20 +13,10 @@ public class DocxChildElement {
     public void appendTo(Element element) {
         Element child = new DocxSpanElement(xwpfRun).element();
         new DocxHtmlRunStyle(xwpfRun).applyToRunElement(element);
-        if (xwpfRun.isBold()){
-            Element strongElement = new Element("strong");
-            if (xwpfRun.isHighlighted()) {
-                Element uElement = new Element("u");
-                uElement.appendText(xwpfRun.text());
-                uElement.appendTo(strongElement);
-            } else {
-                strongElement.appendText(xwpfRun.text());
-            }
-        } else if (xwpfRun.isHighlighted()) {
-            Element uElement = new Element("u");
-            uElement.appendText(xwpfRun.text());
-            uElement.appendTo(child);
-        }
         child.appendTo(element);
+        if (xwpfRun.text().endsWith("\n")){
+            System.out.println("DETECTED END OF LINE");
+            new Element("br").appendTo(element);
+        }
     }
 }

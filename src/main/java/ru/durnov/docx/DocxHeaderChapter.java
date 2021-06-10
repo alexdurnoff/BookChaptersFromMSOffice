@@ -15,14 +15,11 @@ public class DocxHeaderChapter implements Chapter {
 
     public DocxHeaderChapter(int levelValue, Index index, List<IBodyElement> bodyElements, DocxStyleMap docxStyleMap) {
         this.level = levelValue;
-        IBodyElement iBodyElement = bodyElements.get(0);
+        IBodyElement iBodyElement = bodyElements.get(index.currentIndex());
         if (! (iBodyElement instanceof XWPFParagraph)) throw new IllegalArgumentException(
                 "Body element must be XWPFParagraph"
         );
         this.title = ((XWPFParagraph) iBodyElement).getText();
-        index.incrementIndex();
-        //Важно! Мы должны переместиться на одну позицию вниз после заголовка.
-        //Иначе контент не наберем.
         this.content = new DocxChapterContentSetter(docxStyleMap, title, bodyElements, index).content();
     }
 
@@ -43,7 +40,7 @@ public class DocxHeaderChapter implements Chapter {
 
     @Override
     public String content() {
-        return "";
+        return this.content;
     }
 
 }

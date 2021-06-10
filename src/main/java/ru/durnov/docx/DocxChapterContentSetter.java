@@ -2,6 +2,7 @@ package ru.durnov.docx;
 
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import ru.durnov.chapters.Index;
@@ -28,10 +29,9 @@ public class DocxChapterContentSetter {
     public String content() {
         DocxContentChapterChecker checker = new DocxContentChapterChecker();
         Document document = new Document("/tmp/" + this.title + ".html");
-        Element body = document.appendElement("body");
         IBodyElement bodyElement = bodyElements.get(this.index.currentIndex());
         do {
-            body.appendChild(
+            document.appendChild(
                     new DocxElementFactory(bodyElement)
                             .docxContentElement()
                             .element()

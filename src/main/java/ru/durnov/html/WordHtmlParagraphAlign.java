@@ -38,7 +38,11 @@ public class WordHtmlParagraphAlign implements HtmlAlignment{
     }
 
     @Override
-    public void applyToElement(Element element) {
+    public void applyToParagraphElement(Element element) {
         element.attributes().put("align", alignment);
+    }
+
+    public String value() {
+        return this.alignment;
     }
 }

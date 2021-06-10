@@ -25,10 +25,9 @@ public class DocxStartChapterExtractor implements StartChapterExtractor {
     @Override
     public StartChapter startChapter() {
         Document document = new Document("/tmp/" + "Начало документа" + ".html");
-        Element body = document.appendElement("body");
         IBodyElement iBodyElement;
         while (! this.docxStyleMap.paragraphIsHeader(iBodyElement = bodyElements.get(index.currentIndex()))){
-            body.appendChild(
+            document.appendChild(
                     new DocxElementFactory(iBodyElement)
                             .docxContentElement()
                             .element()
@@ -36,6 +35,6 @@ public class DocxStartChapterExtractor implements StartChapterExtractor {
             index.incrementIndex();
             if (index.currentIndex() == bodyElements.size()) break;
         }
-        return new StartChapter(document.outerHtml().replace("\\n", "<br>"));
+        return new StartChapter(document.html());
     }
 }

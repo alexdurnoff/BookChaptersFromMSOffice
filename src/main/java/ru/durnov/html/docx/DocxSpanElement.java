@@ -17,7 +17,7 @@ public class DocxSpanElement {
         } else if (xwpfRun.isBold()) {
             new DocxStrongStrongElement(xwpfRun).element().appendTo(element);
         } else {
-            element.appendText(xwpfRun.text());
+            element.appendText(xwpfRun.text().replace("\n", ""));
         }
         return element;
     }

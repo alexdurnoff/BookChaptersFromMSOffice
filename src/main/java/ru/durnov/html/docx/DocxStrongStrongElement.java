@@ -14,11 +14,15 @@ public class DocxStrongStrongElement {
         Element element = new Element("strong");
         if (xwpfRun.isHighlighted()) {
             Element uElement = new DocxUElement(xwpfRun).element();
-            element.appendTo(element);
+            uElement.appendTo(element);
 
         } else {
-            element.appendText(xwpfRun.text());
+            element.appendText(text());
         }
         return element;
+    }
+
+    protected String text(){
+        return xwpfRun.text().replace("\n", "");
     }
 }
