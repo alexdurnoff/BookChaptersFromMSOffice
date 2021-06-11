@@ -11,12 +11,18 @@ public class DocxChildElement {
     }
 
     public void appendTo(Element element) {
-        Element child = new DocxSpanElement(xwpfRun).element();
-        new DocxHtmlRunStyle(xwpfRun).applyToRunElement(element);
-        child.appendTo(element);
-        if (xwpfRun.text().endsWith("\n")){
-            System.out.println("DETECTED END OF LINE");
-            new Element("br").appendTo(element);
+        if (xwpfRun.getEmbeddedPictures().size() > 0) {
+            new PicturesElements(xwpfRun).elements().forEach(e ->{
+                e.appendTo(element);
+            });
+        } else {
+            Element child = new DocxSpanElement(xwpfRun).element();
+            new DocxHtmlRunStyle(xwpfRun).applyToRunElement(element);
+            child.appendTo(element);
+            if (xwpfRun.text().endsWith("\n")){
+                System.out.println("DETECTED END OF LINE");
+                new Element("br").appendTo(element);
+            }
         }
     }
 }

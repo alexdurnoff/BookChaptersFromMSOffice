@@ -2,11 +2,13 @@ package ru.durnov.docx;
 
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.openxml4j.opc.PackagePart;
+import org.apache.poi.xwpf.usermodel.IRunElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFPictureData;
 import org.apache.poi.xwpf.usermodel.XWPFStyles;
 import org.apache.xmlbeans.XmlException;
 import org.junit.jupiter.api.Test;
+import org.openxmlformats.schemas.drawingml.x2006.picture.CTPicture;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTBody;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageSz;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
@@ -65,18 +67,15 @@ public class DocxDocumentStructureTest {
                         Path.of("Test/приказ с картинками.docx")
                 )
         );
-        List<XWPFPictureData> allPictures = xwpfDocument.getAllPictures();
-        List<XWPFPictureData> packagePictures = xwpfDocument.getAllPackagePictures();
-        packagePictures.forEach(xwpfPictureData -> {
-            System.out.println(xwpfPictureData.getFileName());
-            System.out.println(xwpfPictureData.getPictureType());
-            try {
-                Files.newOutputStream(Path.of("Test/" + xwpfPictureData.getFileName()))
-                        .write(xwpfPictureData.getData());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        xwpfDocument.getParagraphs().forEach(xwpfParagraph -> {
+            xwpfParagraph.getRuns().forEach(xwpfRun -> {
+                if (xwpfRun.getEmbeddedPictures().size() > 0){
+                    System.out.println("detected pictures");
+                    System.out.println(xwpfRun.getPictureText());
+                    System.out.println(xwpfRun.text());
+                }
+            });
 
+        });
     }
 }
