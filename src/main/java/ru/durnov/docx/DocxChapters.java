@@ -1,20 +1,21 @@
 package ru.durnov.docx;
 
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import ru.durnov.chapters.ChapterExtractor;
 import ru.durnov.chapters.Chapters;
 
 import java.io.IOException;
 
 public class DocxChapters implements Chapters {
-    private final String url;
+    private final XWPFDocument xwpfDocument;
 
-    public DocxChapters(String url) {
-        this.url = url;
+    public DocxChapters(XWPFDocument xwpfDocument) {
+        this.xwpfDocument = xwpfDocument;
     }
 
     @Override
     public ChapterExtractor chapterExtractor() {
-        return new DocxChapterExtractor(this.url);
+        return new DocxChapterExtractor(this.xwpfDocument);
     }
 
 

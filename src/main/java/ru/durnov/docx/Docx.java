@@ -5,6 +5,8 @@ import ru.durnov.chapters.Chapters;
 import ru.durnov.chapters.Document;
 import ru.durnov.chapters.Images;
 
+import java.io.IOException;
+
 public class Docx implements Document {
 
     private final String url;
@@ -14,7 +16,7 @@ public class Docx implements Document {
     }
 
     @Override
-    public Archive archive() {
+    public Archive archive() throws IOException {
         return new DocxArchive(url);
     }
 }

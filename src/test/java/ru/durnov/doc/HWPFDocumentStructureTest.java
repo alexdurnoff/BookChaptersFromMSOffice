@@ -6,6 +6,7 @@ import org.apache.poi.hwpf.usermodel.Paragraph;
 import org.apache.poi.hwpf.usermodel.Range;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,7 +15,7 @@ public class HWPFDocumentStructureTest {
 
     @Test
     void test1() throws IOException {
-        HWPFDocument hwpfDocument = new HWPFDocument(Files.newInputStream(Path.of("Test/prikaz1.doc")));
+        HWPFDocument hwpfDocument = new HWPFDocument(new FileInputStream("Test/prikaz1.doc"));
         Range range = hwpfDocument.getRange();
         int length = range.numCharacterRuns();
         int numParagraphs = range.numParagraphs();

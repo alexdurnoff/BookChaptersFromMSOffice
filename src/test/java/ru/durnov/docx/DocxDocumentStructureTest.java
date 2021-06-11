@@ -1,6 +1,9 @@
 package ru.durnov.docx;
 
+import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
+import org.apache.poi.openxml4j.opc.PackagePart;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFPictureData;
 import org.apache.poi.xwpf.usermodel.XWPFStyles;
 import org.apache.xmlbeans.XmlException;
 import org.junit.jupiter.api.Test;
@@ -18,6 +21,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Set;
 
 public class DocxDocumentStructureTest {
@@ -52,5 +56,27 @@ public class DocxDocumentStructureTest {
         Result<String> result = converter.convertToHtml(new File("Test/prikaz1.docx"));
         String html = result.getValue(); // The generated HTML
         Files.newBufferedWriter(Path.of("Test/mammoth.html")).write(html);
+    }
+
+    @Test
+    void testDocumentWithPictures() throws IOException, OpenXML4JException {
+        XWPFDocument xwpfDocument = new XWPFDocument(
+                Files.newInputStream(
+                        Path.of("Test/приказ с картинками.docx")
+                )
+        );
+        List<XWPFPictureData> allPictures = xwpfDocument.getAllPictures();
+        List<XWPFPictureData> packagePictures = xwpfDocument.getAllPackagePictures();
+        packagePictures.forEach(xwpfPictureData -> {
+            System.out.println(xwpfPictureData.getFileName());
+            System.out.println(xwpfPictureData.getPictureType());
+            try {
+                Files.newOutputStream(Path.of("Test/" + xwpfPictureData.getFileName()))
+                        .write(xwpfPictureData.getData());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 }

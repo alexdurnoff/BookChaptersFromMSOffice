@@ -14,17 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DocxChapterExtractor implements ChapterExtractor {
-    private final String url;
+    private final XWPFDocument xwpfDocument;
 
 
-    public DocxChapterExtractor(String url) {
-        this.url = url;
+    public DocxChapterExtractor(XWPFDocument xwpfDocument) {
+        this.xwpfDocument = xwpfDocument;
     }
 
     @Override
     public List<Chapter> chapterList() throws IOException {
         List<Chapter> chapterList = new ArrayList<>();
-        XWPFDocument xwpfDocument = new XWPFDocument(Files.newInputStream(Path.of(url)));
         List<IBodyElement> bodyElements = xwpfDocument.getBodyElements();
         DocxStyleMap docxStyleMap = new DocxStyleMap(xwpfDocument);
         Index index = new Index();

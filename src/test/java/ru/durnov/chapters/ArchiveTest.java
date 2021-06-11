@@ -35,15 +35,6 @@ class ArchiveTest {
                                     }
 
                                     @Override
-                                    public void saveToArchive(String url) {
-                                        try {
-                                            Files.writeString(Path.of(url + "image1.txt"), "Превед, вот изображение");
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-
-                                    @Override
                                     public byte[] asByteArray() {
                                         return this.name().getBytes();
                                     }

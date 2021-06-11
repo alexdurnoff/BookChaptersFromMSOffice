@@ -17,7 +17,12 @@ class DocxTest {
     void test1() throws IOException {
         Docx docx = new Docx("Test/prikaz1.docx");
         String archiveUrl = docx.archive().pathToArchive();
-        System.out.println(archiveUrl);
+    }
+
+    @Test
+    void testDocxDocumentWithOnePictures() throws IOException {
+        Docx docx = new Docx("Test/приказ с картинками.docx");
+        docx.archive().pathToArchive();
     }
 
     @Test

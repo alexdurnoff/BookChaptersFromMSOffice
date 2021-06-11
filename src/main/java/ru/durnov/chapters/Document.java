@@ -1,5 +1,7 @@
 package ru.durnov.chapters;
 
+import java.io.IOException;
+
 public interface Document {
-    Archive archive();
+    Archive archive() throws IOException;
 }

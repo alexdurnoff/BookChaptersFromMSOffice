@@ -1,18 +1,19 @@
 package ru.durnov.docx;
 
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import ru.durnov.chapters.ImageExtractor;
 import ru.durnov.chapters.Images;
 
 public class DocxImages implements Images {
-    private final String url;
+    private final XWPFDocument xwpfDocument;
 
-    public DocxImages(String url) {
-        this.url = url;
+    public DocxImages(XWPFDocument xwpfDocument) {
+        this.xwpfDocument = xwpfDocument;
     }
 
 
     @Override
     public ImageExtractor imageExtractor() {
-        return new DocxImageExtractor(this.url);
+        return new DocxImageExtractor(this.xwpfDocument);
     }
 }

@@ -1,35 +1,26 @@
 package ru.durnov.docx;
 
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import ru.durnov.chapters.Image;
 import ru.durnov.chapters.ImageExtractor;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class DocxImageExtractor implements ImageExtractor {
-    private final String url;
+    private final XWPFDocument xwpfDocument;
 
-    public DocxImageExtractor(String url) {
-        this.url = url;
+    public DocxImageExtractor(XWPFDocument xwpfDocument) {
+        this.xwpfDocument = xwpfDocument;
     }
 
     @Override
     public List<Image> imageList() {
-        return Collections.singletonList(new Image() {
-            @Override
-            public String name() {
-                return "1.jpeg";
-            }
-
-            @Override
-            public void saveToArchive(String url) {
-
-            }
-
-            @Override
-            public byte[] asByteArray() {
-                return this.name().getBytes();
-            }
+        List<Image> imageList = new ArrayList<>();
+        this.xwpfDocument.getAllPackagePictures().forEach(xwpfPictureData -> {
+            imageList.add(new DocxImage(xwpfPictureData));
         });
-    }//Пока так.
+        return imageList;
+    }
 }
