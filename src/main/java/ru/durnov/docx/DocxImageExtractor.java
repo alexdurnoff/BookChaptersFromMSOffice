@@ -1,5 +1,6 @@
 package ru.durnov.docx;
 
+import org.apache.poi.xwpf.usermodel.Document;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import ru.durnov.chapters.Image;
 import ru.durnov.chapters.ImageExtractor;
@@ -19,7 +20,13 @@ public class DocxImageExtractor implements ImageExtractor {
     public List<Image> imageList() {
         List<Image> imageList = new ArrayList<>();
         this.xwpfDocument.getAllPackagePictures().forEach(xwpfPictureData -> {
-            imageList.add(new DocxImage(xwpfPictureData));
+            if (xwpfPictureData.getPictureType() == Document.PICTURE_TYPE_EMF){
+                imageList.add(new DocxEmfImage(xwpfPictureData));
+            } else if (xwpfPictureData.getPictureType() == Document.PICTURE_TYPE_WMF){
+                imageList.add(new DocxWMFImage(xwpfPictureData));
+            } else {
+                imageList.add(new DocxImage(xwpfPictureData));
+            }
         });
         return imageList;
     }

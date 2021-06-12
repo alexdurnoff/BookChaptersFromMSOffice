@@ -1,6 +1,8 @@
 package ru.durnov.chapters;
 
+import java.io.IOException;
+
 public interface Image {
     String name();
-    byte[] asByteArray();
+    byte[] asByteArray() throws IOException;
 }

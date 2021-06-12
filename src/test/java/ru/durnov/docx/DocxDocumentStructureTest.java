@@ -1,30 +1,16 @@
 package ru.durnov.docx;
 
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
-import org.apache.poi.openxml4j.opc.PackagePart;
-import org.apache.poi.xwpf.usermodel.IRunElement;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFPictureData;
-import org.apache.poi.xwpf.usermodel.XWPFStyles;
+import org.apache.poi.xwpf.usermodel.*;
 import org.apache.xmlbeans.XmlException;
 import org.junit.jupiter.api.Test;
-import org.openxmlformats.schemas.drawingml.x2006.picture.CTPicture;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTBody;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageSz;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTStyles;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.*;
 import org.zwobble.mammoth.DocumentConverter;
 import org.zwobble.mammoth.Result;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.math.BigInteger;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Set;
 
 public class DocxDocumentStructureTest {
 
@@ -67,15 +53,9 @@ public class DocxDocumentStructureTest {
                         Path.of("Test/приказ с картинками.docx")
                 )
         );
-        xwpfDocument.getParagraphs().forEach(xwpfParagraph -> {
-            xwpfParagraph.getRuns().forEach(xwpfRun -> {
-                if (xwpfRun.getEmbeddedPictures().size() > 0){
-                    System.out.println("detected pictures");
-                    System.out.println(xwpfRun.getPictureText());
-                    System.out.println(xwpfRun.text());
-                }
-            });
-
+        xwpfDocument.getAllPackagePictures().forEach(xwpfPictureData -> {
+            System.out.println(xwpfPictureData.getPictureType());
+            System.out.println(xwpfPictureData.getFileName());
         });
     }
 }

@@ -11,8 +11,8 @@ public class PicturesElement {
     }
 
     public Element element() {
-        Element element = new Element("a");
-        element.attributes().put("href", "file://library/" + xwpfPicture.getPictureData().getFileName());
+        Element element = new Element("img");
+        element.attributes().put("src", "library/" + xwpfPicture.getPictureData().getFileName());
         return element;
     }
 }
