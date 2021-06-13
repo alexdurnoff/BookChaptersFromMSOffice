@@ -1,5 +1,6 @@
 package ru.durnov.chapters;
 
+import org.apache.batik.transcoder.TranscoderException;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ArchiveTest {
 
     @Test
-    void testCompressFile() throws IOException {
+    void testCompressFile() throws IOException, TranscoderException {
         Archive archive = new Archive() {
             @Override
             public String archiveUrl() {

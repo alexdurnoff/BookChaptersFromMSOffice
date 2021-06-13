@@ -1,5 +1,6 @@
 package ru.durnov.docx;
 
+import org.apache.batik.transcoder.TranscoderException;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.junit.jupiter.api.Test;
 
@@ -14,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class DocxTest {
 
     @Test
-    void test1() throws IOException {
+    void test1() throws IOException, TranscoderException {
         Docx docx = new Docx("Test/prikaz1.docx");
         String archiveUrl = docx.archive().pathToArchive();
     }
 
     @Test
-    void testDocxDocumentWithOnePictures() throws IOException {
+    void testDocxDocumentWithOnePictures() throws IOException, TranscoderException {
         Docx docx = new Docx("Test/приказ с картинками.docx");
         docx.archive().pathToArchive();
     }

@@ -1,5 +1,6 @@
 package ru.durnov.controller;
 
+import org.apache.batik.transcoder.TranscoderException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.durnov.chapters.Chapters;
@@ -11,7 +12,7 @@ import java.io.IOException;
 public class Controller {
     @PostMapping(consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public Response response(@RequestBody Request request) throws IOException {
+    public Response response(@RequestBody Request request) throws IOException, TranscoderException {
         return new Response(
                 request.document().archive().pathToArchive()
         );
