@@ -1,4 +1,4 @@
-package ru.durnov.html;
+package ru.durnov.html.table;
 
 import org.jsoup.nodes.Element;
 

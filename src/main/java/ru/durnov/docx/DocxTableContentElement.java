@@ -3,7 +3,7 @@ package ru.durnov.docx;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.jsoup.nodes.Element;
-import ru.durnov.html.docx.DocxHtmlTableStyle;
+import ru.durnov.html.table.HtmlTableStyle;
 
 public class DocxTableContentElement implements DocxContentElement {
     private final XWPFTable xwpfTable;
@@ -16,7 +16,7 @@ public class DocxTableContentElement implements DocxContentElement {
     @Override
     public Element element() {
         Element element = new Element("table");
-        new DocxHtmlTableStyle(xwpfTable).applyToTableElement(element);
+        new HtmlTableStyle(xwpfTable).applyToTableElement(element);
         xwpfTable.getRows().forEach(xwpfTableRow -> {
             Element rowElement = new DocxTableRowElement(xwpfTableRow).element();
             rowElement.appendTo(element);
