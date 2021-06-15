@@ -10,7 +10,7 @@ public class NonSpanTableCellWidth{
         this.xwpfTableCell = xwpfTableCell;
     }
 
-    String value(){
+    String width(){
         if (xwpfTableCell.getWidthType() == TableWidthType.PCT){
             return xwpfTableCell.getWidth() / 50 + "%";
         } else {

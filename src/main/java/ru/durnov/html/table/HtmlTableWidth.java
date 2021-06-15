@@ -9,7 +9,7 @@ public class HtmlTableWidth implements TableWidth {
     private final String width;
 
     public HtmlTableWidth(int width) {
-        this.width = String.valueOf(width) + "px";
+        this.width = String.valueOf(width);
     }
 
     public HtmlTableWidth(XWPFTable xwpfTable){
@@ -21,11 +21,17 @@ public class HtmlTableWidth implements TableWidth {
     }
 
     public HtmlTableWidth(XWPFTableCell xwpfTableCell){
-        if (xwpfTableCell.getWidthType() == TableWidthType.PCT){
-            this.width = xwpfTableCell.getWidth() / 50 + "%";
-        } else {
-            this.width = String.valueOf(xwpfTableCell.getWidth() / 20);
+        String value = "0";
+        try {
+            if (xwpfTableCell.getCTTc().getTcPr().getGridSpan().getVal().intValue() > 1){
+                value = new SpanTableCellWidth(xwpfTableCell).width();
+            } else {
+                value = new NonSpanTableCellWidth(xwpfTableCell).width();
+            }
+        }catch (NullPointerException exception){
+            value = new NonSpanTableCellWidth(xwpfTableCell).width();
         }
+        this.width = value;
     }
 
     @Override
