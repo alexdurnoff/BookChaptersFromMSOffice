@@ -2,6 +2,9 @@ package ru.durnov.docx;
 
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableCell;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
@@ -9,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,6 +34,30 @@ class DocxTest {
     void testThatXWPFDocumentIsValid() throws IOException {
         XWPFDocument xwpfDocument = new XWPFDocument(Files.newInputStream(Path.of("Test/prikaz1.docx")));
         System.out.println(xwpfDocument.getParagraphs());
+    }
+
+    @Test
+    void testRowSpan1Structure() throws IOException {
+        XWPFDocument xwpfDocument = new XWPFDocument(Files.newInputStream(Path.of("Test/Объединение ячеек.docx")));
+        XWPFTable xwpfTable = xwpfDocument.getTables().get(0);
+        List<XWPFTableRow> rows = xwpfTable.getRows();
+        for (XWPFTableRow row : rows) {
+            List<XWPFTableCell> tableCells = row.getTableCells();
+            for (XWPFTableCell tableCell : tableCells) {
+                System.out.println(tableCell.getText());
+                try {
+                    System.out.println(tableCell.getCTTc().getTcPr().getVMerge().getVal().intValue());
+                } catch (NullPointerException e) {
+                    System.out.println("null pointer exception is detected");
+                }
+            }
+        }
+    }
+
+    @Test
+    void testSpanCells() throws IOException, TranscoderException {
+        Docx docx = new Docx("Test/Объединение ячеек.docx");
+        docx.archive().pathToArchive();
     }
 
 

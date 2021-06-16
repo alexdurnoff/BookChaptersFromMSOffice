@@ -22,6 +22,6 @@ public class HtmlColSpan implements ColSpan {
     }
     @Override
     public void applyCollSpanToElement(Element element) {
-        if (this.span > 0) element.attributes().put("colspan", String.valueOf(span));
+        if (this.span > 1) element.attributes().put("colspan", String.valueOf(span));
     }
 }

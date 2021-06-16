@@ -14,7 +14,7 @@ public class HtmlTableBorderColor implements TableBorderColor {
                 this.color = xwpfTable.getLeftBorderColor();
             }
         } else {
-            this.color = "none";
+            this.color = "black";
         }
 
     }
