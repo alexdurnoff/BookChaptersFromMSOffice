@@ -29,7 +29,6 @@ public class DocxHeaderStyleList {
                 }
             });
         } catch (XmlException | IOException e) {
-            System.out.println("exception catched in DocxHeaderList");
             e.printStackTrace();
         }
         return headerList
