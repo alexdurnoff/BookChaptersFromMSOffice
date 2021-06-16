@@ -31,7 +31,7 @@ public class MaxCellNumberTableCellList {
         this.startNumber = new DocxCellNumberColumn(xwpfTableCell).column();
     }
 
-    public List<Integer> widthList() {
-        return this.widthList().subList(startNumber, this.size);
+    public List<Integer> widthValuesList() {
+        return this.widthList.subList(startNumber, this.size);
     }
 }

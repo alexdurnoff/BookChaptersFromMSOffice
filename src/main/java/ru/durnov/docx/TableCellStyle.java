@@ -11,15 +11,18 @@ public class TableCellStyle implements CellStyle {
     private final TableVerticalAlignment tableVerticalAlignment;
     private final TableHeight tableHeight;
     private final TableWidth tableWidth;
+    private final ColSpan colSpan;
 
     public TableCellStyle(BackGroundColor backGroundColor,
                           TableVerticalAlignment tableVerticalAlignment,
                           TableHeight tableHeight,
-                          TableWidth tableWidth) {
+                          TableWidth tableWidth,
+                          ColSpan colSpan) {
         this.backGroundColor = backGroundColor;
         this.tableVerticalAlignment = tableVerticalAlignment;
         this.tableHeight = tableHeight;
         this.tableWidth = tableWidth;
+        this.colSpan = colSpan;
     }
 
     public TableCellStyle(XWPFTableCell xwpfTableCell) {
@@ -27,6 +30,7 @@ public class TableCellStyle implements CellStyle {
         this.tableVerticalAlignment = new HtmlTableVerticalAlignment(xwpfTableCell.getVerticalAlignment());
         this.tableHeight = new HtmlTableHeight(xwpfTableCell.getTableRow().getHeight());
         this.tableWidth = new HtmlTableWidth(xwpfTableCell);
+        this.colSpan = new HtmlColSpan(xwpfTableCell);
     }
 
     @Override
@@ -35,5 +39,6 @@ public class TableCellStyle implements CellStyle {
         this.tableVerticalAlignment.applyTableVerticalAlignmentToElement(element);
         this.tableHeight.applyHeightToElement(element);
         this.tableWidth.applyWidthToElement(element);
+        this.colSpan.applyCollSpanToElement(element);
     }
 }

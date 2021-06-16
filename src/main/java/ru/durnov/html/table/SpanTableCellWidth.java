@@ -15,7 +15,7 @@ public class SpanTableCellWidth {
     }
 
     public SpanTableCellWidth(XWPFTableCell xwpfTableCell) {
-        this.widthList = new MaxCellNumberTableCellList(xwpfTableCell).widthList();
+        this.widthList = new MaxCellNumberTableCellList(xwpfTableCell).widthValuesList();
         this.tableWidthType = xwpfTableCell.getWidthType();
     }
 

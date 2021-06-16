@@ -102,6 +102,7 @@
 			<artifactId>freehep-graphicsio-emf</artifactId>
 			<version>2.4</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.xmlbeans/xmlbeans -->
 
 	</dependencies>
 

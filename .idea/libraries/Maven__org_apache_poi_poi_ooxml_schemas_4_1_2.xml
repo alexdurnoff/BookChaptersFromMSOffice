@@ -8,6 +8,7 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/org/apache/poi/poi-ooxml-schemas/4.1.2/poi-ooxml-schemas-4.1.2-sources.jar!/" />
+      <root url="file://$USER_HOME$/poi/poi-5.0.0/docs/apidocs/dev/org/apache/poi" />
     </SOURCES>
   </library>
 </component>
