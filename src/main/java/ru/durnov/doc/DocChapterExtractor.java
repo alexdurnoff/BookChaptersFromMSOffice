@@ -2,6 +2,7 @@ package ru.durnov.doc;
 
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.usermodel.CharacterRun;
+import org.apache.poi.hwpf.usermodel.Paragraph;
 import org.apache.poi.hwpf.usermodel.Range;
 import org.apache.poi.hwpf.usermodel.Section;
 import ru.durnov.chapters.Chapter;
@@ -13,23 +14,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DocChapterExtractor implements ChapterExtractor {
-    private final HWPFDocument hwpfDocument;
     private final Index index = new Index();
-    private final DocStartChapterExtractor extractor;
+    private final DocStartChapterExtractor startExtractor;
+    private final List<Chapter> chapterList = new ArrayList<>();
+    private final DocStyleMap docStyleMap;
+    private final List<ParagraphWithSection> paragraphWithSectionList;
+
 
     public DocChapterExtractor(HWPFDocument hwpfDocument) {
-        this.hwpfDocument = hwpfDocument;
-        this.extractor = new DocStartChapterExtractor(
-                new SectionList(hwpfDocument).list(),
+        this.docStyleMap = new DocStyleMap(hwpfDocument);
+        this.paragraphWithSectionList = new ParagraphsWithSections(hwpfDocument).list();
+        this.startExtractor = new DocStartChapterExtractor(
+                this.paragraphWithSectionList,
                 new DocStyleMap(hwpfDocument),
                 this.index
         );
     }
 
-
     @Override
     public List<Chapter> chapterList() {
-
-        return null;
+        chapterList.add(startExtractor.startChapter());
+        while (index.currentIndex() < paragraphWithSectionList.size()){
+            Chapter chapter = new DocChapterFactory(
+                    this.index,
+                    this.docStyleMap,
+                    this.paragraphWithSectionList
+            ).chapter();
+            this.chapterList.add(chapter);
+        }
+        return chapterList;
     }
 }

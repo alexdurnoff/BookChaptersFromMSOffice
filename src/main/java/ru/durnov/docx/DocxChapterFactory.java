@@ -1,20 +1,15 @@
 package ru.durnov.docx;
 
 import org.apache.poi.xwpf.usermodel.IBodyElement;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.zwobble.mammoth.internal.styles.StyleMap;
 import ru.durnov.chapters.Chapter;
 import ru.durnov.chapters.ChapterFactory;
 import ru.durnov.chapters.Index;
-import ru.durnov.chapters.Level;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class DocxChapterFactory implements ChapterFactory {
-    private final Level level;
+    private final DocxLevel docxLevel;
     private final Index index;
     private final List<IBodyElement> bodyElements;
     private final DocxStyleMap docxStyleMap;
@@ -25,7 +20,7 @@ public class DocxChapterFactory implements ChapterFactory {
     public DocxChapterFactory(Index index, DocxStyleMap docxStyleMap, List<IBodyElement> bodyElements){
         this.index = index;
         this.docxStyleMap = docxStyleMap;
-        this.level = new Level(docxStyleMap);
+        this.docxLevel = new DocxLevel(docxStyleMap);
         this.bodyElements = bodyElements;
     }
 
@@ -35,7 +30,7 @@ public class DocxChapterFactory implements ChapterFactory {
             XWPFParagraph xwpfParagraph = (XWPFParagraph) bodyElements.get(index.currentIndex());
             if (docxStyleMap.paragraphIsHeader(xwpfParagraph)){
                 return new DocxHeaderChapter(
-                        level.levelByParagraph(xwpfParagraph),
+                        docxLevel.levelByParagraph(xwpfParagraph),
                         index,
                         bodyElements,
                         docxStyleMap
@@ -43,7 +38,7 @@ public class DocxChapterFactory implements ChapterFactory {
             }
             if (new DocxContentChapterChecker().isChapter(xwpfParagraph)) {
                 return new DocxContentChapter(
-                        level.levelByParagraph(xwpfParagraph),
+                        docxLevel.levelByParagraph(xwpfParagraph),
                         index,
                         bodyElements,
                         docxStyleMap

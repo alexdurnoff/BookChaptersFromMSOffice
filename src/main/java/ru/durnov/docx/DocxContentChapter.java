@@ -2,11 +2,8 @@ package ru.durnov.docx;
 
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import ru.durnov.chapters.Chapter;
 import ru.durnov.chapters.Index;
-import ru.durnov.chapters.Level;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -29,7 +26,7 @@ public class DocxContentChapter implements Chapter {
         Matcher matcher = pattern.matcher(xwpfParagraph.getText());
         if (matcher.find()){
             this.title = matcher.group();
-            this.content = new DocxChapterContentSetter(docxStyleMap, title(), bodyElements, index).content();
+            this.content = new DocxChapterContentSetter(docxStyleMap, title, bodyElements, index).content();
         } else {
             throw new IllegalArgumentException("Can't return content because xwpfParagraph is not chapter header");
         }

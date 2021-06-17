@@ -10,12 +10,14 @@ import ru.durnov.chapters.StartChapterExtractor;
 import java.util.List;
 
 public class DocStartChapterExtractor implements StartChapterExtractor {
-    private final List<Paragraph> paragraphList;
+    private final List<ParagraphWithSection> paragraphsWithSectionsList;
     private final DocStyleMap docStyleMap;
     private final Index index;
 
-    public DocStartChapterExtractor(List<Section> sectionList, DocStyleMap docStyleMap, Index index) {
-        this.paragraphList = new ParagraphList(sectionList).list();
+    public DocStartChapterExtractor(List<ParagraphWithSection> paragraphsWithSectionsList,
+                                    DocStyleMap docStyleMap,
+                                    Index index) {
+        this.paragraphsWithSectionsList = paragraphsWithSectionsList;
         this.docStyleMap = docStyleMap;
         this.index = index;
     }
@@ -24,16 +26,19 @@ public class DocStartChapterExtractor implements StartChapterExtractor {
     @Override
     public StartChapter startChapter() {
         Document document = new Document("/tmp/" + "Начало документа" + ".html");
-        Paragraph paragraph = this.paragraphList.get(this.index.currentIndex());
+        ParagraphWithSection paragraphWithSection = this.paragraphsWithSectionsList
+                .get(index.currentIndex());
+        Paragraph paragraph = paragraphWithSection.paragraph();
         while ( ! this.docStyleMap.paragraphIsHeader(paragraph)){
             document.appendChild(
-                    new DocElementFactory(paragraph)
+                    new DocElementFactory(paragraphWithSection, index)
                     .docContentElement()
                     .element()
             );
             index.incrementIndex();
-            if (index.currentIndex() == this.paragraphList.size()) break;
-            paragraph = this.paragraphList.get(this.index.currentIndex());
+            if (index.currentIndex() == this.paragraphsWithSectionsList.size()) break;
+            paragraphWithSection = this.paragraphsWithSectionsList.get(index.currentIndex());
+            paragraph = paragraphWithSection.paragraph();
         }
         return new StartChapter(document.html());
     }

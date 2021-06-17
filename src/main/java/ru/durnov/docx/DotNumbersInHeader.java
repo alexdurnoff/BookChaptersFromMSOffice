@@ -1,5 +1,6 @@
 package ru.durnov.docx;
 
+import org.apache.poi.hwpf.usermodel.Paragraph;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
 import java.util.regex.Matcher;
@@ -14,6 +15,10 @@ public class DotNumbersInHeader {
 
     public DotNumbersInHeader(XWPFParagraph xwpfParagraph){
         this.matcher = pattern.matcher(xwpfParagraph.getRuns().get(0).getText(0));
+    }
+
+    public DotNumbersInHeader(Paragraph paragraph){
+        this.matcher = pattern.matcher(paragraph.getCharacterRun(0).text());
     }
 
     /**

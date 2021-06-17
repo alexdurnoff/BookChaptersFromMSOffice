@@ -1,5 +1,7 @@
 package ru.durnov.html.table;
 
+import org.apache.poi.hwpf.usermodel.Table;
+import org.apache.poi.hwpf.usermodel.TableRow;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.jsoup.nodes.Element;
 
@@ -24,6 +26,8 @@ public class HtmlTableStyle implements TableStyle {
         this.tableHeight = new HtmlTableHeight(xwpfTable);
 
     }
+
+
 
     @Override
     public void applyToTableElement(Element element) {

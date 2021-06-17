@@ -1,8 +1,9 @@
-package ru.durnov.chapters;
+package ru.durnov.docx;
 
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import ru.durnov.doc.DocStyleMap;
 import ru.durnov.docx.DocxParagraphLevelComparator;
 import ru.durnov.docx.DocxStyleMap;
 
@@ -11,19 +12,21 @@ import java.util.Comparator;
 /**
  * Class encapsulate current level. Change level by new paragraph and previous paragraph.
  */
-public class Level {
+public class DocxLevel {
     private int value;
     private XWPFParagraph lastHeaderParagraph;
     private final DocxStyleMap docxStyleMap;
     private final Comparator<XWPFParagraph> levelComparator = new DocxParagraphLevelComparator();
 
-    public Level(XWPFDocument xwpfDocument){
+    public DocxLevel(XWPFDocument xwpfDocument){
         this.docxStyleMap = new DocxStyleMap(xwpfDocument);
     }
 
-    public Level(DocxStyleMap docxStyleMap){
+    public DocxLevel(DocxStyleMap docxStyleMap){
         this.docxStyleMap = docxStyleMap;
     }
+
+
 
     public int levelByParagraph(XWPFParagraph newParagraph){
         if (lastHeaderParagraph == null) lastHeaderParagraph = newParagraph;

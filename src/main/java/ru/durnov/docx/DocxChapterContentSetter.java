@@ -1,12 +1,8 @@
 package ru.durnov.docx;
 
 import org.apache.poi.xwpf.usermodel.IBodyElement;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import ru.durnov.chapters.Index;
-import ru.durnov.chapters.Level;
 
 import java.util.List;
 

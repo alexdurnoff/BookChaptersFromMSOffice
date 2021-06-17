@@ -1,13 +1,8 @@
 package ru.durnov.docx;
 
 import org.apache.poi.xwpf.usermodel.*;
-import org.apache.xmlbeans.XmlException;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTStyle;
-import ru.durnov.chapters.Level;
 
-import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * This class encapsulate map <styleId, style>.
