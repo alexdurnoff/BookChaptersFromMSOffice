@@ -17,11 +17,15 @@ public class DocHeaderStyleList {
     public List<String> headerList() {
         int styleNumber = styleSheet.numStyles();
         for (int i = 0; i < styleNumber; i++){
-            String styleName = styleSheet.getStyleDescription(i).getName();
-            if (styleName.contains("Заголовок")
-                    || styleName.contains("Heading")
-                    || styleName.contains("heading")){
-                headerList.add(styleName);
+            try {
+                String styleName = styleSheet.getStyleDescription(i).getName();
+                if (styleName.contains("Заголовок")
+                        || styleName.contains("Heading")
+                        || styleName.contains("heading")){
+                    headerList.add(styleName);
+                }
+            } catch (NullPointerException ignored) {
+
             }
         }
         return this.headerList

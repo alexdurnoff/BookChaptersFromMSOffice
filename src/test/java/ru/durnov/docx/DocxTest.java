@@ -1,6 +1,11 @@
 package ru.durnov.docx;
 
 import org.apache.batik.transcoder.TranscoderException;
+import org.apache.poi.xwpf.converter.IURIResolver;
+import org.apache.poi.xwpf.converter.IXWPFConverter;
+import org.apache.poi.xwpf.converter.internal.xhtml.XHTMLMapper;
+import org.apache.poi.xwpf.converter.xhtml.XHTMLOptions;
+import org.apache.poi.xwpf.converter.xhtml.XWPF2XHTMLConverter;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
@@ -9,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -58,6 +64,17 @@ class DocxTest {
     void testSpanCells() throws IOException, TranscoderException {
         Docx docx = new Docx("Test/Объединение ячеек.docx");
         docx.archive().pathToArchive();
+    }
+
+    @Test
+    void testConverter() throws Exception {
+        XWPFDocument xwpfDocument = new XWPFDocument(Files.newInputStream(Path.of("Test/Объединение ячеек.docx")));
+        IXWPFConverter<XHTMLOptions> converter = XWPF2XHTMLConverter.getInstance();
+        converter.convert(
+                xwpfDocument,
+                Files.newOutputStream(Path.of("Test/convert.html")),
+                new XHTMLOptions()
+        );
     }
 
 
