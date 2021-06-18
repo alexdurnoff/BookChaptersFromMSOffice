@@ -18,6 +18,8 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HWPFDocumentStructureTest {
 
@@ -168,7 +170,6 @@ public class HWPFDocumentStructureTest {
             Paragraph paragraph = section.getParagraph(i);
             int index = stringBuilder.indexOf(paragraph.text(), fromIndex);
             fromIndex = index + 1;
-            System.out.println(index);
         }
     }
 

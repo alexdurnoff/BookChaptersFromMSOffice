@@ -2,6 +2,8 @@ package ru.durnov.chapters;
 
 import org.apache.batik.transcoder.TranscoderException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.zip.ZipOutputStream;
@@ -12,6 +14,8 @@ public interface Archive {
              ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream)){
             this.images().saveImages(zipOutputStream);
             this.chapters().saveChapters(zipOutputStream);
+        } catch (ParserConfigurationException | TransformerException e) {
+            e.printStackTrace();
         }
     }
 

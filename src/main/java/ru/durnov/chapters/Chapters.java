@@ -2,6 +2,8 @@ package ru.durnov.chapters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,7 +14,7 @@ import java.util.zip.ZipOutputStream;
 
 public interface Chapters {
     ChapterExtractor chapterExtractor();
-    default void saveChapters(ZipOutputStream zipOutputStream) throws IOException {
+    default void saveChapters(ZipOutputStream zipOutputStream) throws IOException, ParserConfigurationException, TransformerException {
         List<Chapter> chapterList = this.chapterExtractor().chapterList();
         zipOutputStream.putNextEntry(new ZipEntry("chapters.json"));
         new ObjectMapper().writeValue(zipOutputStream, chapterList);
