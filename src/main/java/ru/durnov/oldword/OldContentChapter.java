@@ -11,6 +11,7 @@ import ru.durnov.doc.DocStyleMap;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 

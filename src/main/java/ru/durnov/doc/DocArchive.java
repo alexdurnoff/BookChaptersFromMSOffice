@@ -26,7 +26,7 @@ public class DocArchive implements Archive {
 
     @Override
     public Images images() {
-        return new DocImages(this.archiveUrl());
+        return new DocImages(this.hwpfDocument);
     }
 
     @Override

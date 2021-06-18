@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.converter.WordToHtmlConverter;
 import org.apache.poi.hwpf.converter.WordToHtmlUtils;
+import org.apache.poi.hwpf.model.PicturesTable;
 import org.apache.poi.hwpf.model.StyleSheet;
 import org.apache.poi.hwpf.usermodel.*;
 import org.jsoup.nodes.Element;
@@ -19,6 +20,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HWPFDocumentStructureTest {
@@ -171,6 +173,23 @@ public class HWPFDocumentStructureTest {
             int index = stringBuilder.indexOf(paragraph.text(), fromIndex);
             fromIndex = index + 1;
         }
+    }
+
+    @Test
+    void testDocumentStructureWithPictures() throws IOException {
+        HWPFDocument hwpfDocument = new HWPFDocument(
+                Files.newInputStream(Path.of("Test/prikaz1 with pictures.doc"))
+        );
+        PicturesTable picturesTable = hwpfDocument.getPicturesTable();
+        List<Picture> allPictures = picturesTable.getAllPictures();
+        allPictures.forEach(picture -> {
+            System.out.println(picture.getMimeType());
+            System.out.println(picture.suggestFullFileName());
+            System.out.println(picture.suggestPictureType());
+            System.out.println(picture.suggestFileExtension());
+            System.out.println(picture.getDescription());
+
+        });
     }
 
 }

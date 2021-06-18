@@ -1,6 +1,7 @@
 package ru.durnov.docx;
 
 import org.apache.batik.transcoder.TranscoderException;
+import org.apache.poi.hwpf.usermodel.Picture;
 import org.apache.poi.xwpf.usermodel.XWPFPictureData;
 import ru.durnov.chapters.Image;
 import ru.durnov.imageconverter.SVGToPNGConverter;
@@ -22,6 +23,11 @@ public class DocxWMFImage implements Image {
     public DocxWMFImage(String fileName) throws IOException {
         this.fileName = fileName;
         this.bytes = Files.readAllBytes(Path.of(fileName));
+    }
+
+    public DocxWMFImage(Picture picture){
+        this.fileName = picture.getDescription() + "." + picture.suggestFileExtension();
+        this.bytes = picture.getContent();
     }
 
     @Override

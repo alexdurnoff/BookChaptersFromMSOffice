@@ -1,18 +1,19 @@
 package ru.durnov.doc;
 
+import org.apache.poi.hwpf.HWPFDocument;
 import ru.durnov.chapters.ImageExtractor;
 import ru.durnov.chapters.Images;
 
 public class DocImages implements Images {
-    private final String url;
+    private final HWPFDocument hwpfDocument;
 
-    public DocImages(String url) {
-        this.url = url;
+    public DocImages(HWPFDocument hwpfDocument) {
+        this.hwpfDocument = hwpfDocument;
     }
 
 
     @Override
     public ImageExtractor imageExtractor() {
-        return new DocImageExtractor(this.url);
+        return new DocImageExtractor(this.hwpfDocument);
     }
 }

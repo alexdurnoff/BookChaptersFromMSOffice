@@ -1,6 +1,7 @@
 package ru.durnov.docx;
 
 import org.apache.batik.transcoder.TranscoderException;
+import org.apache.poi.hwpf.usermodel.Picture;
 import org.apache.poi.xwpf.usermodel.XWPFPictureData;
 import ru.durnov.chapters.Image;
 import ru.durnov.imageconverter.Emf2SVGConverter;
@@ -11,21 +12,28 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class DocxEmfImage implements Image {
-    private final XWPFPictureData xwpfPictureData;
+    private final String name;
+    private final byte[] bytes;
 
     public DocxEmfImage(XWPFPictureData xwpfPictureData) {
-        this.xwpfPictureData = xwpfPictureData;
+        this.name = xwpfPictureData.getFileName();
+        this.bytes = xwpfPictureData.getData();
+    }
+
+    public DocxEmfImage(Picture picture) {
+        this.name = picture.getDescription() + "." + picture.suggestFileExtension();
+        this.bytes = picture.getContent();
     }
 
     @Override
     public String name() {
-        return this.xwpfPictureData.getFileName();
+        return this.name;
     }
 
     @Override
     public byte[] asByteArray() throws IOException, TranscoderException {
         return new SVGToPNGConverter(
-                new Emf2SVGConverter(this.xwpfPictureData).asByteArray()
+                new Emf2SVGConverter(this.bytes).asByteArray()
         ).asByteArray();
     }
 }
