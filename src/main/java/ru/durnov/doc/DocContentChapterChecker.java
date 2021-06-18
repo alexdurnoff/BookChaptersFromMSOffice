@@ -6,11 +6,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DocContentChapterChecker {
-    private final static Pattern pattern = Pattern.compile("^\\s*([0-9])\\s*(.)+$");
+    private final static Pattern pattern = Pattern.compile("^\\s*([0-9])\\s*(.)*");
 
     public boolean isChapter(Paragraph paragraph) {
         if (paragraph.isInTable()) return false;
-        Matcher matcher = pattern.matcher(paragraph.text().split("\n")[0]);
-        return matcher.matches();
+        Matcher matcher = pattern.matcher(paragraph.text());
+        if (matcher.find()){
+            String startString = matcher.group(1);
+            return paragraph.text().startsWith(startString);
+        }
+        return false;
     }
 }
