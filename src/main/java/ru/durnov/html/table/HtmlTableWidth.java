@@ -24,7 +24,6 @@ public class HtmlTableWidth implements TableWidth {
         String value;
         try {
             if (xwpfTableCell.getCTTc().getTcPr().getGridSpan().getVal().intValue() > 1){
-                //value = new SpanTableCellWidth(xwpfTableCell).width();
                 value = "0";
             } else {
                 value = new NonSpanTableCellWidth(xwpfTableCell).width();

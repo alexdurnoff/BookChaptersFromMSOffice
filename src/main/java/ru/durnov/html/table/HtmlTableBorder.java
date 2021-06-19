@@ -16,7 +16,6 @@ public class HtmlTableBorder implements TableBorder {
 
     @Override
     public void applyBorderToElement(Element element) {
-        System.out.println(borderSize);
         if (borderSize != -1) {
             int value = borderSize /8;
             if (value > 1){

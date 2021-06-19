@@ -17,10 +17,9 @@ public class DocxChildElement {
             });
         } else {
             Element child = new DocxSpanElement(xwpfRun).element();
-            new DocxHtmlRunStyle(xwpfRun).applyToRunElement(element);
+            new DocxHtmlRunStyle(xwpfRun).applyToRunElement(child);
             child.appendTo(element);
             if (xwpfRun.text().endsWith("\n")){
-                System.out.println("DETECTED END OF LINE");
                 new Element("br").appendTo(element);
             }
         }

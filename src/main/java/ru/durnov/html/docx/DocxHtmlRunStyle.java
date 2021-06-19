@@ -19,13 +19,12 @@ public class DocxHtmlRunStyle implements RunStyle {
 
     @Override
     public void applyToRunElement(Element element) {
-        XWPFDocument xwpfDocument = xwpfRun.getDocument();
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("font-family:").append(new DocxFontFamily(xwpfRun).value()).append(";");
         stringBuilder.append(' ');
         stringBuilder.append("font-size:").append(new DocxFontSize(xwpfRun).value()).append(";");
         stringBuilder.append(' ');
-        stringBuilder.append("color:").append(new DocxHighLightColor(xwpfRun).value()).append(",");
+        stringBuilder.append("color:").append(new DocxFontColor(xwpfRun).value()).append(";");
         stringBuilder.append("text-decoration:").append(new DocxHtmlUnderLine(xwpfRun).value());
         element.attributes().put(key, stringBuilder.toString());
     }

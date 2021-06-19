@@ -17,6 +17,5 @@ public class DocxParagraphStyle implements ParagraphStyle {
     @Override
     public void applyToParagraphElement(Element element) {
         new WordHtmlParagraphAlign(xwpfParagraph).applyToParagraphElement(element);
-        //new DocxWordHtmlParagraphMargin(xwpfParagraph).applyToParagraphElement(element);
     }
 }

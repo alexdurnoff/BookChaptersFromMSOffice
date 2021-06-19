@@ -111,6 +111,12 @@ class DocxTest {
         Docx4J.toHTML(mlPackage, imageDir, imageTargetUri, outputStream);
     }
 
+    @Test
+    void testPrikaz1WithLinks() throws IOException, TranscoderException {
+        Docx docx = new Docx("Test/prikaz1 with links.docx");
+        System.out.println(docx.archive().pathToArchive());
+    }
+
 
 
 }
