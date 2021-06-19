@@ -14,16 +14,12 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
 
 public class OldContentSetter {
-    private final int start;
-    private final int stop;
     private final HWPFDocument hwpfDocument;
     private final Range range;
 
 
 
     public OldContentSetter(HWPFDocument hwpfDocument, int start, int stop) {
-        this.start = start;
-        this.stop = stop;
         this.hwpfDocument = hwpfDocument;
         this.range = new Range(start, stop, hwpfDocument);
     }
