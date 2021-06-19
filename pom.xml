@@ -21,7 +21,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -104,30 +103,30 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.xmlbeans/xmlbeans -->
 		<!-- https://mvnrepository.com/artifact/org.apache.tika/tika-parsers -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.apache.tika</groupId>
 			<artifactId>tika-parsers</artifactId>
 			<version>1.26</version>
-		</dependency>
+		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/org.jboss.spec.javax.rmi/jboss-rmi-api_1.0_spec -->
 		<!-- https://mvnrepository.com/artifact/org.jboss.spec.javax.rmi/jboss-rmi-api_1.0_spec -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.jboss.spec.javax.rmi</groupId>
 			<artifactId>jboss-rmi-api_1.0_spec</artifactId>
 			<version>1.0.0.Final</version>
-		</dependency>
+		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/org.docx4j/docx4j -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.docx4j</groupId>
 			<artifactId>docx4j</artifactId>
 			<version>6.1.2</version>
-		</dependency>
+		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/org.docx4j/docx4j-ImportXHTML -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.docx4j</groupId>
 			<artifactId>docx4j-ImportXHTML</artifactId>
 			<version>8.2.1</version>
-		</dependency>
+		</dependency>-->
 	</dependencies>
 
 	<build>
