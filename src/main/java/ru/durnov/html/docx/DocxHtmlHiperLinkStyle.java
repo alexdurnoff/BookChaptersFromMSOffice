@@ -1,18 +1,14 @@
 package ru.durnov.html.docx;
 
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
-import org.apache.poi.xwpf.usermodel.XWPFStyle;
 import org.jsoup.nodes.Element;
 import ru.durnov.html.RunStyle;
-import ru.durnov.html.WordHtmlParagraphAlign;
 
-public class DocxHtmlRunStyle implements RunStyle {
+public class DocxHtmlHiperLinkStyle implements RunStyle {
     private final String key = "style";
     private final XWPFRun xwpfRun;
 
-    public DocxHtmlRunStyle(XWPFRun xwpfRun) {
+    public DocxHtmlHiperLinkStyle(XWPFRun xwpfRun) {
         this.xwpfRun = xwpfRun;
     }
 
@@ -24,9 +20,9 @@ public class DocxHtmlRunStyle implements RunStyle {
         stringBuilder.append(' ');
         stringBuilder.append("font-size:").append(new DocxFontSize(xwpfRun).value()).append(";");
         stringBuilder.append(' ');
-        stringBuilder.append("color:").append(new DocxFontColor(xwpfRun).value()).append(";");
+        stringBuilder.append("color").append("navy").append(";");
         stringBuilder.append(' ');
-        stringBuilder.append("text-decoration:").append(new DocxHtmlUnderLine(xwpfRun).value());
+        stringBuilder.append("text-decoration:").append("underline");
         element.attributes().put(key, stringBuilder.toString());
     }
 }

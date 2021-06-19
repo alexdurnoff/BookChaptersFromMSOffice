@@ -17,7 +17,7 @@ public class DocTest {
     }
 
     @Test
-    void testPrikaz1WithList() throws IOException, TranscoderException {
+    void testPrikaz1WithLinks() throws IOException, TranscoderException {
         Doc doc = new Doc("Test/prikaz1 with links.doc");
         System.out.println(doc.archive().pathToArchive());
     }

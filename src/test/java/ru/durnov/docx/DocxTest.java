@@ -117,6 +117,12 @@ class DocxTest {
         System.out.println(docx.archive().pathToArchive());
     }
 
+    @Test
+    void testDefaultMargin() throws IOException {
+        XWPFDocument xwpfDocument = new XWPFDocument(Files.newInputStream(Path.of("Test/prikaz1 with links.docx")));
+        System.out.println(xwpfDocument.getDocument().getBody().getSectPr().getPgMar().getLeft());
+    }
+
 
 
 }

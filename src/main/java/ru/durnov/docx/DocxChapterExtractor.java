@@ -3,6 +3,7 @@ package ru.durnov.docx;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
 import ru.durnov.chapters.Chapter;
 import ru.durnov.chapters.ChapterExtractor;
 import ru.durnov.chapters.Index;
@@ -15,10 +16,13 @@ import java.util.List;
 
 public class DocxChapterExtractor implements ChapterExtractor {
     private final XWPFDocument xwpfDocument;
+    private final CTPageMar ctPageMar;
+
 
 
     public DocxChapterExtractor(XWPFDocument xwpfDocument) {
         this.xwpfDocument = xwpfDocument;
+        this.ctPageMar = xwpfDocument.getDocument().getBody().getSectPr().getPgMar();
     }
 
     @Override
@@ -27,16 +31,15 @@ public class DocxChapterExtractor implements ChapterExtractor {
         List<IBodyElement> bodyElements = xwpfDocument.getBodyElements();
         DocxStyleMap docxStyleMap = new DocxStyleMap(xwpfDocument);
         Index index = new Index();
-        chapterList.add(new DocxStartChapterExtractor(bodyElements, docxStyleMap, index).startChapter());
+        chapterList.add(new DocxStartChapterExtractor(bodyElements, docxStyleMap, index, ctPageMar).startChapter());
         while (index.currentIndex() < bodyElements.size()){
             Chapter chapter = new DocxChapterFactory(
                     index,
                     docxStyleMap,
-                    bodyElements
+                    bodyElements,
+                    ctPageMar
             ).chapter();
             chapterList.add(chapter);
-            //index.incrementIndex();
-            // Все-таки мы не инкрементируем здесь. В DocxContentChapterSetter все заработало через do-while.
         }
         return chapterList;
     }

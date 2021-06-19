@@ -2,6 +2,7 @@ package ru.durnov.docx;
 
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.jsoup.nodes.Document;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
 import ru.durnov.chapters.Index;
 
 import java.util.List;
@@ -11,15 +12,18 @@ public class DocxChapterContentSetter {
     private final String title;
     private final List<IBodyElement> bodyElements;
     private final Index index;
+    private final CTPageMar ctPageMar;
 
     public DocxChapterContentSetter(DocxStyleMap docxStyleMap,
                                     String title,
                                     List<IBodyElement> bodyElements,
-                                    Index index) {
+                                    Index index,
+                                    CTPageMar ctPageMar) {
         this.docxStyleMap = docxStyleMap;
         this.title = title;
         this.bodyElements = bodyElements;
         this.index = index;
+        this.ctPageMar = ctPageMar;
     }
 
     public String content() {
@@ -28,7 +32,7 @@ public class DocxChapterContentSetter {
         IBodyElement bodyElement = bodyElements.get(this.index.currentIndex());
         do {
             document.appendChild(
-                    new DocxElementFactory(bodyElement)
+                    new DocxElementFactory(bodyElement, ctPageMar)
                             .docxContentElement()
                             .element()
             );

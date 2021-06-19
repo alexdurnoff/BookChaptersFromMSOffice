@@ -2,12 +2,15 @@ package ru.durnov.docx;
 
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.jsoup.nodes.Element;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
 
 public class DocxTableCellElement {
     private final XWPFTableCell xwpfTableCell;
 
+
     public DocxTableCellElement(XWPFTableCell xwpfTableCell) {
         this.xwpfTableCell = xwpfTableCell;
+
     }
 
     public Element element() {
