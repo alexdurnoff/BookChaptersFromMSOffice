@@ -41,6 +41,6 @@ public class OldContentSetter {
         transformer.transform(
                 new DOMSource( converter.getDocument() ),
                 new StreamResult( stringWriter ) );
-        return stringWriter.toString();
+        return stringWriter.toString().replace("<a", "<span").replace("</a>", "</span>");
     }
 }

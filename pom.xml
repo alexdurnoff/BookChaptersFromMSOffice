@@ -103,7 +103,31 @@
 			<version>2.4</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.xmlbeans/xmlbeans -->
-
+		<!-- https://mvnrepository.com/artifact/org.apache.tika/tika-parsers -->
+		<dependency>
+			<groupId>org.apache.tika</groupId>
+			<artifactId>tika-parsers</artifactId>
+			<version>1.26</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jboss.spec.javax.rmi/jboss-rmi-api_1.0_spec -->
+		<!-- https://mvnrepository.com/artifact/org.jboss.spec.javax.rmi/jboss-rmi-api_1.0_spec -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.rmi</groupId>
+			<artifactId>jboss-rmi-api_1.0_spec</artifactId>
+			<version>1.0.0.Final</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.docx4j/docx4j -->
+		<dependency>
+			<groupId>org.docx4j</groupId>
+			<artifactId>docx4j</artifactId>
+			<version>6.1.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.docx4j/docx4j-ImportXHTML -->
+		<dependency>
+			<groupId>org.docx4j</groupId>
+			<artifactId>docx4j-ImportXHTML</artifactId>
+			<version>8.2.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -112,6 +136,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<executable>true</executable>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>

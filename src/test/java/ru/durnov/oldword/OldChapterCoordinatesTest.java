@@ -24,7 +24,8 @@ class OldChapterCoordinatesTest {
                 new DocContentChapterChecker()
         );
         assertEquals(0, coordinates.start());
-        assertEquals(1651, coordinates.stop());
+        assertEquals(901, coordinates.stop());
+        System.out.println(hwpfDocument.getText().substring(coordinates.start(), coordinates.stop()));
     }
 
 }

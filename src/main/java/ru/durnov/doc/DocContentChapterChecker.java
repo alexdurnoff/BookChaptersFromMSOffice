@@ -10,6 +10,7 @@ public class DocContentChapterChecker {
 
     public boolean isChapter(Paragraph paragraph) {
         if (paragraph.isInTable()) return false;
+        if (paragraph.isInList()) return false;
         Matcher matcher = pattern.matcher(paragraph.text());
         if (matcher.find()){
             String startString = matcher.group(1);
