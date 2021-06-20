@@ -31,6 +31,7 @@ public class HtmlTableStyle implements TableStyle {
 
     @Override
     public void applyToTableElement(Element element) {
+        element.attributes().put("style", "table-layout: fixed;");
         this.tableAlignment.applyAlignmentToElement(element);
         this.tableWidth.applyWidthToElement(element);
         this.tableBorder.applyBorderToElement(element);

@@ -4,7 +4,7 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.jsoup.nodes.Element;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
 import ru.durnov.html.ParagraphStyle;
-import ru.durnov.html.WordHtmlParagraphAlign;
+import ru.durnov.html.ParagraphStyleParameters;
 
 public class DocxParagraphStyle implements ParagraphStyle {
     private final XWPFParagraph xwpfParagraph;
@@ -23,6 +23,6 @@ public class DocxParagraphStyle implements ParagraphStyle {
 
     @Override
     public void applyToParagraphElement(Element element) {
-        new WordHtmlParagraphAlign(xwpfParagraph).applyToParagraphElement(element);
+        new ParagraphStyleParameters(xwpfParagraph).applyToParagraphElement(element);
     }
 }

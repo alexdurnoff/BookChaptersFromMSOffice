@@ -2,33 +2,39 @@ package ru.durnov.html.docx;
 
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.jsoup.nodes.Element;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
 
 public class HtmlMargin {
-    private final int margin;
+    private final int leftMargin;
+    private final int rightMargin;
 
 
-    public HtmlMargin(XWPFParagraph xwpfParagraph, CTPageMar ctPageMar) {
-        int value = xwpfParagraph.getFirstLineIndent();
-        if (value == -1) {
-            if (ctPageMar != null){
-                value = ctPageMar.getLeft().intValue()/20;
-            }
-        }
-        this.margin = value;
+    public HtmlMargin(int leftMargin, int rightMargin, int topMargin, int bottomMargin) {
+        this.leftMargin = leftMargin;
+        this.rightMargin = rightMargin;
+
     }
 
-    public HtmlMargin(CTPageMar ctPageMar){
-        int value = -1;
-        if (ctPageMar != null){
-            value = ctPageMar.getLeft().intValue()/20;
-        }
-        this.margin = value;
+    public HtmlMargin(XWPFParagraph xwpfParagraph, CTSectPr ctSectPr){
+        this.leftMargin = new LeftMargin(xwpfParagraph, ctSectPr).value();
+        this.rightMargin = new RightMargin(xwpfParagraph, ctSectPr).value();
     }
 
-    public void applyTo(Element div) {
-        if (this.margin != -1) {
-            div.attributes().put("style", "margin:" + this.margin);
-        }
+    public HtmlMargin(CTSectPr ctSectPr) {
+        this.leftMargin = new LeftMargin(ctSectPr).value();
+        this.rightMargin = new RightMargin(ctSectPr).value();
     }
+
+
+    public String marginStyleParameters(){
+        StringBuilder stringBuilder = new StringBuilder();
+        if (this.leftMargin != -1) {
+            stringBuilder.append("margin-left:").append(leftMargin).append(';');
+        }
+        if (this.rightMargin != -1) {
+            stringBuilder.append("margin-right:").append(rightMargin).append(';');
+        }
+        return stringBuilder.toString();
+    }
+
 }

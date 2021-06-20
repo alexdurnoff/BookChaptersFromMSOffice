@@ -1,32 +1,28 @@
 package ru.durnov.docx;
 
-import org.apache.poi.xwpf.usermodel.*;
+import org.apache.poi.xwpf.usermodel.IBodyElement;
+import org.apache.poi.xwpf.usermodel.XWPFHyperlinkRun;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.jsoup.nodes.Element;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
 import ru.durnov.html.docx.DocxChildElement;
 import ru.durnov.html.docx.DocxParagraphStyle;
 import ru.durnov.html.docx.HtmlDivStyle;
 
-public class DocxTextContentElement implements DocxContentElement {
+public class DocxCellContentElement implements DocxContentElement {
     private final XWPFParagraph xwpfParagraph;
-    private final CTSectPr ctSectPr;
 
-    public DocxTextContentElement(IBodyElement bodyElement){
+
+    public DocxCellContentElement(IBodyElement bodyElement){
         if (! (bodyElement instanceof XWPFParagraph)) throw new IllegalArgumentException("BodyElement must be XWPFParagraph");
         this.xwpfParagraph = (XWPFParagraph) bodyElement;
-        this.ctSectPr = null;
+
     }
 
-    public DocxTextContentElement(IBodyElement bodyElement, CTSectPr ctSectPr) {
-        if (! (bodyElement instanceof XWPFParagraph)) throw new IllegalArgumentException("BodyElement must be XWPFParagraph");
-        this.xwpfParagraph = (XWPFParagraph) bodyElement;
-        this.ctSectPr = ctSectPr;
-    }
 
     @Override
     public Element element() {
-        Element div  = new Element("div");
-        new HtmlDivStyle(xwpfParagraph, ctSectPr).applyTo(div);
         Element element = new Element("p");
         new DocxParagraphStyle(xwpfParagraph).applyToParagraphElement(element);
         xwpfParagraph.getIRuns().forEach(iRunElement -> {
@@ -38,7 +34,7 @@ public class DocxTextContentElement implements DocxContentElement {
                 new DocxChildElement(xwpfRun).appendTo(element);
             }
         });
-        element.appendTo(div);
-        return div;
+        element.attributes().remove("style");
+        return element;
     }
 }

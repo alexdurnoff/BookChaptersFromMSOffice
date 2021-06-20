@@ -3,6 +3,7 @@ package ru.durnov.docx;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
 import ru.durnov.chapters.Chapter;
 import ru.durnov.chapters.ChapterFactory;
 import ru.durnov.chapters.Index;
@@ -14,17 +15,17 @@ public class DocxChapterFactory implements ChapterFactory {
     private final Index index;
     private final List<IBodyElement> bodyElements;
     private final DocxStyleMap docxStyleMap;
-    private final CTPageMar ctPageMar;
+    private final CTSectPr ctSectPr;
 
     public DocxChapterFactory(Index index,
                               DocxStyleMap docxStyleMap,
                               List<IBodyElement> bodyElements,
-                              CTPageMar ctPageMar){
+                              CTSectPr ctSectPr){
         this.index = index;
         this.docxStyleMap = docxStyleMap;
         this.docxLevel = new DocxLevel(docxStyleMap);
         this.bodyElements = bodyElements;
-        this.ctPageMar = ctPageMar;
+        this.ctSectPr = ctSectPr;
     }
 
     @Override
@@ -37,7 +38,7 @@ public class DocxChapterFactory implements ChapterFactory {
                         index,
                         bodyElements,
                         docxStyleMap,
-                        ctPageMar
+                        ctSectPr
                 );
             }
             if (new DocxContentChapterChecker().isChapter(xwpfParagraph)) {
@@ -46,7 +47,7 @@ public class DocxChapterFactory implements ChapterFactory {
                         index,
                         bodyElements,
                         docxStyleMap,
-                        ctPageMar
+                        ctSectPr
                 );
             }
             throw new IllegalArgumentException("can't return Chapter because paragraph is not header and not start with number");

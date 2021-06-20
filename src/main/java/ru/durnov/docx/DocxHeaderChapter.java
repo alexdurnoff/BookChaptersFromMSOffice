@@ -2,32 +2,30 @@ package ru.durnov.docx;
 
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
 import ru.durnov.chapters.Chapter;
 import ru.durnov.chapters.Index;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DocxHeaderChapter implements Chapter {
     private final int level;
     private final String title;
     private final String content;
-    private final CTPageMar ctPageMar;
+
 
     public DocxHeaderChapter(int levelValue,
                              Index index,
                              List<IBodyElement> bodyElements,
                              DocxStyleMap docxStyleMap,
-                             CTPageMar ctPageMar) {
-        this.ctPageMar = ctPageMar;
+                             CTSectPr ctSectPr) {
         this.level = levelValue;
         IBodyElement iBodyElement = bodyElements.get(index.currentIndex());
         if (! (iBodyElement instanceof XWPFParagraph)) throw new IllegalArgumentException(
                 "Body element must be XWPFParagraph"
         );
         this.title = ((XWPFParagraph) iBodyElement).getText();
-        this.content = new DocxChapterContentSetter(docxStyleMap, title, bodyElements, index, ctPageMar).content();
+        this.content = new DocxChapterContentSetter(docxStyleMap, title, bodyElements, index, ctSectPr).content();
     }
 
     @Override

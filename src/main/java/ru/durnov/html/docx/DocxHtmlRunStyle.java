@@ -1,12 +1,8 @@
 package ru.durnov.html.docx;
 
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
-import org.apache.poi.xwpf.usermodel.XWPFStyle;
 import org.jsoup.nodes.Element;
 import ru.durnov.html.RunStyle;
-import ru.durnov.html.WordHtmlParagraphAlign;
 
 public class DocxHtmlRunStyle implements RunStyle {
     private final String key = "style";

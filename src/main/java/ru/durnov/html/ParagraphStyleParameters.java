@@ -4,12 +4,14 @@ import org.apache.poi.hwpf.usermodel.Paragraph;
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.jsoup.nodes.Element;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
 
-public class WordHtmlParagraphAlign implements HtmlAlignment{
+public class ParagraphStyleParameters implements HtmlAlignment{
     private final String alignment;
     private final String defaultAlignment = "justify";
+    private final int textIndentation;
 
-    public WordHtmlParagraphAlign(XWPFParagraph xwpfParagraph) {
+    public ParagraphStyleParameters(XWPFParagraph xwpfParagraph) {
         if (xwpfParagraph.getAlignment() == ParagraphAlignment.BOTH){
             this.alignment = "justify";
         } else if (xwpfParagraph.getAlignment() == ParagraphAlignment.LEFT){
@@ -21,25 +23,20 @@ public class WordHtmlParagraphAlign implements HtmlAlignment{
         } else {
             this.alignment = defaultAlignment;
         }
+        if (xwpfParagraph.getFirstLineIndent() != -1) {
+            this.textIndentation = xwpfParagraph.getFirstLineIndent()/20;
+        } else {
+            this.textIndentation = 40;
+        }
+
     }
 
-    public WordHtmlParagraphAlign(Paragraph paragraph){
-        if (paragraph.getJustification() == 3) {
-            this.alignment = "justify";
-        } else if (paragraph.getJustification() == 1) {
-            this.alignment = "center";
-        } else if (paragraph.getJustification() == 2){
-            this.alignment = "right";
-        } else if (paragraph.getJustification() == 0){
-            this.alignment = "left";
-        } else {
-            this.alignment = defaultAlignment;
-        }
-    }
+
 
     @Override
     public void applyToParagraphElement(Element element) {
         element.attributes().put("align", alignment);
+        if (this.textIndentation != -1) element.attributes().put("style", "text-indent:" + this.textIndentation);
     }
 
     public String value() {
