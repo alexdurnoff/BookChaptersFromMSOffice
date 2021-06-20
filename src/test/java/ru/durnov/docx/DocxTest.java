@@ -15,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class DocxTest {
 
     @Test
-    void test1() throws IOException, TranscoderException {
+    void test1() throws Exception {
         Docx docx = new Docx("Test/prikaz1.docx");
         String archiveUrl = docx.archive().pathToArchive();
     }
 
     @Test
-    void testDocxDocumentWithOnePictures() throws IOException, TranscoderException {
+    void testDocxDocumentWithOnePictures() throws Exception {
         Docx docx = new Docx("Test/приказ с картинками.docx");
         docx.archive().pathToArchive();
     }
@@ -51,14 +51,14 @@ class DocxTest {
     }
 
     @Test
-    void testSpanCells() throws IOException, TranscoderException {
+    void testSpanCells() throws Exception {
         Docx docx = new Docx("Test/Объединение ячеек.docx");
         docx.archive().pathToArchive();
     }
 
 
     @Test
-    void testPrikaz1WithLinks() throws IOException, TranscoderException {
+    void testPrikaz1WithLinks() throws Exception {
         Docx docx = new Docx("Test/prikaz1 with links.docx");
         System.out.println(docx.archive().pathToArchive());
     }

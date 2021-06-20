@@ -11,13 +11,13 @@ import java.nio.file.Path;
 public class DocTest {
 
     @Test
-    void test1() throws IOException, TranscoderException {
+    void test1() throws Exception {
         Doc doc = new Doc("Test/prikaz1.doc");
         System.out.println(doc.archive().pathToArchive());
     }
 
     @Test
-    void testPrikaz1WithLinks() throws IOException, TranscoderException {
+    void testPrikaz1WithLinks() throws Exception {
         Doc doc = new Doc("Test/prikaz1 with links.doc");
         System.out.println(doc.archive().pathToArchive());
     }

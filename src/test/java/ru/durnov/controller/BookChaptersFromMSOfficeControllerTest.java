@@ -26,10 +26,6 @@ class BookChaptersFromMSOfficeControllerTest {
     @Autowired
     MockMvc mockMvc;
 
-    @Test
-    public void testController() throws Exception {
-        String content = new ObjectMapper().writeValueAsString(new Request("/home/alexej/1.docx"));
-        mockMvc.perform(post("/").content(content)).andExpect(status().isCreated());
-    }
+
 
 }

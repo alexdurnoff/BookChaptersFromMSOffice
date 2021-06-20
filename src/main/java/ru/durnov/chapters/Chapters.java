@@ -19,13 +19,11 @@ public interface Chapters {
         zipOutputStream.putNextEntry(new ZipEntry("chapters.json"));
         new ObjectMapper().writeValue(zipOutputStream, chapterList);
         //Дебажим чтобы посмотреть.
-        for (int i = 0; i <chapterList.size(); i++){
-            /*System.out.println("content chapter № " + i + "-" + chapterList.get(i).content());
-            System.out.println("title chapter № " + i + "-" + chapterList.get(i).title());*/
+        /*for (int i = 0; i <chapterList.size(); i++){
             Path path = Path.of("Test/viewHtml/" + (i+1) + ".html");
             BufferedWriter bufferedWriter = Files.newBufferedWriter(path);
             bufferedWriter.write(chapterList.get(i).content());
             bufferedWriter.flush();
-        }
+        }*/
     }
 }

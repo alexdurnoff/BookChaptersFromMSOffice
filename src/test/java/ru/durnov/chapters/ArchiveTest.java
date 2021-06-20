@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ArchiveTest {
 
     @Test
-    void testCompressFile() throws IOException, TranscoderException {
+    void testCompressFile() throws Exception {
         Archive archive = new Archive() {
             @Override
             public String archiveUrl() {

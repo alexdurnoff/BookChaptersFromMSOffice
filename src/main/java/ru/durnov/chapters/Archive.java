@@ -9,13 +9,17 @@ import java.io.IOException;
 import java.util.zip.ZipOutputStream;
 
 public interface Archive {
-    default void compressFiles() throws IOException, TranscoderException {
+    default void compressFiles() throws Exception {
         try (FileOutputStream fileOutputStream = new FileOutputStream(this.archiveUrl());
              ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream)){
             this.images().saveImages(zipOutputStream);
             this.chapters().saveChapters(zipOutputStream);
-        } catch (ParserConfigurationException | TransformerException e) {
+        } catch (ParserConfigurationException e) {
             e.printStackTrace();
+            throw new IllegalStateException("ParseConfiguration exception " + e.getMessage());
+        } catch (TransformerException e) {
+            e.printStackTrace();
+            throw  new IllegalStateException("Transformer exception " + e.getMessage());
         }
     }
 
@@ -32,7 +36,7 @@ public interface Archive {
     /**
      * @return String path to created archive;
      */
-    default String pathToArchive() throws IOException, TranscoderException {
+    default String pathToArchive() throws Exception {
         compressFiles();
         return archiveUrl();
     }
