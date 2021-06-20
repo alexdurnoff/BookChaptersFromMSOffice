@@ -14,14 +14,14 @@ public class DocArchive implements Archive {
     private final String documentUrl;
     private final HWPFDocument hwpfDocument;
 
-    public DocArchive(String url) throws IOException {
-        this.documentUrl = url;
-        this.hwpfDocument = new HWPFDocument(Files.newInputStream(Path.of(url)));
+    public DocArchive(String documentUrl) throws IOException {
+        this.documentUrl = Path.of(documentUrl).getFileName().toString();
+        this.hwpfDocument = new HWPFDocument(Files.newInputStream(Path.of(documentUrl)));
     }
     
     @Override
     public String archiveUrl() {
-        return this.documentUrl.replace(".doc", ".zip");
+        return "/tmp/" + this.documentUrl.replace(".doc", ".zip");
     }
 
     @Override

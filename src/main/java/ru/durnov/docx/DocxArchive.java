@@ -14,13 +14,13 @@ public class DocxArchive implements Archive {
     private final XWPFDocument xwpfDocument;
 
     public DocxArchive(String documentUrl) throws IOException {
-        this.documentUrl = documentUrl;
+        this.documentUrl = Path.of(documentUrl).getFileName().toString();
         this.xwpfDocument = new XWPFDocument(Files.newInputStream(Path.of(documentUrl)));
     }
     
     @Override
     public String archiveUrl() {
-        return this.documentUrl.replace(".docx", ".zip");
+        return "/tmp/" + this.documentUrl.replace(".docx", ".zip");
     }
 
     @Override
