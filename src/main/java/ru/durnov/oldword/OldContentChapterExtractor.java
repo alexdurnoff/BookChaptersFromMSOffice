@@ -5,6 +5,7 @@ import org.apache.poi.hwpf.usermodel.Paragraph;
 import ru.durnov.chapters.Chapter;
 import ru.durnov.chapters.ChapterExtractor;
 import ru.durnov.chapters.Index;
+import ru.durnov.doc.DocLevel;
 import ru.durnov.doc.DocStyleMap;
 import ru.durnov.doc.ParagraphList;
 
@@ -18,6 +19,7 @@ public class OldContentChapterExtractor implements ChapterExtractor {
     private final HWPFDocument hwpfDocument;
     private final List<Chapter> chapterList = new ArrayList<>();
     private final DocStyleMap docStyleMap;
+    private final DocLevel docLevel;
     private final List<Paragraph> paragraphList;
     private final Index index = new Index();
 
@@ -25,6 +27,7 @@ public class OldContentChapterExtractor implements ChapterExtractor {
         this.hwpfDocument = hwpfDocument;
         this.paragraphList = new ParagraphList(hwpfDocument).list();
         this.docStyleMap = new DocStyleMap(hwpfDocument);
+        this.docLevel = new DocLevel(this.docStyleMap);
     }
 
     @Override
@@ -41,9 +44,10 @@ public class OldContentChapterExtractor implements ChapterExtractor {
         while (index.currentIndex() < numParagraphs){
             Chapter chapter = new OldChapterFactory(
                     index,
-                    docStyleMap,
+                    docLevel,
                     hwpfDocument,
-                    this.paragraphList
+                    paragraphList,
+                    docStyleMap
             ).chapter();
             chapterList.add(chapter);
         }

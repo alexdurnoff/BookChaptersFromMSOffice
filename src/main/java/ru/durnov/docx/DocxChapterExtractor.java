@@ -22,6 +22,7 @@ public class DocxChapterExtractor implements ChapterExtractor {
 
 
 
+
     public DocxChapterExtractor(XWPFDocument xwpfDocument) {
         this.xwpfDocument = xwpfDocument;
         this.ctSectPr = xwpfDocument.getDocument().getBody().getSectPr();
@@ -32,13 +33,15 @@ public class DocxChapterExtractor implements ChapterExtractor {
         List<Chapter> chapterList = new ArrayList<>();
         List<IBodyElement> bodyElements = xwpfDocument.getBodyElements();
         DocxStyleMap docxStyleMap = new DocxStyleMap(xwpfDocument);
+        DocxLevel docxLevel = new DocxLevel(docxStyleMap);
         Index index = new Index();
         chapterList.add(new DocxStartChapterExtractor(bodyElements, docxStyleMap, index, ctSectPr).startChapter());
         while (index.currentIndex() < bodyElements.size()){
             Chapter chapter = new DocxChapterFactory(
+                   docxLevel,
                     index,
-                    docxStyleMap,
                     bodyElements,
+                    docxStyleMap,
                     ctSectPr
             ).chapter();
             chapterList.add(chapter);

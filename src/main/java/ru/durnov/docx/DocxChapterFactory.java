@@ -17,14 +17,16 @@ public class DocxChapterFactory implements ChapterFactory {
     private final DocxStyleMap docxStyleMap;
     private final CTSectPr ctSectPr;
 
-    public DocxChapterFactory(Index index,
-                              DocxStyleMap docxStyleMap,
+
+    public DocxChapterFactory(DocxLevel docxLevel,
+                              Index index,
                               List<IBodyElement> bodyElements,
-                              CTSectPr ctSectPr){
+                              DocxStyleMap docxStyleMap,
+                              CTSectPr ctSectPr) {
+        this.docxLevel = docxLevel;
         this.index = index;
-        this.docxStyleMap = docxStyleMap;
-        this.docxLevel = new DocxLevel(docxStyleMap);
         this.bodyElements = bodyElements;
+        this.docxStyleMap = docxStyleMap;
         this.ctSectPr = ctSectPr;
     }
 

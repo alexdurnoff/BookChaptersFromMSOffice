@@ -2,9 +2,11 @@ package ru.durnov.doc;
 
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.junit.jupiter.api.Test;
 import ru.durnov.debug.DebugWriter;
 import ru.durnov.docx.Docx;
+import ru.durnov.docx.DocxStyleMap;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -30,4 +32,17 @@ public class DocTest {
         });
     }
 
+    @Test
+    void testGost() throws Exception {
+        Doc doc = new Doc("Test/_ГОСТ 6134-2007.doc");
+        String archiveUrl = doc.archive().pathToArchive();
+        new DebugWriter(archiveUrl, ".doc").writeContentToHtml();
+    }
+
+    @Test
+    void testPrikaz1() throws Exception {
+        Doc doc = new Doc("Test/prikaz1.doc");
+        String archiveUrl = doc.archive().pathToArchive();
+        new DebugWriter(archiveUrl, ".doc").writeContentToHtml();
+    }
 }

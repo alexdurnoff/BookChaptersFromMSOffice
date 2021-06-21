@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DocxTest {
 
-    //@Test
+    @Test
     void test1() throws Exception {
         Docx docx = new Docx("Test/prikaz1.docx");
         String archiveUrl = docx.archive().pathToArchive();
@@ -90,32 +90,4 @@ class DocxTest {
 
         });
     }
-
-    @Test
-    void testDocxFileCreatedByLibreoffice() throws IOException {
-        XWPFDocument xwpfDocument = new XWPFDocument(Files.newInputStream(
-                Path.of("Test/prikaz1 with links libreoffice.docx"))
-        );
-        DocxStyleMap docxStyleMap = new DocxStyleMap(xwpfDocument);
-        DocxLevel docxLevel = new DocxLevel(docxStyleMap);
-        DocxContentChapterChecker checker = new DocxContentChapterChecker();
-        xwpfDocument.getParagraphs().forEach(xwpfParagraph -> {
-            if (docxStyleMap.paragraphIsHeader(xwpfParagraph)){
-                System.out.println("Header is: " + xwpfParagraph.getText());
-            } else {
-                if (checker.isChapter(xwpfParagraph)){
-                    System.out.println("Detected non header start paragraph " + xwpfParagraph.getText());
-                }
-            }
-            try {
-                int level = docxLevel.levelByParagraph(xwpfParagraph);
-                System.out.println("current level is " + level);
-            } catch (Exception ignored) {
-
-            }
-        });
-    }
-
-
-
 }

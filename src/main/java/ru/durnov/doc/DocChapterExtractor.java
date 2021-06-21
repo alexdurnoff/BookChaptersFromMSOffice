@@ -18,11 +18,13 @@ public class DocChapterExtractor implements ChapterExtractor {
     private final DocStartChapterExtractor startExtractor;
     private final List<Chapter> chapterList = new ArrayList<>();
     private final DocStyleMap docStyleMap;
+    private final DocLevel docLevel;
     private final List<ParagraphWithSection> paragraphWithSectionList;
 
 
     public DocChapterExtractor(HWPFDocument hwpfDocument) {
         this.docStyleMap = new DocStyleMap(hwpfDocument);
+        this.docLevel  = new DocLevel(docStyleMap);
         this.paragraphWithSectionList = new ParagraphsWithSections(hwpfDocument).list();
         this.startExtractor = new DocStartChapterExtractor(
                 this.paragraphWithSectionList,
@@ -36,6 +38,7 @@ public class DocChapterExtractor implements ChapterExtractor {
         chapterList.add(startExtractor.startChapter());
         while (index.currentIndex() < paragraphWithSectionList.size()){
             Chapter chapter = new DocChapterFactory(
+                    this.docLevel,
                     this.index,
                     this.docStyleMap,
                     this.paragraphWithSectionList

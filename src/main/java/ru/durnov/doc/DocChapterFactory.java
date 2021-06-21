@@ -14,12 +14,13 @@ public class DocChapterFactory implements ChapterFactory {
     private final List<ParagraphWithSection> paragraphWithSectionList;
     private final DocLevel docLevel;
 
-    public DocChapterFactory(Index index,
+    public DocChapterFactory(DocLevel docLevel,
+                             Index index,
                              DocStyleMap docStyleMap,
                              List<ParagraphWithSection> paragraphWithSectionList) {
+        this.docLevel = docLevel;
         this.index = index;
         this.docStyleMap = docStyleMap;
-        this.docLevel = new DocLevel(this.docStyleMap);
         this.paragraphWithSectionList = paragraphWithSectionList;
     }
 

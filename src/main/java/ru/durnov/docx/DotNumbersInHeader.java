@@ -13,6 +13,7 @@ public class DotNumbersInHeader {
     private final Matcher matcher;
     private final static Pattern pattern = Pattern.compile("^(\\s?[0-9]+\\s?\\.?)+");
 
+
     public DotNumbersInHeader(XWPFParagraph xwpfParagraph){
         this.matcher = pattern.matcher(xwpfParagraph.getRuns().get(0).getText(0));
     }

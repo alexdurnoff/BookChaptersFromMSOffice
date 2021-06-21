@@ -3,9 +3,6 @@ package ru.durnov.docx;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import ru.durnov.doc.DocStyleMap;
-import ru.durnov.docx.DocxParagraphLevelComparator;
-import ru.durnov.docx.DocxStyleMap;
 
 import java.util.Comparator;
 
@@ -14,7 +11,8 @@ import java.util.Comparator;
  */
 public class DocxLevel {
     private int value;
-    private XWPFParagraph lastHeaderParagraph;
+    private boolean lastParagraphWasHeader;
+    private XWPFParagraph lastParagraph;
     private final DocxStyleMap docxStyleMap;
     private final Comparator<XWPFParagraph> levelComparator = new DocxParagraphLevelComparator();
 
@@ -29,19 +27,22 @@ public class DocxLevel {
 
 
     public int levelByParagraph(XWPFParagraph newParagraph){
-        if (lastHeaderParagraph == null) lastHeaderParagraph = newParagraph;
+        if (lastParagraph == null) lastParagraph = newParagraph;
         if (this.docxStyleMap.paragraphIsHeader(newParagraph)){
-            lastHeaderParagraph = newParagraph;
+            lastParagraph = newParagraph;
+            lastParagraphWasHeader = true;
             value = this.docxStyleMap.levelByParagraph(newParagraph);
             return value;
         }
-        if (this.docxStyleMap.paragraphIsHeader(lastHeaderParagraph)){
-            lastHeaderParagraph = newParagraph;
+        if (lastParagraphWasHeader){
+            lastParagraph = newParagraph;
+            lastParagraphWasHeader = false;
             return ++value;
         }
-        int compareResult = levelComparator.compare(lastHeaderParagraph, newParagraph);
+        lastParagraphWasHeader = false;
+        int compareResult = levelComparator.compare(lastParagraph, newParagraph);
         value -= compareResult;
-        lastHeaderParagraph = newParagraph;
+        lastParagraph = newParagraph;
         return value;
     }
 

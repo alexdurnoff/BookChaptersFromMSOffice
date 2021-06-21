@@ -7,7 +7,8 @@ import java.util.Comparator;
 
 public class DocLevel {
     private int value;
-    private Paragraph lastHeaderParagraph;
+    private boolean lastParagraphWasHeader;
+    private Paragraph lastParagraph;
     private final DocStyleMap docStyleMap;
     private final Comparator<Paragraph> levelComparator = new DocParagraphLevelComparator();
 
@@ -15,24 +16,23 @@ public class DocLevel {
         this.docStyleMap = docStyleMap;
     }
 
-    public DocLevel(HWPFDocument hwpfDocument){
-        this.docStyleMap = new DocStyleMap(hwpfDocument);
-    }
-
     public int levelByParagraph(Paragraph newParagraph){
-        if (lastHeaderParagraph == null) lastHeaderParagraph = newParagraph;
+        if (lastParagraph == null) lastParagraph = newParagraph;
         if (docStyleMap.paragraphIsHeader(newParagraph)){
-            lastHeaderParagraph = newParagraph;
+            lastParagraph = newParagraph;
+            lastParagraphWasHeader = true;
             value = this.docStyleMap.levelByParagraph(newParagraph);
             return value;
         }
-        if (this.docStyleMap.paragraphIsHeader(lastHeaderParagraph)){
-            lastHeaderParagraph = newParagraph;
+        if (lastParagraphWasHeader){
+            lastParagraph = newParagraph;
+            lastParagraphWasHeader = false;
             return ++value;
         }
-        int compareResult = levelComparator.compare(lastHeaderParagraph, newParagraph);
+        lastParagraphWasHeader = false;
+        int compareResult = levelComparator.compare(lastParagraph, newParagraph);
         value -= compareResult;
-        lastHeaderParagraph = newParagraph;
+        lastParagraph = newParagraph;
         return value;
     }
 }
