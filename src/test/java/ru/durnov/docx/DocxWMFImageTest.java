@@ -15,7 +15,7 @@ class DocxWMFImageTest {
     void testConvertImage() throws IOException, TranscoderException {
         Path tmpPath = Path.of("image3.wmf");
         Path outputPath = Path.of("Test/image3.png");
-        Files.copy(Path.of("Test/image3.wmf"), tmpPath);
+        if (Files.notExists(tmpPath)) Files.copy(Path.of("Test/image3.wmf"), tmpPath);
         DocxWMFImage docxWMFImage = new DocxWMFImage("image3.wmf");
         byte[] bytes = docxWMFImage.asByteArray();
         Files.write(outputPath, bytes);

@@ -187,8 +187,6 @@ public class HWPFDocumentStructureTest {
             System.out.println(picture.suggestFullFileName());
             System.out.println(picture.suggestPictureType());
             System.out.println(picture.suggestFileExtension());
-            System.out.println(picture.getDescription());
-
         });
     }
 
