@@ -28,7 +28,7 @@ public class DocxHeaderStyleList {
             styles.getStyleList().forEach(style -> {
                 if (style.getName() != null) {
                     String styleName = style.getName().getVal();
-                    if (styleName.contains("heading") || styleName.contains("Заголовок")){
+                    if (styleName.contains("Heading") || styleName.contains("heading") || styleName.contains("Заголовок")){
                         headerList.add(xwpfStyles.getStyle(style.getStyleId()));
                     }
                 }

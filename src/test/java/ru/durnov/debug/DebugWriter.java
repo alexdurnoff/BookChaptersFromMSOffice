@@ -24,6 +24,8 @@ public class DebugWriter {
 
     public void writeContentToHtml() throws IOException {
         if (Files.notExists(outputDirectory)) Files.createDirectory(outputDirectory);
-        new JsonChapters(json).writeChaptersToHtml(outputDirectory);
+        JsonChapters jsonChapters = new JsonChapters(json);
+        jsonChapters.writeChaptersToHtml(outputDirectory);
+        jsonChapters.writeLevelMap(outputDirectory);
     }
 }

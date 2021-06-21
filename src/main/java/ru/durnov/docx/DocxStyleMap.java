@@ -8,12 +8,14 @@ import java.util.*;
  * This class encapsulate map <styleId, style>.
  */
 public class DocxStyleMap {
-    private final Map<Integer, String> styleMap = new HashMap<>();
+    private final Map<String, Integer> styleMap = new HashMap<>();
 
     public DocxStyleMap(XWPFDocument xwpfDocument) {
         List<XWPFStyle> headerStyleList = new DocxHeaderStyleList(xwpfDocument).headerList();
-        for (int i = 0; i < headerStyleList.size(); i++){
-            this.styleMap.put(i + 1,headerStyleList.get(i).getStyleId());
+        for (XWPFStyle xwpfStyle : headerStyleList) {
+            String styleName = xwpfStyle.getName();
+            int level = new HeaderStyleLevel(styleName).level();
+            this.styleMap.put(xwpfStyle.getStyleId(), level);
         }
     }
 
@@ -24,15 +26,19 @@ public class DocxStyleMap {
     public boolean paragraphIsHeader(IBodyElement bodyElement) {
         if (! (bodyElement instanceof  XWPFParagraph)) return false;
         XWPFParagraph xwpfParagraph = (XWPFParagraph) bodyElement;
-        return this.styleMap.containsValue(xwpfParagraph.getStyle());
+        return this.styleMap.containsKey(xwpfParagraph.getStyle());
     }
 
     public Integer levelByParagraph(XWPFParagraph xwpfParagraph) {
         String styleName = xwpfParagraph.getStyle();
-        Set<Map.Entry<Integer, String>> entries = this.styleMap.entrySet();
-        for (Map.Entry<Integer, String> entry : entries) {
-            if (entry.getValue().equals(styleName)) return entry.getKey();
-        }
+        if (this.styleMap.containsKey(styleName)) return this.styleMap.get(styleName);
         throw new IllegalArgumentException("cant't return level cause map doesn't content paragraph style");
+    }
+
+    @Override
+    public String toString() {
+        return "DocxStyleMap{" +
+                "styleMap=" + styleMap +
+                '}';
     }
 }

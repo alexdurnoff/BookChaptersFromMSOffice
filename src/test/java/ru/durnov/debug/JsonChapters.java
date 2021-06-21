@@ -3,7 +3,9 @@ package ru.durnov.debug;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,5 +28,22 @@ public class JsonChapters {
             JsonChapter jsonChapter = chapters.get(i);
             jsonChapter.writeContentToHtml(outputDirectory, i);
         }
+    }
+
+    public void writeLevelMap(Path outputDirectory) throws IOException {
+        BufferedWriter bufferedWriter = Files.newBufferedWriter(
+                Path.of(outputDirectory.toString() + "/" + "map")
+        );
+        this.chapters.forEach(jsonChapter -> {
+            try {
+                bufferedWriter.write(jsonChapter.getTitle()
+                        + ":" + jsonChapter.getLevel()
+                        + ":" + jsonChapter.isInline());
+                bufferedWriter.newLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        bufferedWriter.flush();
     }
 }
