@@ -15,7 +15,7 @@ public class DocImage implements Image {
 
     @Override
     public String name() {
-        return this.picture.getDescription();
+        return this.picture.suggestFullFileName();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package ru.durnov.docx;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFStyle;
 import org.apache.poi.xwpf.usermodel.XWPFStyles;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class DocxHeaderStyleList {
     private final XWPFDocument xwpfDocument;
 
@@ -24,12 +26,16 @@ public class DocxHeaderStyleList {
         try {
             CTStyles styles = xwpfDocument.getStyle();
             styles.getStyleList().forEach(style -> {
-                if (style.getName().getVal().contains("heading")){
-                    headerList.add(xwpfStyles.getStyle(style.getStyleId()));
+                if (style.getName() != null) {
+                    String styleName = style.getName().getVal();
+                    if (styleName.contains("heading") || styleName.contains("Заголовок")){
+                        headerList.add(xwpfStyles.getStyle(style.getStyleId()));
+                    }
                 }
             });
-        } catch (XmlException | IOException e) {
+        } catch (XmlException | IOException | NullPointerException e) {
             e.printStackTrace();
+            log.error(e.getMessage());
         }
         return headerList
                 .stream()

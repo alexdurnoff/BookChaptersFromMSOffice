@@ -3,6 +3,7 @@ package ru.durnov.docx;
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.poi.xwpf.usermodel.*;
 import org.junit.jupiter.api.Test;
+import ru.durnov.debug.DebugWriter;
 
 
 import java.io.*;
@@ -14,25 +15,26 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DocxTest {
 
-    @Test
+    //@Test
     void test1() throws Exception {
         Docx docx = new Docx("Test/prikaz1.docx");
         String archiveUrl = docx.archive().pathToArchive();
+        new DebugWriter(archiveUrl, ".docx").writeContentToHtml();
     }
 
-    @Test
+    //@Test
     void testDocxDocumentWithOnePictures() throws Exception {
         Docx docx = new Docx("Test/приказ с картинками.docx");
-        docx.archive().pathToArchive();
+        new DebugWriter(docx.archive().pathToArchive(), ".docx").writeContentToHtml();
     }
 
-    @Test
+    //@Test
     void testThatXWPFDocumentIsValid() throws IOException {
         XWPFDocument xwpfDocument = new XWPFDocument(Files.newInputStream(Path.of("Test/prikaz1.docx")));
         System.out.println(xwpfDocument.getParagraphs());
     }
 
-    @Test
+    //@Test
     void testRowSpan1Structure() throws IOException {
         XWPFDocument xwpfDocument = new XWPFDocument(Files.newInputStream(Path.of("Test/Объединение ячеек.docx")));
         XWPFTable xwpfTable = xwpfDocument.getTables().get(0);
@@ -50,23 +52,42 @@ class DocxTest {
         }
     }
 
-    @Test
+    //@Test
     void testSpanCells() throws Exception {
         Docx docx = new Docx("Test/Объединение ячеек.docx");
-        docx.archive().pathToArchive();
+        new DebugWriter(docx.archive().pathToArchive(), ".docx").writeContentToHtml();
     }
 
 
-    @Test
+    //@Test
     void testPrikaz1WithLinks() throws Exception {
         Docx docx = new Docx("Test/prikaz1 with links.docx");
-        System.out.println(docx.archive().pathToArchive());
+        new DebugWriter(docx.archive().pathToArchive(), ".docx").writeContentToHtml();
     }
 
-    @Test
+    //@Test
     void testDefaultMargin() throws IOException {
         XWPFDocument xwpfDocument = new XWPFDocument(Files.newInputStream(Path.of("Test/prikaz1 with links.docx")));
         System.out.println(xwpfDocument.getDocument().getBody().getSectPr().getPgMar().getLeft());
+    }
+
+    @Test
+    void testAllDocxFiles() throws IOException {
+        Files.newDirectoryStream(Path.of("Test/")).forEach(path -> {
+            String fileName = path.getFileName().toString();
+            if (fileName.endsWith(".docx")){
+                try {
+                    new DebugWriter(
+                            new Docx(path.toString())
+                            .archive().pathToArchive(),
+                            ".docx"
+                    ).writeContentToHtml();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        });
     }
 
 
