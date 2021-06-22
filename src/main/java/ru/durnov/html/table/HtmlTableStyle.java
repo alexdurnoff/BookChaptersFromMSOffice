@@ -1,5 +1,6 @@
 package ru.durnov.html.table;
 
+import org.apache.poi.hwpf.usermodel.Paragraph;
 import org.apache.poi.hwpf.usermodel.Table;
 import org.apache.poi.hwpf.usermodel.TableRow;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
@@ -24,8 +25,18 @@ public class HtmlTableStyle implements TableStyle {
         this.cellPadding = new HtmlCellPadding(xwpfTable.getCellMarginLeft()/20);
         this.cellSpacing = new HtmlCellSpacing(xwpfTable.getCellMarginLeft()/20);
         this.tableHeight = new HtmlTableHeight(xwpfTable);
-
     }
+
+    public HtmlTableStyle(Paragraph paragraph, Table table){
+        this.tableAlignment = new HtmlTableAlignment(paragraph);
+        this.tableWidth = new HtmlTableWidth(table);
+        this.tableBorder = new HtmlTableBorder(table);
+        this.tableBorderColor = new HtmlTableBorderColor(table);
+        this.cellPadding = new HtmlCellPadding(table);
+        this.cellSpacing = new HtmlCellSpacing(table);
+        this.tableHeight = new HtmlTableHeight(table);
+    }
+
 
 
 

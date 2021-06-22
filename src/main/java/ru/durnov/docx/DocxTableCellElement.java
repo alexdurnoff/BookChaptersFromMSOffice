@@ -20,7 +20,7 @@ public class DocxTableCellElement {
         Element cellElement = new Element("td");
         new TableCellStyle(xwpfTableCell).applyToTableCellElement(cellElement);
         xwpfTableCell.getBodyElements().forEach(bodyElement -> {
-            Element element = new DocxCellElementFactory(bodyElement)
+            new DocxCellElementFactory(bodyElement)
                     .docxContentElement()
                     .element()
                     .appendTo(cellElement);

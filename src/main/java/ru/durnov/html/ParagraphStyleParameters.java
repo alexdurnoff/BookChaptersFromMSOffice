@@ -5,6 +5,7 @@ import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.jsoup.nodes.Element;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
+import ru.durnov.doc.ParagraphWithSection;
 
 public class ParagraphStyleParameters implements HtmlAlignment{
     private final String alignment;
@@ -29,6 +30,26 @@ public class ParagraphStyleParameters implements HtmlAlignment{
             this.textIndentation = 40;
         }
 
+    }
+
+    public ParagraphStyleParameters(ParagraphWithSection paragraphWithSection){
+        int align = paragraphWithSection.paragraph().getFontAlignment();
+        if (align == 3) {
+            this.alignment = "justify";
+        } else if (align == 0) {
+            this.alignment = "left";
+        } else if (align == 2) {
+            this.alignment = "right";
+        } else if (align == 1) {
+            this.alignment = "center";
+        } else {
+            this.alignment = defaultAlignment;
+        }
+        if (paragraphWithSection.paragraph().getFirstLineIndent() != -1){
+            this.textIndentation = paragraphWithSection.paragraph().getFirstLineIndent()/20;
+        } else {
+            this.textIndentation = 40;
+        }
     }
 
 

@@ -1,5 +1,8 @@
 package ru.durnov.docx;
 
+import org.apache.poi.hwpf.usermodel.Table;
+import org.apache.poi.hwpf.usermodel.TableCell;
+import org.apache.poi.hwpf.usermodel.TableRow;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.jsoup.nodes.Element;
 import ru.durnov.html.CellStyle;
@@ -35,6 +38,15 @@ public class TableCellStyle implements CellStyle {
         this.tableWidth = new HtmlTableWidth(xwpfTableCell);
         this.colSpan = new HtmlColSpan(xwpfTableCell);
         this.rowSpan = new HtmlRowSpan(xwpfTableCell);
+    }
+
+    public TableCellStyle(TableCell cell, TableRow tableRow, Table table) {
+        this.backGroundColor = new HtmlBackGroundColor("auto");
+        this.tableVerticalAlignment = new HtmlTableVerticalAlignment(cell.getVertAlign());
+        this.tableHeight = new HtmlTableHeight(-1);
+        this.tableWidth = new HtmlTableWidth(cell.getWidth());
+        this.colSpan = new HtmlColSpan(cell, tableRow, table);
+        this.rowSpan = new HtmlRowSpan(1);
     }
 
     @Override

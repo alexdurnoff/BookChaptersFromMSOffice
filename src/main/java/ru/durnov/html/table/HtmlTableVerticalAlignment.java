@@ -18,6 +18,17 @@ public class HtmlTableVerticalAlignment implements TableVerticalAlignment {
         }
     }
 
+    public HtmlTableVerticalAlignment(byte vertAlign) {
+        if (vertAlign == 0) {
+            this.alignment = "top";
+        } else if (vertAlign == 1) {
+            this.alignment = "center";
+        } else {
+            this.alignment = "bottom";
+        }
+
+    }
+
     @Override
     public void applyTableVerticalAlignmentToElement(Element element) {
         element.attributes().put("valign", alignment);

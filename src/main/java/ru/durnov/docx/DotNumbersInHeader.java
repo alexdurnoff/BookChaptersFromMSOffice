@@ -14,12 +14,13 @@ public class DotNumbersInHeader {
     private final static Pattern pattern = Pattern.compile("^(\\s?[0-9]+\\s?\\.?)+");
 
 
-    public DotNumbersInHeader(XWPFParagraph xwpfParagraph){
+
+    public DotNumbersInHeader(XWPFParagraph xwpfParagraph){ ;
         this.matcher = pattern.matcher(xwpfParagraph.getRuns().get(0).getText(0));
     }
 
     public DotNumbersInHeader(Paragraph paragraph){
-        this.matcher = pattern.matcher(paragraph.getCharacterRun(0).text());
+        this.matcher = pattern.matcher(paragraph.text());
     }
 
     /**
@@ -37,6 +38,6 @@ public class DotNumbersInHeader {
             }
             return result;
         }
-        throw new IllegalArgumentException("The XWPFParagraph is not chapter header!");
+        throw new IllegalArgumentException("The Paragraph is not chapter header!");
     }
 }

@@ -1,5 +1,7 @@
 package ru.durnov.html.table;
 
+import org.apache.poi.hwpf.usermodel.BorderCode;
+import org.apache.poi.hwpf.usermodel.Table;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.jsoup.nodes.Element;
 
@@ -12,6 +14,11 @@ public class HtmlTableBorder implements TableBorder {
 
     public HtmlTableBorder(XWPFTable xwpfTable) {
         this.borderSize = xwpfTable.getLeftBorderSize();
+    }
+
+    public HtmlTableBorder(Table table){
+        BorderCode topBorder = table.getRow(0).getTopBorder();
+        this.borderSize = topBorder.getLineWidth();
     }
 
     @Override

@@ -3,6 +3,7 @@ package ru.durnov.html.docx;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
+import ru.durnov.doc.ParagraphWithSection;
 
 public class LeftMargin {
     private final int value;
@@ -35,6 +36,7 @@ public class LeftMargin {
             this.value = -1;
         }
     }
+
 
     public int value(){
         return this.value;

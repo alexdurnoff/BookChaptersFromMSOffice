@@ -3,6 +3,7 @@ package ru.durnov.html.docx;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.jsoup.nodes.Element;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
+import ru.durnov.doc.ParagraphWithSection;
 
 public class HtmlMargin {
     private final int leftMargin;
@@ -23,6 +24,11 @@ public class HtmlMargin {
     public HtmlMargin(CTSectPr ctSectPr) {
         this.leftMargin = new LeftMargin(ctSectPr).value();
         this.rightMargin = new RightMargin(ctSectPr).value();
+    }
+
+    public HtmlMargin(ParagraphWithSection paragraphWithSection) {
+        this.leftMargin = paragraphWithSection.section().getMarginLeft()/20;
+        this.rightMargin = paragraphWithSection.section().getMarginRight()/20;
     }
 
 

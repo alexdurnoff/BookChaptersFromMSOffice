@@ -1,5 +1,8 @@
 package ru.durnov.html;
 
+import org.apache.poi.hwpf.usermodel.Table;
+import org.apache.poi.hwpf.usermodel.TableCell;
+import org.apache.poi.hwpf.usermodel.TableRow;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -34,6 +37,28 @@ public class HtmlSkippingCellDetector implements SkippingCellDetector {
                     }
                 } catch (NullPointerException ignored) {
 
+                }
+            }
+        }
+    }
+
+    public HtmlSkippingCellDetector(Table table){
+        int rowsNumber = table.numRows();
+        for (int i = 0; i < rowsNumber; i++){
+            TableRow row = table.getRow(i);
+            int cellsNumber = row.numCells();
+            for (int j = 0; j < cellsNumber; j++){
+                TableCell cell = row.getCell(j);
+                if (cell.isFirstVerticallyMerged()) {
+                    int mergedRowNumber = i;
+                    TableCell mergedCell = table.getRow(mergedRowNumber).getCell(j);
+                    while (mergedCell.isVerticallyMerged()){
+                        mergedRowNumber++;
+                        mergedCell = table.getRow(mergedRowNumber).getCell(j);
+                    }
+                    this.cellCoordinatesSet.add(
+                            new CellCoordinates(j, i + mergedRowNumber -1)
+                    );
                 }
             }
         }

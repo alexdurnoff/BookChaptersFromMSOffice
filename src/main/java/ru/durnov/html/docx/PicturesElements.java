@@ -2,6 +2,7 @@ package ru.durnov.html.docx;
 
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.jsoup.nodes.Element;
+import ru.durnov.html.PicturesElement;
 
 import java.util.ArrayList;
 import java.util.List;

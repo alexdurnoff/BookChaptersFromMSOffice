@@ -3,6 +3,7 @@ package ru.durnov.html.docx;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.jsoup.nodes.Element;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
+import ru.durnov.doc.ParagraphWithSection;
 
 public class HtmlDivStyle {
     private final String marginParameters;
@@ -12,6 +13,11 @@ public class HtmlDivStyle {
     public HtmlDivStyle(XWPFParagraph xwpfParagraph, CTSectPr ctSectPr) {
         this.marginParameters = new HtmlMargin(xwpfParagraph, ctSectPr).marginStyleParameters();
         this.widthParameters = new HtmlWidth(ctSectPr).widthParameters();
+    }
+
+    public HtmlDivStyle(ParagraphWithSection paragraphWithSection){
+        this.marginParameters = new HtmlMargin(paragraphWithSection).marginStyleParameters();
+        this.widthParameters = "";
     }
 
     public HtmlDivStyle(CTSectPr ctSectPr) {

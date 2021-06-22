@@ -1,11 +1,15 @@
 package ru.durnov.doc;
 
+import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.model.PicturesTable;
 import org.apache.poi.hwpf.usermodel.Paragraph;
 import ru.durnov.chapters.Chapter;
 import ru.durnov.chapters.ChapterFactory;
 import ru.durnov.chapters.Index;
 
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.util.List;
 
 public class DocChapterFactory implements ChapterFactory {
@@ -13,20 +17,26 @@ public class DocChapterFactory implements ChapterFactory {
     private final DocStyleMap docStyleMap;
     private final List<ParagraphWithSection> paragraphWithSectionList;
     private final DocLevel docLevel;
+    private final PicturesTable picturesTable;
+    private final HWPFDocument hwpfDocument;
 
     public DocChapterFactory(DocLevel docLevel,
                              Index index,
                              DocStyleMap docStyleMap,
-                             List<ParagraphWithSection> paragraphWithSectionList) {
+                             List<ParagraphWithSection> paragraphWithSectionList,
+                             PicturesTable picturesTable,
+                             HWPFDocument hwpfDocument) {
         this.docLevel = docLevel;
         this.index = index;
         this.docStyleMap = docStyleMap;
         this.paragraphWithSectionList = paragraphWithSectionList;
+        this.picturesTable = picturesTable;
+        this.hwpfDocument = hwpfDocument;
     }
 
 
     @Override
-    public Chapter chapter() {
+    public Chapter chapter() throws ParserConfigurationException, TransformerException {
         ParagraphWithSection paragraphWithSection = this.paragraphWithSectionList
                 .get(index.currentIndex());
         Paragraph paragraph = paragraphWithSection.paragraph();
@@ -35,7 +45,9 @@ public class DocChapterFactory implements ChapterFactory {
                     docLevel.levelByParagraph(paragraph),
                     index,
                     paragraphWithSectionList,
-                    docStyleMap
+                    docStyleMap,
+                    picturesTable,
+                    hwpfDocument
             );
         }
 
@@ -44,7 +56,9 @@ public class DocChapterFactory implements ChapterFactory {
                     docLevel.levelByParagraph(paragraph),
                     index,
                     paragraphWithSectionList,
-                    docStyleMap
+                    docStyleMap,
+                    picturesTable,
+                    this.hwpfDocument
             );
         }
         throw new IllegalArgumentException("can't return Chapter because is not header and not start with number");

@@ -31,7 +31,7 @@ public interface Archive {
 
     Images images();
 
-    Chapters chapters();
+    Chapters chapters() throws IOException;
 
     /**
      * @return String path to created archive;

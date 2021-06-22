@@ -7,6 +7,8 @@ import ru.durnov.html.docx.DocxChildElement;
 import ru.durnov.html.docx.DocxParagraphStyle;
 import ru.durnov.html.docx.HtmlDivStyle;
 
+import java.util.List;
+
 public class DocxTextContentElement implements DocxContentElement {
     private final XWPFParagraph xwpfParagraph;
     private final CTSectPr ctSectPr;

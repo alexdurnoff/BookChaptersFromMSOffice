@@ -22,23 +22,15 @@ public class OldChapterFactory implements ChapterFactory {
     private final DocStyleMap docStyleMap;
     private final DocContentChapterChecker checker;
 
-    public OldChapterFactory(Index index, DocLevel docLevel, HWPFDocument hwpfDocument, List<Paragraph> paragraphList, DocStyleMap docStyleMap) {
+    public OldChapterFactory(Index index,
+                             DocLevel docLevel,
+                             HWPFDocument hwpfDocument,
+                             List<Paragraph> paragraphList,
+                             DocStyleMap docStyleMap) {
         this.index = index;
         this.docLevel = docLevel;
         this.hwpfDocument = hwpfDocument;
         this.paragraphList = paragraphList;
-        this.docStyleMap = docStyleMap;
-        this.checker = new DocContentChapterChecker();
-    }
-
-    public OldChapterFactory(Index index,
-                             DocStyleMap docStyleMap,
-                             HWPFDocument hwpfDocument,
-                             List<Paragraph> paragraphList) {
-        this.index = index;
-        this.docLevel = new DocLevel(docStyleMap);
-        this.paragraphList = paragraphList;
-        this.hwpfDocument = hwpfDocument;
         this.docStyleMap = docStyleMap;
         this.checker = new DocContentChapterChecker();
     }

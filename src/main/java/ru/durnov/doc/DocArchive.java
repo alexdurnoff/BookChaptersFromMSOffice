@@ -30,7 +30,7 @@ public class DocArchive implements Archive {
     }
 
     @Override
-    public Chapters chapters() {
+    public Chapters chapters() throws IOException {
         return new DocChapters(this.hwpfDocument);
     }
 }

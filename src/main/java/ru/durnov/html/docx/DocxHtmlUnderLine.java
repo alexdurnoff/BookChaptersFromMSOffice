@@ -1,13 +1,17 @@
 package ru.durnov.html.docx;
 
+import org.apache.poi.hwpf.usermodel.CharacterRun;
 import org.apache.poi.xwpf.usermodel.UnderlinePatterns;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 public class DocxHtmlUnderLine {
     private final UnderlinePatterns patterns;
+
     public DocxHtmlUnderLine(XWPFRun xwpfRun) {
         this.patterns = xwpfRun.getUnderline();
     }
+
+
 
     public String value() {
         if (this.patterns == UnderlinePatterns.NONE) return "none";

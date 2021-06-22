@@ -1,9 +1,13 @@
 package ru.durnov.doc;
 
+import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.model.PicturesTable;
 import org.jsoup.nodes.Document;
 import ru.durnov.chapters.Chapter;
 import ru.durnov.chapters.Index;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.util.List;
 
 public class DocHeaderChapter implements Chapter {
@@ -15,7 +19,9 @@ public class DocHeaderChapter implements Chapter {
     public DocHeaderChapter(int level,
                             Index index,
                             List<ParagraphWithSection> paragraphWithSectionList,
-                            DocStyleMap docStyleMap) {
+                            DocStyleMap docStyleMap,
+                            PicturesTable picturesTable,
+                            HWPFDocument hwpfDocument) throws ParserConfigurationException, TransformerException {
         this.level = level;
         ParagraphWithSection paragraphWithSection = paragraphWithSectionList.get(index.currentIndex());
         this.title = paragraphWithSection.paragraph().text();
@@ -23,7 +29,9 @@ public class DocHeaderChapter implements Chapter {
                 docStyleMap,
                 title,
                 paragraphWithSectionList,
-                index
+                index,
+                picturesTable,
+                hwpfDocument
         ).content();
     }
 

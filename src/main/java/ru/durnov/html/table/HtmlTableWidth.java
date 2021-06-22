@@ -1,9 +1,11 @@
 package ru.durnov.html.table;
 
+import org.apache.poi.hwpf.usermodel.Table;
 import org.apache.poi.xwpf.usermodel.TableWidthType;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.jsoup.nodes.Element;
+import ru.durnov.html.doc.DocTableWidth;
 
 public class HtmlTableWidth implements TableWidth {
     private final String width;
@@ -32,6 +34,10 @@ public class HtmlTableWidth implements TableWidth {
             value = new NonSpanTableCellWidth(xwpfTableCell).width();
         }
         this.width = value;
+    }
+
+    public HtmlTableWidth(Table table){
+        this.width = new DocTableWidth(table).width();
     }
 
     @Override

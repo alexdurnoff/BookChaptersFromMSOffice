@@ -25,7 +25,13 @@ public class DocxHeaderChapter implements Chapter {
                 "Body element must be XWPFParagraph"
         );
         this.title = ((XWPFParagraph) iBodyElement).getText();
-        this.content = new DocxChapterContentSetter(docxStyleMap, title, bodyElements, index, ctSectPr).content();
+        this.content = new DocxChapterContentSetter(
+                docxStyleMap,
+                title,
+                bodyElements,
+                index,
+                ctSectPr
+        ).content();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package ru.durnov.html.table;
 
+import org.apache.poi.hwpf.usermodel.Table;
 import org.jsoup.nodes.Element;
 
 public class HtmlCellPadding implements CellPadding {
@@ -7,6 +8,10 @@ public class HtmlCellPadding implements CellPadding {
 
     public HtmlCellPadding(int cellPadding) {
         this.cellPadding = cellPadding;
+    }
+
+    public HtmlCellPadding(Table table) {
+        this.cellPadding = 0;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package ru.durnov.html.table;
 
+import org.apache.poi.hwpf.usermodel.Table;
 import org.jsoup.nodes.Element;
 
 public class HtmlCellSpacing implements CellSpacing {
@@ -7,6 +8,10 @@ public class HtmlCellSpacing implements CellSpacing {
 
     public HtmlCellSpacing(int cellSpacing) {
         this.cellSpacing = cellSpacing;
+    }
+
+    public HtmlCellSpacing(Table table) {
+        this.cellSpacing = 0;
     }
 
     @Override

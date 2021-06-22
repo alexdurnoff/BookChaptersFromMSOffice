@@ -2,6 +2,7 @@ package ru.durnov.oldword;
 
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.converter.WordToHtmlConverter;
+import org.apache.poi.hwpf.model.PicturesTable;
 import org.apache.poi.hwpf.usermodel.Paragraph;
 import org.apache.poi.hwpf.usermodel.Range;
 import org.w3c.dom.Document;
@@ -19,9 +20,15 @@ public class OldContentSetter {
 
 
 
+
     public OldContentSetter(HWPFDocument hwpfDocument, int start, int stop) {
         this.hwpfDocument = hwpfDocument;
         this.range = new Range(start, stop, hwpfDocument);
+    }
+
+    public OldContentSetter(HWPFDocument hwpfDocument, Range range){
+        this.hwpfDocument = hwpfDocument;
+        this.range = range;
     }
 
     public String content() throws ParserConfigurationException, TransformerException {
