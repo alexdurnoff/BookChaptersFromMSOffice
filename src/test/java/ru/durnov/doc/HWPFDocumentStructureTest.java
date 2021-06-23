@@ -36,17 +36,28 @@ public class HWPFDocumentStructureTest {
         Range range = hwpfDocument.getRange();
         int numCharacterRuns = range.numCharacterRuns();
         int numParagraphs = range.numParagraphs();
-        Document document = Jsoup.parse(
-                new OldContentSetter(
-                        hwpfDocument,
-                        range
-                ).content()
-        );
-        System.out.println("paragraphs in hwpfDocument is " + numParagraphs);
-        System.out.println("Runs in hwpfDOcument is " + numCharacterRuns);
-        System.out.println("paragraphs in html is " + document.getElementsByTag("p").size());
-        System.out.println("tables in html is " + document.getElementsByTag("table").size());
-
+        PicturesTable picturesTable = hwpfDocument.getPicturesTable();
+        for (int i = 0; i < numCharacterRuns; i++){
+            CharacterRun characterRun = range.getCharacterRun(i);
+            if (picturesTable.hasEscherPicture(characterRun)){
+                Picture picture = picturesTable.getAllPictures().get(0);
+                characterRun.delete();
+                characterRun = range.getCharacterRun(i+1);
+                characterRun.insertBefore("img=" + picture.suggestFullFileName());
+            }
+        }
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        hwpfDocument.write(byteArrayOutputStream);
+        hwpfDocument.write(new File("/tmp/aaa.doc"));
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        hwpfDocument.close();
+        HWPFDocument hwpfDocument1 = new HWPFDocument(new ByteArrayInputStream(bytes));
+        range = hwpfDocument1.getRange();
+        numCharacterRuns = range.numCharacterRuns();
+        for (int i = 0; i < numCharacterRuns; i++){
+            CharacterRun characterRun = range.getCharacterRun(i);
+            System.out.println(characterRun.text());
+        }
     }
 
 

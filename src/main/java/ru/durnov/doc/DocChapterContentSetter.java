@@ -13,7 +13,6 @@ import java.util.List;
 
 public class DocChapterContentSetter {
     private final DocStyleMap docStyleMap;
-    private final String title;
     private final List<ParagraphWithSection> paragraphWithSectionList;
     private final Index index;
     private final DocContentChapterChecker checker = new DocContentChapterChecker();
@@ -32,8 +31,7 @@ public class DocChapterContentSetter {
         this.docStyleMap = docStyleMap;
         this.index = index;
         this.paragraphWithSectionList = paragraphWithSectionList;
-        this.title = title;
-        this.document = new Document("/tmp/" + this.title + ".html");
+        this.document = new Document("/tmp/" + title + ".html");
         this.picturesTable = picturesTable;
         this.hwpfDocument = hwpfDocument;
     }
@@ -47,7 +45,7 @@ public class DocChapterContentSetter {
                     .docContentElement()
                     .element()
             );
-            index.incrementIndex();;
+            index.incrementIndex();
             if (index.currentIndex() == paragraphWithSectionList.size()) break;
             paragraphWithSection = this.paragraphWithSectionList.get(index.currentIndex());
             paragraph = paragraphWithSection.paragraph();

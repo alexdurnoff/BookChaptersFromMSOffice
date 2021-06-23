@@ -19,6 +19,6 @@ public class DocSpanElement {
         } else {
             element.appendText(characterRun.text().replace("\n", ""));
         }
-        return null;
+        return element;
     }
 }

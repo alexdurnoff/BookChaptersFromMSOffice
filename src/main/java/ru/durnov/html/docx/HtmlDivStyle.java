@@ -1,5 +1,6 @@
 package ru.durnov.html.docx;
 
+import org.apache.poi.hwpf.usermodel.Section;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.jsoup.nodes.Element;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
@@ -17,6 +18,11 @@ public class HtmlDivStyle {
 
     public HtmlDivStyle(ParagraphWithSection paragraphWithSection){
         this.marginParameters = new HtmlMargin(paragraphWithSection).marginStyleParameters();
+        this.widthParameters = "";
+    }
+
+    public HtmlDivStyle(Section section){
+        this.marginParameters = new HtmlMargin(section).marginStyleParameters();
         this.widthParameters = "";
     }
 

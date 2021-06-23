@@ -3,6 +3,7 @@ package ru.durnov.doc;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.model.StyleSheet;
 import org.apache.poi.hwpf.usermodel.Paragraph;
+import org.apache.poi.hwpf.usermodel.Range;
 import ru.durnov.docx.HeaderStyleLevel;
 
 import java.util.HashMap;
@@ -26,7 +27,9 @@ public class DocStyleMap {
         }
     }
 
-    public boolean paragraphIsHeader(Paragraph paragraph){
+    public boolean paragraphIsHeader(Range range){
+        if (! (range instanceof Paragraph)) return false;
+        Paragraph paragraph = (Paragraph) range;
         return this.styleMap.containsKey(
                 this.styleSheet.getStyleDescription(
                         paragraph.getStyleIndex()
@@ -38,6 +41,7 @@ public class DocStyleMap {
         String styleName = this.styleSheet.getStyleDescription(
                 paragraph.getStyleIndex()).getName();
         if (this.styleMap.containsKey(styleName)) return this.styleMap.get(styleName);
+        System.out.println(paragraph.text());
         throw new IllegalArgumentException("cant't return level cause map doesn't content paragraph style");
     }
 

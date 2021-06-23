@@ -2,6 +2,7 @@ package ru.durnov.doc;
 
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.usermodel.Paragraph;
+import org.apache.poi.hwpf.usermodel.Range;
 
 import java.util.Comparator;
 
@@ -34,5 +35,11 @@ public class DocLevel {
         value -= compareResult;
         lastParagraph = newParagraph;
         return value;
+    }
+
+    public int levelByRange(Range range){
+        if (! (range instanceof Paragraph)) throw new IllegalArgumentException("Range must be Paragraph");
+        Paragraph paragraph = (Paragraph) range;
+        return this.levelByParagraph(paragraph);
     }
 }

@@ -27,11 +27,7 @@ public class DocElementFactory {
 
     public DocContentElement docContentElement() {
         if (paragraph.isInTable()){
-            DocTableContentElement docTableContentElement = new DocTableContentElement(
-                    paragraphWithSection,
-                    index
-            );
-            return docTableContentElement;
+
         }
         if (paragraph.isInList()) {
             return new DocListContentELement(
@@ -39,9 +35,6 @@ public class DocElementFactory {
                     index
             );
         }
-        return new DocParagraphContentElement(
-                paragraphWithSection,
-                picturesTable
-        );
+        return null;
     }
 }

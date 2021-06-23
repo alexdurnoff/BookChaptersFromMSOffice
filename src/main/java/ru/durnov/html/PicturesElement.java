@@ -5,6 +5,7 @@ import org.apache.poi.hwpf.usermodel.CharacterRun;
 import org.apache.poi.hwpf.usermodel.Picture;
 import org.apache.poi.xwpf.usermodel.XWPFPicture;
 import org.jsoup.nodes.Element;
+import ru.durnov.queue.Pictures;
 
 public class PicturesElement {
     private final String fileName;
@@ -19,8 +20,8 @@ public class PicturesElement {
         this.align = "center";
     }
 
-    public PicturesElement(CharacterRun characterRun, PicturesTable picturesTable){
-        Picture picture = picturesTable.extractPicture(characterRun, true);
+    public PicturesElement(Pictures pictures){
+        Picture picture = pictures.nextPicture();
         this.fileName = picture.suggestFullFileName();
         this.width = String.valueOf(picture.getWidth());
         this.height = String.valueOf(picture.getHeight());

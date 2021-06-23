@@ -2,22 +2,26 @@ package ru.durnov.html.doc;
 
 import org.apache.poi.hwpf.model.PicturesTable;
 import org.apache.poi.hwpf.usermodel.CharacterRun;
+import org.apache.poi.hwpf.usermodel.Picture;
 import org.jsoup.nodes.Element;
 import ru.durnov.html.PicturesElement;
+import ru.durnov.queue.Pictures;
+
+import java.util.Queue;
 
 public class DocChildElement {
     private final CharacterRun characterRun;
-    private final PicturesTable picturesTable;
+    private final Pictures pictures;
 
 
-    public DocChildElement(CharacterRun characterRun, PicturesTable picturesTable) {
+    public DocChildElement(CharacterRun characterRun, Pictures pictures) {
         this.characterRun = characterRun;
-        this.picturesTable = picturesTable;
+        this.pictures = pictures;
     }
 
     public void appendTo(Element element) {
-        if (picturesTable.hasEscherPicture(characterRun)){
-            new PicturesElement(characterRun, picturesTable).element().appendTo(element);
+        if (pictures.paragraphHasPicture(characterRun)){
+            new PicturesElement(pictures).element().appendTo(element);
         } else {
             Element child = new DocSpanElement(characterRun).element();
             new DocHtmlRunStyle(characterRun).applyToRunElement(child);

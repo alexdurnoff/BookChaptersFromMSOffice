@@ -2,10 +2,7 @@ package ru.durnov.doc;
 
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.model.PicturesTable;
-import org.apache.poi.hwpf.usermodel.CharacterRun;
-import org.apache.poi.hwpf.usermodel.Paragraph;
-import org.apache.poi.hwpf.usermodel.Range;
-import org.apache.poi.hwpf.usermodel.Section;
+import org.apache.poi.hwpf.usermodel.*;
 import ru.durnov.chapters.Chapter;
 import ru.durnov.chapters.ChapterExtractor;
 import ru.durnov.chapters.Index;
@@ -15,6 +12,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 public class DocChapterExtractor implements ChapterExtractor {
     private final Index index = new Index();

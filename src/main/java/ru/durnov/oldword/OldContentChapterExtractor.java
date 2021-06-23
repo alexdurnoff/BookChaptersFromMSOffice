@@ -8,6 +8,7 @@ import ru.durnov.chapters.Index;
 import ru.durnov.doc.DocLevel;
 import ru.durnov.doc.DocStyleMap;
 import ru.durnov.doc.ParagraphList;
+import ru.durnov.queue.Pictures;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -51,6 +52,8 @@ public class OldContentChapterExtractor implements ChapterExtractor {
             ).chapter();
             chapterList.add(chapter);
         }
+        Pictures pictures = new Pictures(hwpfDocument);
+        pictures.addPicturesReferencesToChapters(this.chapterList);
         return this.chapterList;
     }
 }

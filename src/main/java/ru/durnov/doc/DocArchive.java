@@ -4,6 +4,7 @@ import org.apache.poi.hwpf.HWPFDocument;
 import ru.durnov.chapters.Archive;
 import ru.durnov.chapters.Chapters;
 import ru.durnov.chapters.Images;
+import ru.durnov.oldword.HWPFDocumentWithoutPictures;
 
 import java.io.FileInputStream;
 import java.io.IOException;

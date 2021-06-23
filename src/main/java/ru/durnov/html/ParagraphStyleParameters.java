@@ -32,8 +32,8 @@ public class ParagraphStyleParameters implements HtmlAlignment{
 
     }
 
-    public ParagraphStyleParameters(ParagraphWithSection paragraphWithSection){
-        int align = paragraphWithSection.paragraph().getFontAlignment();
+    public ParagraphStyleParameters(Paragraph paragraph){
+        int align = paragraph.getFontAlignment();
         if (align == 3) {
             this.alignment = "justify";
         } else if (align == 0) {
@@ -45,8 +45,8 @@ public class ParagraphStyleParameters implements HtmlAlignment{
         } else {
             this.alignment = defaultAlignment;
         }
-        if (paragraphWithSection.paragraph().getFirstLineIndent() != -1){
-            this.textIndentation = paragraphWithSection.paragraph().getFirstLineIndent()/20;
+        if (paragraph.getFirstLineIndent() != -1){
+            this.textIndentation = paragraph.getFirstLineIndent()/20;
         } else {
             this.textIndentation = 40;
         }

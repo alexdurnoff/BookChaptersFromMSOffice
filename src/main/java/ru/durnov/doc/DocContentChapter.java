@@ -18,9 +18,6 @@ public class DocContentChapter implements Chapter {
     private final String content;
     private final String title;
 
-
-
-
     public DocContentChapter(int level,
                              Index index,
                              List<ParagraphWithSection> paragraphWithSectionList,

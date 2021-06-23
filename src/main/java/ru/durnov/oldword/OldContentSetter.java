@@ -1,9 +1,11 @@
 package ru.durnov.oldword;
 
 import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.converter.PicturesManager;
 import org.apache.poi.hwpf.converter.WordToHtmlConverter;
 import org.apache.poi.hwpf.model.PicturesTable;
 import org.apache.poi.hwpf.usermodel.Paragraph;
+import org.apache.poi.hwpf.usermodel.PictureType;
 import org.apache.poi.hwpf.usermodel.Range;
 import org.w3c.dom.Document;
 
@@ -34,6 +36,12 @@ public class OldContentSetter {
     public String content() throws ParserConfigurationException, TransformerException {
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
         WordToHtmlConverter converter = new WordToHtmlConverter(document);
+        converter.setPicturesManager(new PicturesManager() {
+            @Override
+            public String savePicture(byte[] content, PictureType pictureType, String suggestedName, float widthInches, float heightInches) {
+                return suggestedName;
+            }
+        });
         converter.processDocumentPart(hwpfDocument,range);
         StringWriter stringWriter = new StringWriter();
         Transformer transformer = TransformerFactory.newInstance()

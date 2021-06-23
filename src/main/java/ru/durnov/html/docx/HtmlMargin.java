@@ -1,5 +1,6 @@
 package ru.durnov.html.docx;
 
+import org.apache.poi.hwpf.usermodel.Section;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.jsoup.nodes.Element;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
@@ -29,6 +30,10 @@ public class HtmlMargin {
     public HtmlMargin(ParagraphWithSection paragraphWithSection) {
         this.leftMargin = paragraphWithSection.section().getMarginLeft()/20;
         this.rightMargin = paragraphWithSection.section().getMarginRight()/20;
+    }
+    public HtmlMargin(Section section) {
+        this.leftMargin = section.getMarginLeft()/20;
+        this.rightMargin = section.getMarginRight()/20;
     }
 
 

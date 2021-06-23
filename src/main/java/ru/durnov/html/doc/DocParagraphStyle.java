@@ -12,6 +12,6 @@ public class DocParagraphStyle {
     }
 
     public void applyToParagraphElement(Element element) {
-        new ParagraphStyleParameters(paragraphWithSection).applyToParagraphElement(element);
+        new ParagraphStyleParameters(paragraphWithSection.paragraph()).applyToParagraphElement(element);
     }
 }

@@ -1,35 +1,42 @@
 package ru.durnov.doc;
 
-import org.apache.poi.hwpf.model.PicturesTable;
 import org.apache.poi.hwpf.usermodel.CharacterRun;
 import org.apache.poi.hwpf.usermodel.Paragraph;
+import org.apache.poi.hwpf.usermodel.Picture;
+import org.apache.poi.hwpf.usermodel.Section;
 import org.jsoup.nodes.Element;
+import ru.durnov.html.ParagraphStyleParameters;
 import ru.durnov.html.doc.DocChildElement;
 import ru.durnov.html.doc.DocParagraphStyle;
-import ru.durnov.html.docx.DocxParagraphStyle;
 import ru.durnov.html.docx.HtmlDivStyle;
+import ru.durnov.queue.Pictures;
+
+import java.util.Queue;
 
 public class DocParagraphContentElement implements DocContentElement {
-    private final ParagraphWithSection paragraphWithSection;
-    private final PicturesTable picturesTable;
+    private final Paragraph paragraph;
+    private final Section section;
+    private final Pictures pictures;
 
-    public DocParagraphContentElement(ParagraphWithSection paragraphWithSection,
-                                      PicturesTable picturesTable) {
-        this.paragraphWithSection = paragraphWithSection;
-        this.picturesTable = picturesTable;
+    public DocParagraphContentElement(Paragraph paragraph,
+                                      Section section,
+                                      Pictures pictures) {
+        this.paragraph = paragraph;
+        this.section = section;
+        this.pictures = pictures;
     }
+
 
     @Override
     public Element element() {
         Element div  = new Element("div");
-        new HtmlDivStyle(paragraphWithSection).applyTo(div);
+        new HtmlDivStyle(section).applyTo(div);
         Element element = new Element("p");
-        new DocParagraphStyle(paragraphWithSection).applyToParagraphElement(element);
-        Paragraph paragraph = paragraphWithSection.paragraph();
-        int count = paragraphWithSection.paragraph().numCharacterRuns();
+        new ParagraphStyleParameters(paragraph).applyToParagraphElement(element);
+        int count = paragraph.numCharacterRuns();
         for (int i = 0; i < count; i++){
             CharacterRun characterRun = paragraph.getCharacterRun(i);
-            new DocChildElement(characterRun, picturesTable).appendTo(element);
+            new DocChildElement(characterRun, pictures).appendTo(element);
         }
         element.appendTo(div);
         return div;

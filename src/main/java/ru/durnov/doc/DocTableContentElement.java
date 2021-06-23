@@ -2,43 +2,34 @@ package ru.durnov.doc;
 
 
 import org.apache.poi.hwpf.HWPFDocument;
-import org.apache.poi.hwpf.HWPFDocumentCore;
 import org.apache.poi.hwpf.usermodel.Paragraph;
 import org.apache.poi.hwpf.usermodel.Table;
-import org.apache.poi.hwpf.usermodel.TableRow;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import ru.durnov.chapters.Index;
 
-import ru.durnov.html.HtmlSkippingCellDetector;
-import ru.durnov.html.docx.HtmlDivStyle;
-import ru.durnov.html.table.SkippingCellDetector;
+import ru.durnov.oldword.OldContentSetter;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
 
 public class DocTableContentElement implements DocContentElement {
-    private final ParagraphWithSection paragraphWithSection;
-    private final Paragraph paragraph;
+    private final HWPFDocument hwpfDocument;
     private final Table table;
-    private final SkippingCellDetector detector;
-    private final Index index;
 
-    public DocTableContentElement(ParagraphWithSection paragraphWithSection, Index index) {
-        this.paragraphWithSection = paragraphWithSection;
-        this.paragraph = paragraphWithSection.paragraph();
-        this.table = paragraphWithSection.section().getTable(paragraph);
-        this.detector = new HtmlSkippingCellDetector(table);
-        this.index = index;
+
+    public DocTableContentElement(HWPFDocument hwpfDocument, Table table) {
+        this.table = table;
+        this.hwpfDocument = hwpfDocument;
     }
 
     @Override
-    public Element element()  {
-        Element div  = new Element("div");
-        new HtmlDivStyle(paragraphWithSection).applyTo(div);
-        Element element = new Element("table");
-
-        element.appendTo(div);
-        return div;
+    public Element element() throws ParserConfigurationException, TransformerException {
+        Document document = Jsoup.parse(new OldContentSetter(hwpfDocument, table).content());
+        Element element = document.getElementsByTag("table").get(0);
+        return element;
     }
 }

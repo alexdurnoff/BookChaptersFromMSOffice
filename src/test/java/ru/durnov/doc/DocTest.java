@@ -45,4 +45,11 @@ public class DocTest {
         String archiveUrl = doc.archive().pathToArchive();
         new DebugWriter(archiveUrl, ".doc").writeContentToHtml();
     }
+
+    @Test
+    void testWithPictures() throws Exception {
+        Doc doc = new Doc("Test/prikaz1 with pictures.doc");
+        String archiveUrl = doc.archive().pathToArchive();
+        new DebugWriter(archiveUrl, ".doc").writeContentToHtml();
+    }
 }
