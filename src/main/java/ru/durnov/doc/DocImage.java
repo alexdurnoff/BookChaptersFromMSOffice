@@ -22,9 +22,7 @@ public class DocImage implements Image {
 
     @Override
     public void setName(String name) {
-        System.out.println("before name is " + this.name);
         this.name = name;
-        System.out.println("new name is " + this.name);
     }
 
     @Override

@@ -25,15 +25,11 @@ public class OldContentChapterExtractor implements ChapterExtractor {
     private final List<Paragraph> paragraphList;
     private final Index index = new Index();
 
-    public OldContentChapterExtractor(HWPFDocument hwpfDocument) {
+    public OldContentChapterExtractor(HWPFDocument hwpfDocument) throws ParserConfigurationException, TransformerException {
         this.hwpfDocument = hwpfDocument;
         this.paragraphList = new ParagraphList(hwpfDocument).list();
         this.docStyleMap = new DocStyleMap(hwpfDocument);
         this.docLevel = new DocLevel(this.docStyleMap);
-    }
-
-    @Override
-    public List<Chapter> chapterList() throws IOException, ParserConfigurationException, TransformerException {
         this.chapterList.add(
                 new OldStartChapterExtractor(
                         hwpfDocument,
@@ -53,8 +49,10 @@ public class OldContentChapterExtractor implements ChapterExtractor {
             ).chapter();
             chapterList.add(chapter);
         }
-        Pictures pictures = new Pictures(hwpfDocument);
-        pictures.addPicturesReferencesToChapters(this.chapterList);
+    }
+
+    @Override
+    public List<Chapter> chapterList() throws IOException, ParserConfigurationException, TransformerException {
         return this.chapterList;
     }
 }

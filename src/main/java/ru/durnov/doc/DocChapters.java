@@ -5,12 +5,15 @@ import ru.durnov.chapters.ChapterExtractor;
 import ru.durnov.chapters.Chapters;
 import ru.durnov.oldword.OldContentChapterExtractor;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
 public class DocChapters implements Chapters {
     private final HWPFDocument hwpfDocument;
     private final ChapterExtractor chapterExtractor;
 
 
-    public DocChapters(HWPFDocument hwpfDocument) {
+    public DocChapters(HWPFDocument hwpfDocument) throws ParserConfigurationException, TransformerException {
         this.hwpfDocument = hwpfDocument;
         this.chapterExtractor = new OldContentChapterExtractor(hwpfDocument);
     }

@@ -6,6 +6,8 @@ import ru.durnov.chapters.Chapters;
 import ru.durnov.chapters.Images;
 import ru.durnov.oldword.HWPFDocumentWithoutPictures;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,7 +19,7 @@ public class DocArchive implements Archive {
     private final Images images;
     private final Chapters chapters;
 
-    public DocArchive(String documentUrl) throws IOException {
+    public DocArchive(String documentUrl) throws IOException, ParserConfigurationException, TransformerException {
         this.documentUrl = Path.of(documentUrl).getFileName().toString();
         this.hwpfDocument = new HWPFDocument(Files.newInputStream(Path.of(documentUrl)));
         this.images = new DocImages(this.hwpfDocument);

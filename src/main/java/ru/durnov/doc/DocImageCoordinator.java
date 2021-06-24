@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.Queue;
 
 /**
- * Класс для правки назвний изображений внутри Doc-главы.
+ * Класс для правки названий изображений внутри Doc-главы.
  * Нужен для согласования названий картинок в html-content и в папке library.
  */
 public class DocImageCoordinator {
@@ -27,7 +27,6 @@ public class DocImageCoordinator {
     }
 
     public void replaceImagesName() {
-        int number = 0;
         while (! imageQueue.isEmpty()){
             imageQueue
                     .poll()

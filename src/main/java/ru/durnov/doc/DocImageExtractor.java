@@ -31,6 +31,6 @@ public class DocImageExtractor implements ImageExtractor {
 
     @Override
     public List<Image> imageList() throws IOException {
-        return Collections.unmodifiableList(this.imageList);
+        return this.imageList;
     }
 }
