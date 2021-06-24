@@ -5,6 +5,7 @@ import org.apache.poi.hwpf.usermodel.Paragraph;
 import ru.durnov.chapters.Chapter;
 import ru.durnov.chapters.ChapterExtractor;
 import ru.durnov.chapters.Index;
+import ru.durnov.doc.DocImageCoordinator;
 import ru.durnov.doc.DocLevel;
 import ru.durnov.doc.DocStyleMap;
 import ru.durnov.doc.ParagraphList;
@@ -34,7 +35,7 @@ public class OldContentChapterExtractor implements ChapterExtractor {
     @Override
     public List<Chapter> chapterList() throws IOException, ParserConfigurationException, TransformerException {
         this.chapterList.add(
-                new OldStartChapter(
+                new OldStartChapterExtractor(
                         hwpfDocument,
                         index,
                         docStyleMap,

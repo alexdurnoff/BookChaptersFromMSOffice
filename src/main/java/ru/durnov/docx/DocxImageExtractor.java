@@ -6,7 +6,6 @@ import ru.durnov.chapters.Image;
 import ru.durnov.chapters.ImageExtractor;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class DocxImageExtractor implements ImageExtractor {
@@ -21,9 +20,9 @@ public class DocxImageExtractor implements ImageExtractor {
         List<Image> imageList = new ArrayList<>();
         this.xwpfDocument.getAllPackagePictures().forEach(xwpfPictureData -> {
             if (xwpfPictureData.getPictureType() == Document.PICTURE_TYPE_EMF){
-                imageList.add(new DocxEmfImage(xwpfPictureData));
+                imageList.add(new EmfImage(xwpfPictureData));
             } else if (xwpfPictureData.getPictureType() == Document.PICTURE_TYPE_WMF){
-                imageList.add(new DocxWMFImage(xwpfPictureData));
+                imageList.add(new WMFImage(xwpfPictureData));
             } else {
                 imageList.add(new DocxImage(xwpfPictureData));
             }

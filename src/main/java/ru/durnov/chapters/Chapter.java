@@ -11,4 +11,5 @@ public interface Chapter {
     boolean inline();
     @JsonProperty
     String content();
+
 }

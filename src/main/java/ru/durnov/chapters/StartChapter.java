@@ -2,7 +2,7 @@ package ru.durnov.chapters;
 
 public class StartChapter implements Chapter{
     private final String title = "Начало документа";
-    private final String content;
+    protected String content;
 
     public StartChapter(String content) {
         this.content = content;

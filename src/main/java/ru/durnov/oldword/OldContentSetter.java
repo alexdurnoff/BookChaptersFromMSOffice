@@ -39,7 +39,7 @@ public class OldContentSetter {
         converter.setPicturesManager(new PicturesManager() {
             @Override
             public String savePicture(byte[] content, PictureType pictureType, String suggestedName, float widthInches, float heightInches) {
-                return suggestedName;
+                return "library/" + suggestedName;
             }
         });
         converter.processDocumentPart(hwpfDocument,range);

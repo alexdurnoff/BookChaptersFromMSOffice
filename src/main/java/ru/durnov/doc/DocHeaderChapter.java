@@ -13,7 +13,7 @@ import java.util.List;
 public class DocHeaderChapter implements Chapter {
     private final int level;
     private final String title;
-    private final String content;
+    private String content;
 
 
     public DocHeaderChapter(int level,
@@ -52,8 +52,7 @@ public class DocHeaderChapter implements Chapter {
 
     @Override
     public String content() {
-
-
         return this.content;
     }
+
 }

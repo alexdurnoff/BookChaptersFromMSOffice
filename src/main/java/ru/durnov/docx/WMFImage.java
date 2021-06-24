@@ -11,21 +11,21 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class DocxWMFImage implements Image {
+public class WMFImage implements Image {
     private final String fileName;
     private final byte[] bytes;
 
-    public DocxWMFImage(XWPFPictureData xwpfPictureData) {
+    public WMFImage(XWPFPictureData xwpfPictureData) {
         this.fileName = xwpfPictureData.getFileName();
         this.bytes = xwpfPictureData.getData();
     }
 
-    public DocxWMFImage(String fileName) throws IOException {
+    public WMFImage(String fileName) throws IOException {
         this.fileName = fileName;
         this.bytes = Files.readAllBytes(Path.of(fileName));
     }
 
-    public DocxWMFImage(Picture picture){
+    public WMFImage(Picture picture){
         this.fileName = picture.getDescription() + "." + picture.suggestFileExtension();
         this.bytes = picture.getContent();
     }

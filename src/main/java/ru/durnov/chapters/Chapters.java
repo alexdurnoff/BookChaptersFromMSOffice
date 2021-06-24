@@ -17,7 +17,8 @@ public interface Chapters {
     default void saveChapters(ZipOutputStream zipOutputStream) throws IOException,
             ParserConfigurationException,
             TransformerException {
-        List<Chapter> chapterList = this.chapterExtractor().chapterList();
+        ChapterExtractor chapterExtractor = this.chapterExtractor();
+        List<Chapter> chapterList = chapterExtractor.chapterList();
         zipOutputStream.putNextEntry(new ZipEntry("chapters.json"));
         new ObjectMapper().writeValue(zipOutputStream, chapterList);
     }

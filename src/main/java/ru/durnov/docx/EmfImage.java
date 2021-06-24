@@ -11,16 +11,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class DocxEmfImage implements Image {
+public class EmfImage implements Image {
     private final String name;
     private final byte[] bytes;
 
-    public DocxEmfImage(XWPFPictureData xwpfPictureData) {
+    public EmfImage(XWPFPictureData xwpfPictureData) {
         this.name = xwpfPictureData.getFileName();
         this.bytes = xwpfPictureData.getData();
     }
 
-    public DocxEmfImage(Picture picture) {
+    public EmfImage(Picture picture) {
         this.name = picture.getDescription() + "." + picture.suggestFileExtension();
         this.bytes = picture.getContent();
     }

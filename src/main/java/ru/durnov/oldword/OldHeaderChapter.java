@@ -16,7 +16,7 @@ import java.util.List;
 public class OldHeaderChapter implements Chapter {
     private final int level;
     private final String title;
-    private final String content;
+    private String content;
     private final int start;
     private final int stop;
 

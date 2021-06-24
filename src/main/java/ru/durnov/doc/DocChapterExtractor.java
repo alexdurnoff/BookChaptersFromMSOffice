@@ -26,6 +26,7 @@ public class DocChapterExtractor implements ChapterExtractor {
 
 
 
+
     public DocChapterExtractor(HWPFDocument hwpfDocument) {
         this.hwpfDocument = hwpfDocument;
         this.picturesTable = hwpfDocument.getPicturesTable();

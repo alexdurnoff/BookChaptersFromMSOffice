@@ -7,18 +7,15 @@ import ru.durnov.chapters.Index;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class OldStartChapterTest {
+class OldStartChapterExtractorTest {
 
     @Test
     void testStartChapterBuild() throws IOException, ParserConfigurationException, TransformerException {
         HWPFDocument hwpfDocument = new HWPFDocument(new FileInputStream("Test/prikaz1.doc"));
-        OldStartChapter oldStartChapter = new OldStartChapter(hwpfDocument, new Index());
-        System.out.println(oldStartChapter.startChapter().content());
+        OldStartChapterExtractor oldStartChapterExtractor = new OldStartChapterExtractor(hwpfDocument, new Index());
+        System.out.println(oldStartChapterExtractor.startChapter().content());
     }
 
 }

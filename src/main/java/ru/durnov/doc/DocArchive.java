@@ -14,10 +14,14 @@ import java.nio.file.Path;
 public class DocArchive implements Archive {
     private final String documentUrl;
     private final HWPFDocument hwpfDocument;
+    private final Images images;
+    private final Chapters chapters;
 
     public DocArchive(String documentUrl) throws IOException {
         this.documentUrl = Path.of(documentUrl).getFileName().toString();
         this.hwpfDocument = new HWPFDocument(Files.newInputStream(Path.of(documentUrl)));
+        this.images = new DocImages(this.hwpfDocument);
+        this.chapters = new DocChapters(this.hwpfDocument);
     }
     
     @Override
@@ -27,11 +31,20 @@ public class DocArchive implements Archive {
 
     @Override
     public Images images() {
-        return new DocImages(this.hwpfDocument);
+        return this.images;
     }
 
     @Override
     public Chapters chapters() throws IOException {
-        return new DocChapters(this.hwpfDocument);
+        return this.chapters;
+    }
+
+    @Override
+    public void compressFiles() throws Exception {
+        new DocImageCoordinator(
+                this.images.imageExtractor().imageList(),
+                this.chapters.chapterExtractor().chapterList()
+        ).replaceImagesName();
+        Archive.super.compressFiles();
     }
 }

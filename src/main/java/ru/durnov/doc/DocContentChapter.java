@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 public class DocContentChapter implements Chapter {
     private final int level;
-    private final String content;
+    private String content;
     private final String title;
 
     public DocContentChapter(int level,

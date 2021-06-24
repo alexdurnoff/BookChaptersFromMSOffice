@@ -22,7 +22,7 @@ public class OldContentChapter implements Chapter {
     private final static Pattern pattern = Pattern.compile("^(\\s*[0-9]+\\s*(\\.)*)+");
     private final int level;
     private final String title;
-    private final String content;
+    private String content;
 
     public OldContentChapter(HWPFDocument hwpfDocument,
                              int start,
@@ -79,4 +79,5 @@ public class OldContentChapter implements Chapter {
     public String content() {
         return this.content;
     }
+
 }
