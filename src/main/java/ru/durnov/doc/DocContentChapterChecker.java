@@ -7,17 +7,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DocContentChapterChecker {
-    private final static Pattern pattern = Pattern.compile("^\\s*([0-9])\\s*(.)*");
+    private final static Pattern pattern = Pattern.compile("^((\\s*[0-9]+(.)*)+\\s*[а-яА-ЯA-Za-z]+)");
 
     public boolean isChapter(Range range) {
         if (! (range instanceof Paragraph)) return false;
         Paragraph paragraph = (Paragraph) range;
         if (paragraph.isInTable()) return false;
         if (paragraph.isInList()) return false;
-        Matcher matcher = pattern.matcher(paragraph.text());
+        String text = paragraph.text();
+        Matcher matcher = pattern.matcher(text);
         if (matcher.find()){
-            String startString = matcher.group(1);
-            return paragraph.text().startsWith(startString);
+            String startString = matcher.group();
+            return text.startsWith(startString);
         }
         return false;
     }

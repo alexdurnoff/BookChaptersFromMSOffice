@@ -6,6 +6,10 @@ import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
 
+/*
+TODO: красный цвет там, где у p-тэга бэкгроунд на auto.
+Наверное, отступ по параметрам страницы надо убирать. В doc-версии этого нет.
+ */
 public class DocxElementFactory {
     private final IBodyElement bodyElement;
     private final CTSectPr ctSectPr;

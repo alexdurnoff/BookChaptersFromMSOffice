@@ -1,5 +1,6 @@
 package ru.durnov.docx;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hwpf.usermodel.Paragraph;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
@@ -9,18 +10,22 @@ import java.util.regex.Pattern;
 /**
  * Класс возвращает количество уровней внутри заголовка.
  */
+@Slf4j
 public class DotNumbersInHeader {
     private final Matcher matcher;
-    private final static Pattern pattern = Pattern.compile("^(\\s?[0-9]+\\s?\\.?)+");
+    private final String text;
+    private final static Pattern pattern = Pattern.compile("^(\\s*[0-9]+\\s?\\.?)+");
 
 
 
-    public DotNumbersInHeader(XWPFParagraph xwpfParagraph){ ;
-        this.matcher = pattern.matcher(xwpfParagraph.getRuns().get(0).getText(0));
+    public DotNumbersInHeader(XWPFParagraph xwpfParagraph){
+        this.text = xwpfParagraph.getText();
+        this.matcher = pattern.matcher(text);
     }
 
     public DotNumbersInHeader(Paragraph paragraph){
-        this.matcher = pattern.matcher(paragraph.text());
+        this.text = paragraph.text();
+        this.matcher = pattern.matcher(text);
     }
 
     /**
@@ -38,6 +43,7 @@ public class DotNumbersInHeader {
             }
             return result;
         }
-        throw new IllegalArgumentException("The Paragraph is not chapter header!");
+        throw new IllegalArgumentException("The Paragraph is not chapter header!" + "\n" +
+                 "Text is " + this.text);
     }
 }

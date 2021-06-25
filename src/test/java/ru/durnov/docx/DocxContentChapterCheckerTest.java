@@ -64,5 +64,115 @@ class DocxContentChapterCheckerTest {
         assertFalse(docxContentChapterChecker.isChapter(table));
     }
 
+    @Test
+    void testThatReturnFalseIfOnlyNumbersSpacesAndDotsInStartOfParagraph(){
+        XWPFDocument xwpfDocument = new XWPFDocument();
+        XWPFParagraph xwpfParagraph = xwpfDocument.createParagraph();
+        XWPFRun xwpfRun = xwpfParagraph.createRun();
+        xwpfRun.setText("3.1");
+        DocxContentChapterChecker docxContentChapterChecker = new DocxContentChapterChecker();
+        assertFalse(docxContentChapterChecker.isChapter(xwpfParagraph));
+    }
+
+    @Test
+    void test3(){
+        XWPFDocument xwpfDocument = new XWPFDocument();
+        XWPFParagraph xwpfParagraph = xwpfDocument.createParagraph();
+        XWPFRun xwpfRun = xwpfParagraph.createRun();
+        xwpfRun.setText("3.1 ");
+        DocxContentChapterChecker docxContentChapterChecker = new DocxContentChapterChecker();
+        assertFalse(docxContentChapterChecker.isChapter(xwpfParagraph));
+    }
+
+    @Test
+    void test4(){
+        XWPFDocument xwpfDocument = new XWPFDocument();
+        XWPFParagraph xwpfParagraph = xwpfDocument.createParagraph();
+        XWPFRun xwpfRun = xwpfParagraph.createRun();
+        xwpfRun.setText(" 3.1");
+        DocxContentChapterChecker docxContentChapterChecker = new DocxContentChapterChecker();
+        assertFalse(docxContentChapterChecker.isChapter(xwpfParagraph));
+    }
+
+    @Test
+    void test5(){
+        XWPFDocument xwpfDocument = new XWPFDocument();
+        XWPFParagraph xwpfParagraph = xwpfDocument.createParagraph();
+        XWPFRun xwpfRun = xwpfParagraph.createRun();
+        xwpfRun.setText(" 3.1");
+        DocxContentChapterChecker docxContentChapterChecker = new DocxContentChapterChecker();
+        assertFalse(docxContentChapterChecker.isChapter(xwpfParagraph));
+    }
+
+    @Test
+    void test6(){
+        XWPFDocument xwpfDocument = new XWPFDocument();
+        XWPFParagraph xwpfParagraph = xwpfDocument.createParagraph();
+        XWPFRun xwpfRun = xwpfParagraph.createRun();
+        xwpfRun.setText(" 31.1.2.3Правила");
+        DocxContentChapterChecker docxContentChapterChecker = new DocxContentChapterChecker();
+        assertTrue(docxContentChapterChecker.isChapter(xwpfParagraph));
+    }
+
+    @Test
+    void test7(){
+        XWPFDocument xwpfDocument = new XWPFDocument();
+        XWPFParagraph xwpfParagraph = xwpfDocument.createParagraph();
+        XWPFRun xwpfRun = xwpfParagraph.createRun();
+        xwpfRun.setText(" 31.1.2.3 Правила");
+        DocxContentChapterChecker docxContentChapterChecker = new DocxContentChapterChecker();
+        assertTrue(docxContentChapterChecker.isChapter(xwpfParagraph));
+    }
+
+    @Test
+    void test8(){
+        XWPFDocument xwpfDocument = new XWPFDocument();
+        XWPFParagraph xwpfParagraph = xwpfDocument.createParagraph();
+        XWPFRun xwpfRun = xwpfParagraph.createRun();
+        xwpfRun.setText("31.1.2.3 Правила");
+        DocxContentChapterChecker docxContentChapterChecker = new DocxContentChapterChecker();
+        assertTrue(docxContentChapterChecker.isChapter(xwpfParagraph));
+    }
+
+    @Test
+    void test9(){
+        XWPFDocument xwpfDocument = new XWPFDocument();
+        XWPFParagraph xwpfParagraph = xwpfDocument.createParagraph();
+        XWPFRun xwpfRun = xwpfParagraph.createRun();
+        xwpfRun.setText(" 31.1.2.3 Правила");
+        DocxContentChapterChecker docxContentChapterChecker = new DocxContentChapterChecker();
+        assertTrue(docxContentChapterChecker.isChapter(xwpfParagraph));
+    }
+
+    @Test
+    void test11(){
+        XWPFDocument xwpfDocument = new XWPFDocument();
+        XWPFParagraph xwpfParagraph = xwpfDocument.createParagraph();
+        XWPFRun xwpfRun = xwpfParagraph.createRun();
+        xwpfRun.setText(" 31.1.2.3    ");
+        DocxContentChapterChecker docxContentChapterChecker = new DocxContentChapterChecker();
+        assertFalse(docxContentChapterChecker.isChapter(xwpfParagraph));
+    }
+
+    @Test
+    void test12(){
+        XWPFDocument xwpfDocument = new XWPFDocument();
+        XWPFParagraph xwpfParagraph = xwpfDocument.createParagraph();
+        XWPFRun xwpfRun = xwpfParagraph.createRun();
+        xwpfRun.setText(" 31.1.2.3.");
+        DocxContentChapterChecker docxContentChapterChecker = new DocxContentChapterChecker();
+        assertFalse(docxContentChapterChecker.isChapter(xwpfParagraph));
+    }
+
+    @Test
+    void test13(){
+        XWPFDocument xwpfDocument = new XWPFDocument();
+        XWPFParagraph xwpfParagraph = xwpfDocument.createParagraph();
+        XWPFRun xwpfRun = xwpfParagraph.createRun();
+        xwpfRun.setText(" 31.1.2.3 .");
+        DocxContentChapterChecker docxContentChapterChecker = new DocxContentChapterChecker();
+        assertFalse(docxContentChapterChecker.isChapter(xwpfParagraph));
+    }
+
 
 }
