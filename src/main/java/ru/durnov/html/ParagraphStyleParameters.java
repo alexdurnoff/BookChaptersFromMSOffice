@@ -56,6 +56,7 @@ public class ParagraphStyleParameters implements HtmlAlignment{
 
     @Override
     public void applyToParagraphElement(Element element) {
+        element.attributes().put("align", this.alignment);
         element.attributes().put("style", "text-align:" + this.alignment + ";hyphenate:auto");
     }
 
