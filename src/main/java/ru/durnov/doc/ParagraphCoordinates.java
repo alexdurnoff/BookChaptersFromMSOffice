@@ -1,8 +1,7 @@
-package ru.durnov.oldword;
+package ru.durnov.doc;
 
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.usermodel.Paragraph;
-import org.apache.poi.hwpf.usermodel.Range;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package ru.durnov.oldword;
+package ru.durnov.doc;
 
 import ru.durnov.chapters.Chapter;
 import ru.durnov.chapters.ChapterFactory;

@@ -2,17 +2,13 @@ package ru.durnov.doc;
 
 import org.apache.poi.hwpf.usermodel.CharacterRun;
 import org.apache.poi.hwpf.usermodel.Paragraph;
-import org.apache.poi.hwpf.usermodel.Picture;
 import org.apache.poi.hwpf.usermodel.Section;
 import org.jsoup.nodes.Element;
 import ru.durnov.html.ParagraphStyleParameters;
 import ru.durnov.html.doc.DocChildElement;
-import ru.durnov.html.doc.DocParagraphStyle;
 import ru.durnov.html.docx.HtmlDivStyle;
-import ru.durnov.queue.Pictures;
 
-import java.util.Queue;
-
+@Deprecated
 public class DocParagraphContentElement implements DocContentElement {
     private final Paragraph paragraph;
     private final Section section;

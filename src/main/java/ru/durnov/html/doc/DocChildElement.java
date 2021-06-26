@@ -1,13 +1,9 @@
 package ru.durnov.html.doc;
 
-import org.apache.poi.hwpf.model.PicturesTable;
 import org.apache.poi.hwpf.usermodel.CharacterRun;
-import org.apache.poi.hwpf.usermodel.Picture;
 import org.jsoup.nodes.Element;
 import ru.durnov.html.PicturesElement;
-import ru.durnov.queue.Pictures;
-
-import java.util.Queue;
+import ru.durnov.doc.Pictures;
 
 public class DocChildElement {
     private final CharacterRun characterRun;

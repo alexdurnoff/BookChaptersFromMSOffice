@@ -11,8 +11,8 @@ public class HtmlBackGroundColor implements BackGroundColor {
     }
 
     @Override
-    public void applyBackGroundColorTOElement(Element element) {
-        if (color != null && (!color.equals(""))) {
+    public void applyBackGroundColorToElement(Element element) {
+        if (color != null && (!color.equals("")) && (! color.equals("auto"))) {
             element.attributes().put("bgcolor", color);
         }
     }

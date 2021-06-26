@@ -2,7 +2,6 @@ package ru.durnov.docx;
 
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.jsoup.nodes.Document;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
 import ru.durnov.chapters.Index;
 
@@ -29,10 +28,10 @@ public class DocxChapterContentSetter {
 
     public String content() {
         DocxContentChapterChecker checker = new DocxContentChapterChecker();
-        Document document = new Document("/tmp/" + this.title + ".html");
+        Document document = new Template().document();
         IBodyElement bodyElement = bodyElements.get(this.index.currentIndex());
         do {
-            document.appendChild(
+            document.body().appendChild(
                     new DocxElementFactory(bodyElement, ctSectPr)
                             .docxContentElement()
                             .element()

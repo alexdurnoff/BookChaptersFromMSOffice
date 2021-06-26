@@ -5,7 +5,7 @@ import org.apache.poi.hwpf.model.PicturesTable;
 import org.apache.poi.hwpf.usermodel.Paragraph;
 import ru.durnov.chapters.Index;
 
-
+@Deprecated
 public class DocElementFactory {
     private final ParagraphWithSection paragraphWithSection;
     private final Paragraph paragraph;

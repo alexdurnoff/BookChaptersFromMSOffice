@@ -7,6 +7,7 @@ import org.apache.poi.hwpf.usermodel.Section;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class SectionList {
     private final List<Section> sectionList = new ArrayList<>();
 

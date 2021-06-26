@@ -9,7 +9,7 @@ import ru.durnov.chapters.Index;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.util.List;
-
+@Deprecated
 public class DocHeaderChapter implements Chapter {
     private final int level;
     private final String title;

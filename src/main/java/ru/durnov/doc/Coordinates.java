@@ -1,4 +1,4 @@
-package ru.durnov.oldword;
+package ru.durnov.doc;
 
 import org.apache.poi.hwpf.usermodel.Paragraph;
 

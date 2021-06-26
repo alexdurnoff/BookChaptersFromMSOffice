@@ -6,7 +6,7 @@ import org.apache.poi.hwpf.usermodel.Section;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+@Deprecated
 public class ParagraphsWithSections {
     private final List<ParagraphWithSection> paragraphWithSectionList;
 

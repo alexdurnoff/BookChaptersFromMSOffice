@@ -31,7 +31,7 @@ public class DocxStartChapterExtractor implements StartChapterExtractor {
 
     @Override
     public StartChapter startChapter() {
-        Document document = new Document("/tmp/" + "Начало документа" + ".html");
+        Document document = new Template().document();
         IBodyElement iBodyElement;
         while (! this.docxStyleMap.paragraphIsHeader(iBodyElement = bodyElements.get(index.currentIndex()))){
             document.appendChild(

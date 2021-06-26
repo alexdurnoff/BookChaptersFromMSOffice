@@ -11,7 +11,7 @@ import ru.durnov.chapters.Index;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.util.List;
-
+@Deprecated
 public class DocChapterFactory implements ChapterFactory {
     private final Index index;
     private final DocStyleMap docStyleMap;

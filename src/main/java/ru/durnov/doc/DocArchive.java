@@ -4,11 +4,9 @@ import org.apache.poi.hwpf.HWPFDocument;
 import ru.durnov.chapters.Archive;
 import ru.durnov.chapters.Chapters;
 import ru.durnov.chapters.Images;
-import ru.durnov.oldword.HWPFDocumentWithoutPictures;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

@@ -12,7 +12,7 @@ import javax.xml.transform.TransformerException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+@Deprecated
 public class DocContentChapter implements Chapter {
     private final int level;
     private String content;

@@ -1,10 +1,11 @@
-package ru.durnov.oldword;
+package ru.durnov.doc;
 
 import org.apache.poi.hwpf.HWPFDocument;
 import org.junit.jupiter.api.Test;
 import ru.durnov.chapters.Index;
 import ru.durnov.doc.DocContentChapterChecker;
 import ru.durnov.doc.DocStyleMap;
+import ru.durnov.doc.OldChapterCoordinates;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -1,4 +1,4 @@
-package ru.durnov.queue;
+package ru.durnov.doc;
 
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.model.PicturesTable;
@@ -14,7 +14,6 @@ import java.util.Queue;
 public class Pictures {
     private final Queue<Picture> pictureQueue;
     private final PicturesTable picturesTable;
-    private final List<CharacterRun> runs = new ArrayList<>();
 
     public Pictures(HWPFDocument hwpfDocument){
         this.picturesTable = hwpfDocument.getPicturesTable();
@@ -31,7 +30,4 @@ public class Pictures {
         return picture;
     }
 
-    public void addPicturesReferencesToChapters(List<Chapter> chapterList) {
-
-    }
 }

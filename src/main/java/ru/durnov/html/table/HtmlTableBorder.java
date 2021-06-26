@@ -30,6 +30,8 @@ public class HtmlTableBorder implements TableBorder {
             } else {
                 element.attributes().put("border", "1");
             }
+        } else {
+            element.attributes().put("border", "1");
         }
     }
 }

@@ -1,6 +1,9 @@
 package ru.durnov.docx;
 
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
+import org.apache.poi.xwpf.converter.IXWPFConverter;
+import org.apache.poi.xwpf.converter.itext.PDFViaITextOptions;
+import org.apache.poi.xwpf.converter.itext.XWPF2PDFViaITextConverter;
 import org.apache.poi.xwpf.usermodel.*;
 import org.apache.xmlbeans.XmlException;
 import org.junit.jupiter.api.Test;
@@ -11,6 +14,7 @@ import org.zwobble.mammoth.Result;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 public class DocxDocumentStructureTest {
 
@@ -47,15 +51,18 @@ public class DocxDocumentStructureTest {
     }
 
     @Test
-    void testDocumentWithPictures() throws IOException, OpenXML4JException {
-        XWPFDocument xwpfDocument = new XWPFDocument(
-                Files.newInputStream(
-                        Path.of("Test/приказ с картинками.docx")
-                )
-        );
-        xwpfDocument.getAllPackagePictures().forEach(xwpfPictureData -> {
-            System.out.println(xwpfPictureData.getPictureType());
-            System.out.println(xwpfPictureData.getFileName());
+    void testDocumentWithPicturesStructure() throws IOException {
+        XWPFDocument xwpfDocument = new XWPFDocument(new FileInputStream("Test/_ГОСТ 6134-2007.docx"));
+        List<XWPFParagraph> paragraphs = xwpfDocument.getParagraphs();
+        paragraphs.forEach(xwpfParagraph -> {
+            List<XWPFRun> runs = xwpfParagraph.getRuns();
+            runs.forEach(xwpfRun -> {
+                List<XWPFPicture> pictureList = xwpfRun.getEmbeddedPictures();
+                if (pictureList.size() > 0){
+
+                }
+            });
         });
     }
+
 }

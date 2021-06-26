@@ -13,7 +13,7 @@ import javax.xml.transform.TransformerException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
-
+@Deprecated
 public class DocChapterExtractor implements ChapterExtractor {
     private final Index index = new Index();
     private final DocStartChapterExtractor startExtractor;

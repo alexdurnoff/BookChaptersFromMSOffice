@@ -1,13 +1,12 @@
-package ru.durnov.oldword;
+package ru.durnov.doc;
 
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.usermodel.Paragraph;
-import org.apache.poi.hwpf.usermodel.Range;
 import org.junit.jupiter.api.Test;
+import ru.durnov.doc.ParagraphCoordinates;
 import ru.durnov.doc.ParagraphList;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

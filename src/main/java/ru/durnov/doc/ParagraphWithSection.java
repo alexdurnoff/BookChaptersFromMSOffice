@@ -2,7 +2,7 @@ package ru.durnov.doc;
 
 import org.apache.poi.hwpf.usermodel.Paragraph;
 import org.apache.poi.hwpf.usermodel.Section;
-
+@Deprecated
 public class ParagraphWithSection {
     private final Paragraph paragraph;
     private final Section section;

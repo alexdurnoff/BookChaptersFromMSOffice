@@ -1,12 +1,10 @@
 package ru.durnov.html;
 
-import org.apache.poi.hwpf.model.PicturesTable;
-import org.apache.poi.hwpf.usermodel.CharacterRun;
 import org.apache.poi.hwpf.usermodel.Picture;
 import org.apache.poi.xwpf.usermodel.XWPFPicture;
 import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Element;
-import ru.durnov.queue.Pictures;
+import ru.durnov.doc.Pictures;
 
 public class PicturesElement {
     private final String fileName;

@@ -1,14 +1,10 @@
-package ru.durnov.oldword;
+package ru.durnov.doc;
 
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.usermodel.Paragraph;
-import org.apache.poi.hwpf.usermodel.Range;
 import ru.durnov.chapters.Index;
 import ru.durnov.chapters.StartChapter;
 import ru.durnov.chapters.StartChapterExtractor;
-import ru.durnov.doc.Doc;
-import ru.durnov.doc.DocStyleMap;
-import ru.durnov.doc.ParagraphList;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;

@@ -1,12 +1,8 @@
-package ru.durnov.oldword;
+package ru.durnov.doc;
 
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.usermodel.Paragraph;
-import org.apache.poi.hwpf.usermodel.Range;
 import ru.durnov.chapters.Index;
-import ru.durnov.doc.DocContentChapterChecker;
-import ru.durnov.doc.DocStyleMap;
-import ru.durnov.doc.ParagraphList;
 
 import java.util.List;
 

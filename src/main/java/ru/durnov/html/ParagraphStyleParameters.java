@@ -56,8 +56,7 @@ public class ParagraphStyleParameters implements HtmlAlignment{
 
     @Override
     public void applyToParagraphElement(Element element) {
-        element.attributes().put("align", alignment);
-        if (this.textIndentation != -1) element.attributes().put("style", "text-indent:" + this.textIndentation);
+        element.attributes().put("style", "text-align:" + this.alignment + ";hyphenate:auto");
     }
 
     public String value() {

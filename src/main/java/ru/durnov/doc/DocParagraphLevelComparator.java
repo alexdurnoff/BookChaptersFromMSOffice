@@ -10,7 +10,6 @@ public class DocParagraphLevelComparator implements Comparator<Paragraph> {
     public int compare(Paragraph paragraph1, Paragraph paragraph2) {
         DotNumbersInHeader dotNumbersInHeader1 = new DotNumbersInHeader(paragraph1);
         DotNumbersInHeader dotNumbersInHeader2 = new DotNumbersInHeader(paragraph2);
-        int result = dotNumbersInHeader1.levelDepth() - dotNumbersInHeader2.levelDepth();
-        return result;
+        return dotNumbersInHeader1.levelDepth() - dotNumbersInHeader2.levelDepth();
     }
 }

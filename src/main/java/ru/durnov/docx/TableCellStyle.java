@@ -51,7 +51,7 @@ public class TableCellStyle implements CellStyle {
 
     @Override
     public void applyToTableCellElement(Element element) {
-        this.backGroundColor.applyBackGroundColorTOElement(element);
+        this.backGroundColor.applyBackGroundColorToElement(element);
         this.tableVerticalAlignment.applyTableVerticalAlignmentToElement(element);
         this.tableHeight.applyHeightToElement(element);
         this.tableWidth.applyWidthToElement(element);

@@ -10,6 +10,7 @@ import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Queue;
 
+
 public class ImageElementQueue {
     private final Queue<Element> imageElementQueue = new ArrayDeque<>();
 

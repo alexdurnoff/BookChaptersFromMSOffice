@@ -12,7 +12,7 @@ import ru.durnov.chapters.StartChapterExtractor;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.util.List;
-
+@Deprecated
 public class DocStartChapterExtractor implements StartChapterExtractor {
     private final List<ParagraphWithSection> paragraphsWithSectionsList;
     private final DocStyleMap docStyleMap;

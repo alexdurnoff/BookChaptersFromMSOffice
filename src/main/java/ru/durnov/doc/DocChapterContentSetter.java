@@ -11,6 +11,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.util.List;
 
+@Deprecated
 public class DocChapterContentSetter {
     private final DocStyleMap docStyleMap;
     private final List<ParagraphWithSection> paragraphWithSectionList;

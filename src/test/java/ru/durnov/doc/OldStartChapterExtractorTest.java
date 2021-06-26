@@ -1,8 +1,9 @@
-package ru.durnov.oldword;
+package ru.durnov.doc;
 
 import org.apache.poi.hwpf.HWPFDocument;
 import org.junit.jupiter.api.Test;
 import ru.durnov.chapters.Index;
+import ru.durnov.doc.OldStartChapterExtractor;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
