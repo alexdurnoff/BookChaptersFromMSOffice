@@ -13,12 +13,12 @@ import java.util.Queue;
  * Класс для правки названий изображений внутри Doc-главы.
  * Нужен для согласования названий картинок в html-content и в папке library.
  */
-public class DocImageCoordinator {
+public class DocImagesNames {
     private final Queue<Image> imageQueue;
     private final Queue<Element> imageElementQueue;
 
 
-    public DocImageCoordinator(List<Image> imageList, List<Chapter> chapterList) {
+    public DocImagesNames(List<Image> imageList, List<Chapter> chapterList) {
         this.imageQueue = new ArrayDeque<>(imageList);
         this.imageElementQueue = new ImageElementQueue(chapterList).imageQueue();
         if (imageQueue.size() != imageElementQueue.size()) throw new IllegalStateException(

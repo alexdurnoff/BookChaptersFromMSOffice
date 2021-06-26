@@ -41,7 +41,7 @@ public class DocArchive implements Archive {
 
     @Override
     public void compressFiles() throws Exception {
-        new DocImageCoordinator(
+        new DocImagesNames(
                 this.images.imageExtractor().imageList(),
                 this.chapters.chapterExtractor().chapterList()
         ).replaceImagesName();
