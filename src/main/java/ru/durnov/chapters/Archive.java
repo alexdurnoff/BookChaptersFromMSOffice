@@ -6,6 +6,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.zip.ZipOutputStream;
 
 public interface Archive {
@@ -37,7 +39,9 @@ public interface Archive {
      * @return String path to created archive;
      */
     default String pathToArchive() throws Exception {
+        String url = this.archiveUrl();
+        Files.deleteIfExists(Path.of(url));
         compressFiles();
-        return archiveUrl();
+        return url;
     }
 }
